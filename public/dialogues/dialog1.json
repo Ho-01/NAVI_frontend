@@ -1,0 +1,17 @@
+{
+    "background": "bg_seosipjagak",
+    "leftChar": "player",
+    "rightChar": "grandpa",
+    "script": [
+        { "name": "???", "text": "젊은이...", "pos": "right" },
+        { "name": "???", "text": "그래.. 거기 젊은이...", "pos": "right" },
+        { "name": "{player}", "text": "네..? 저 부르신건가요?", "pos": "left" },
+        { "name": "???", "text": "드디어 내 말에 대답해주는 사람이 나타났구만...", "pos": "right" },
+        { "name": "???", "text": "나 좀 도와줘..", "pos": "right" },
+        { "name": "{player}", "text": "!?(뭔가 수상한데.. 도와드려야 하나..)", "pos": "left" },
+        { "name": "{player}", "text": "네.. 넵 어떻게 도와드릴까요?", "pos": "left" },
+        { "name": "???", "text": "여기 이 뚜껑 좀 열어주겠나?", "pos": "right" },
+        { "name": "{player}", "text": "네..? 뚜껑이요?", "pos": "left" },
+        { "name": "???", "text": "여기 이거 말이야..", "pos": "right" }
+    ]
+}
