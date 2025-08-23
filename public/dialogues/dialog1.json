@@ -12,6 +12,8 @@
         { "name": "{player}", "text": "네.. 넵 어떻게 도와드릴까요?", "pos": "left" },
         { "name": "???", "text": "여기 이 뚜껑 좀 열어주겠나?", "pos": "right" },
         { "name": "{player}", "text": "네..? 뚜껑이요?", "pos": "left" },
-        { "name": "???", "text": "여기 이거 말이야..", "pos": "right" }
+        { "name": "???", "text": "여기 이거 말이야..", "pos": "right" },
+        { "name": "{player}", "text": "(조심스레 열어본다...)", "pos": "left" },
+        { "name": "{player}", "text": "!!!!", "pos": "left" }
     ]
 }
