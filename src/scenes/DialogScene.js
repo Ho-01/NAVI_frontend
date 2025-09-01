@@ -8,7 +8,7 @@ export default class DialogScene extends Phaser.Scene {
   init(data) {
     const json = data.json;
     if (!json) {
-        console.error("json이 undefined!", data);
+        console.error("json undefined!", data);
         return;
     }
     this.background = json.background;
@@ -17,16 +17,23 @@ export default class DialogScene extends Phaser.Scene {
     this.script = json.script;
     this.returnScene = data.returnScene;
     this.playerName = "플레이어"; // {player} 치환용
+    if (json.nextScene) {
+      this.nextScene = json.nextScene;
+    }else{this.nextScene=null;}
+    if(json.nextParam){
+      this.nextParam = json.nextParam;
+    }else{this.nextParam=null;}
   }
 
   create() {
+    console.log("다음 : "+this.nextScene, this.nextParam);
     const { width, height } = this.scale;
     this.index = 0;
     
     this.bg = this.add.image(width*0.5, height*0.5, this.background)
     .setOrigin(0.5)
     .setDepth(-1);
-    // 화면 비율 유지하면서 꽉 채우기 (추천)
+    // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     const scaleX = width / this.bg.width;
     const scaleY = height / this.bg.height;
     const scale = Math.max(scaleX, scaleY);
@@ -83,8 +90,12 @@ export default class DialogScene extends Phaser.Scene {
       this.index++;
       if (this.index < this.script.length) {
         this.showLine(this.script[this.index]);
-      } else {
-        this.scene.start(this.returnScene);
+       } else {
+        if(this.nextScene){
+          this.scene.start(this.nextScene, { json: this.cache.json.get(this.nextParam), returnScene: this.returnScene });
+        }else{
+          this.scene.start(this.returnScene);
+        }
       }
     });
   }
@@ -116,7 +127,7 @@ export default class DialogScene extends Phaser.Scene {
     this.currentFullText = fullText;
 
     this.typingEvent = this.time.addEvent({
-      delay: 25, // 한 글자 출력 간격(ms)
+      delay: 8, // 한 글자 출력 간격(ms)
       repeat: fullText.length - 1,
       callback: () => {
         const len = bubble.text.text.length;

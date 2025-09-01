@@ -1,17 +1,11 @@
 {
-    "background": "bg_gwanghwa",
-    "leftChar": "player",
-    "rightChar": "haetae",
+    "background": "bg_서십자각터",
+    "leftChar": "세종의 영혼",
+    "rightChar": "player",
     "script": [
-        { "name": "해태", "text": "안녕! 깜짝 놀랐지?", "pos": "right" },
-        { "name": "해태", "text": "아까 그건 악귀야. 네가 건드린 건…", "pos": "right" },
-        { "name": "해태", "text": " 음… ‘봉인을 유지하는 덮개’라고 해야 하나?", "pos": "right" },
-        { "name": "{player}", "text": "덮개?!", "pos": "left" },
-        { "name": "해태", "text": "응, 덮개. 세종 님이 마지막 힘으로 널 지켜주신 거야.", "pos": "right" },
-        { "name": "{player}", "text": "세종대왕님... 이제 어쩌면 좋지? 봉인을 되돌릴 방법은 없는거야?", "pos": "left" },
-        { "name": "해태", "text": "있어! 하지만 쉽지는 않을 거야, 네 도움이 필요해", "pos": "right" },
-        { "name": "{player}", "text": "응..! 내가 할 수 있는게 있을진 모르겠지만... 최선을 다해볼게", "pos": "left" },
-        { "name": "해태", "text": "좋아, 이제 출ㅂ... ?!!!?", "pos": "right" },
-        { "name": "해태", "text": "저기 악귀가..! 광화문에 무슨 짓을? 어서 쫓아가자, {player}!!", "pos": "right" }
+        { "name": "{player}", "text": "?!!!", "pos": "right" },
+        { "name": "세종의 영혼", "text": "어서 광화문의 해태를 찾아가서 도움을 구하거라!!", "pos": "left" },
+        { "name": "{player}", "text": "네... 넵!!", "pos": "right" },
+        { "name": "세종의 영혼", "text": "붙잡아두는데 한계가 있으니 서두르거라!!", "pos": "left" }
     ]
 }
