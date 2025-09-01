@@ -1,8 +1,8 @@
 import Phaser from "phaser";
 
-export default class DialogScene extends Phaser.Scene {
+export default class TutorialScene extends Phaser.Scene {
   constructor() {
-    super({ key: "DialogScene" });
+    super({ key: "TutorialScene" });
   }
 
   init(data) {
@@ -11,12 +11,8 @@ export default class DialogScene extends Phaser.Scene {
         console.error("json undefined!", data);
         return;
     }
-    this.background = json.background;
-    this.leftChar = json.leftChar;
-    this.rightChar = json.rightChar;
     this.script = json.script;
     this.returnScene = data.returnScene;
-    this.playerName = "플레이어"; // {player} 치환용
     if (json.nextScene) {
       this.nextScene = json.nextScene;
     }else{this.nextScene=null;}
@@ -28,32 +24,22 @@ export default class DialogScene extends Phaser.Scene {
   create() {
     console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);
     const { width, height } = this.scale;
-    this.index = 0;
-    
-    this.bg = this.add.image(width*0.5, height*0.5, this.background)
-    .setOrigin(0.5)
-    .setDepth(-1);
-    // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
-    const scaleX = width / this.bg.width;
-    const scaleY = height / this.bg.height;
-    const scale = Math.min(scaleX, scaleY);
-    this.bg.setScale(scale);
+    this.W = width; this.H = height;
 
-    // 좌/우 캐릭터
+    this.cameras.main.setBackgroundColor("#f0e8cf");
+    this.bg = this.add.image(width/2, height/2, "__WHITE").setAlpha(0); // 초기 placeholder
+
+    // 해태
     // 화면의 40% x 40% 박스에 맞춰 비율 유지
     const maxW = width  * 0.4;
     const maxH = height * 0.4;
 
-    const left  = this.add.image(width * 0.25, height * 0.75, this.leftChar)
-    .setOrigin(0.5)
-    .setAlpha(0.5);
-    const right = this.add.image(width * 0.75, height * 0.75, this.rightChar)
+    const left  = this.add.image(width * 0.25, height * 0.75, "해태")
     .setOrigin(0.5)
     .setAlpha(0.5);
     // 생성된 이미지의 원본 크기 기준으로 fit 스케일 계산
     left.setScale(Math.min(maxW / left.width,  maxH / left.height));
-    right.setScale(Math.min(maxW / right.width, maxH / right.height));
-    this.characters={left,right}
+    this.characters={left}
 
     // 말풍선+텍스트+이름 묶음
     this.bubbles = {
@@ -65,18 +51,10 @@ export default class DialogScene extends Phaser.Scene {
         text: this.add.text(width * 0.15, height * 0.9, "", {
           fontSize: width*0.04, color: "#000", wordWrap: { width: width * 0.8 }, align: "left"
         }).setOrigin(0, 0).setVisible(false)
-      },
-      right: {
-        box: this.add.image(width * 0.5, height * 0.9, "speech_right").setDisplaySize(width*0.9, height*0.15).setVisible(false),
-        name: this.add.text(width * 0.10, height * 0.88, "", {
-          fontSize: width*0.03, fontStyle: "bold", color: "#000", align: "left"
-        }).setOrigin(0, 0).setVisible(false),
-        text: this.add.text(width * 0.15, height * 0.9, "", {
-          fontSize: width*0.04, color: "#000", wordWrap: { width: width * 0.8 }, align: "left"
-        }).setOrigin(0, 0).setVisible(false)
       }
     };
 
+    this.index = 0;
     // 첫 줄 보여주기
     this.showLine(this.script[this.index]);
 
@@ -102,17 +80,21 @@ export default class DialogScene extends Phaser.Scene {
 
   showLine(line) {
     // 초기화
-    Object.values(this.characters).forEach(c => c.setAlpha(0.5));
+    Object.values(this.characters).forEach(c => c.setAlpha(1));
     Object.values(this.bubbles).forEach(b => {
-      b.box.setVisible(false);
-      b.text.setVisible(false);
-      b.name.setVisible(false);
+      b.box.setVisible(true);
+      b.text.setVisible(true);
+      b.name.setVisible(true);
     });
 
     // 현재 줄
     const bubble = this.bubbles[line.pos];
     const char = this.characters[line.pos];
     if (!bubble || !char) return;
+
+    this.bg.setTexture(line.image).setAlpha(1).setPosition(this.W / 2, this.H * 0.4);
+    const s = Math.min(this.W / this.bg.width, this.H / this.bg.height);
+    this.bg.setScale(s);
 
     char.setAlpha(1); // 화자 강조
     bubble.box.setVisible(true);

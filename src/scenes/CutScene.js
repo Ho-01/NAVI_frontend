@@ -14,13 +14,19 @@ export default class CutScene extends Phaser.Scene {
     }
     this.returnScene = data.returnScene;
     this.effect = json.effect;
-    this.imageKey = json.imageKey;
-    this.nextScene = json.nextScene;
-    this.nextParam = json.nextParam;
+    if(json.imageKey){
+      this.imageKey = json.imageKey;
+    } else{this.imageKey=null;}
+    if (json.nextScene) {
+      this.nextScene = json.nextScene;
+    }else{this.nextScene=null;}
+    if(json.nextParam){
+      this.nextParam = json.nextParam;
+    }else{this.nextParam=null;}
   }
 
   create() {
-    console.log("다음 : "+this.nextScene, this.nextParam);
+    console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);
     const { width: W, height: H } = this.scale;
 
     this.cameras.main.setBackgroundColor("#000000");
@@ -49,7 +55,7 @@ export default class CutScene extends Phaser.Scene {
         this.cameras.main.flash(120);
     } else if(effectName==="천둥"){
         this.cameras.main.flash(120, 230, 240, 255);
-        this.cameras.main.shake(150, 0.0025);
+        this.cameras.main.shake(150, 0.004);
     }
   }
 }

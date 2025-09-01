@@ -2,6 +2,8 @@
     "background": "bg_광화문",
     "leftChar": "player",
     "rightChar": "해태",
+    "nextScene": "TutorialScene",
+    "nextParam": "tutorial1",
     "script": [
         { "name": "해태", "text": "안녕! 깜짝 놀랐지?", "pos": "right" },
         { "name": "{player}", "text": "(헉!! 해태가.. 살아 움직인다?!)", "pos": "left" },

@@ -7,14 +7,20 @@ export default class MainScene extends Phaser.Scene {
 
   preload() {
     // JSON 대사 파일 로드
-    this.load.json("dialog1", "dialogues/dialog1.json");
-    this.load.json("dialog2", "dialogues/dialog2.json");
-    this.load.json("dialog3", "dialogues/dialog3.json");
-    this.load.json("dialog4", "dialogues/dialog4.json");
-    this.load.json("dialog5", "dialogues/dialog5.json");
+    this.load.json("dialog1", "json/dialog1.json");
+    this.load.json("dialog2", "json/dialog2.json");
+    this.load.json("dialog3", "json/dialog3.json");
+    this.load.json("dialog4", "json/dialog4.json");
+    this.load.json("dialog5", "json/dialog5.json");
     // JSON 컷신 파일 로드
-    this.load.json("cutscene1", "dialogues/cutscene1.json");
-    this.load.json("cutscene2", "dialogues/cutscene2.json");
+    this.load.json("cutscene1", "json/cutscene1.json");
+    this.load.json("cutscene2", "json/cutscene2.json");
+    // JSON 튜토리얼 파일 로드
+    this.load.json("tutorial1", "json/tutorial1.json");
+    // 튜토리얼 이미지
+    this.load.image("tutorial1_1", "assets/tutorials/tutorial1_1.png");
+    this.load.image("tutorial1_2", "assets/tutorials/tutorial1_2.png");
+    this.load.image("tutorial1_3", "assets/tutorials/tutorial1_3.png");
     // 컷씬 이미지
     this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
     this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
@@ -25,16 +31,15 @@ export default class MainScene extends Phaser.Scene {
     this.load.image("name_tag", "assets/name_tag.jpg");
 
     // 캐릭터 이미지
-    this.load.image("player", "assets/player.png");
-    this.load.image("???", "assets/grandpa.png");
-    this.load.image("세종의 영혼", "assets/sejong.png");
-    this.load.image("해태", "assets/haetae.png");
-    this.load.image("비겁귀", "assets/비겁귀.png");
+    this.load.image("player", "assets/char/char_player.png");
+    this.load.image("거짓귀", "assets/char/char_거짓귀.png");
+    this.load.image("세종의 영혼", "assets/char/char_세종의 영혼.png");
+    this.load.image("해태", "assets/char/char_해태.png");
+    this.load.image("비겁귀", "assets/char/char_비겁귀.png");
     
-
     // 배경 이미지
-    this.load.image("bg_광화문", "assets/bg_gwanghwa.png");
-    this.load.image("bg_서십자각터", "assets/bg_seosipjagak.png");
+    this.load.image("bg_광화문", "assets/bg/bg_광화문.png");
+    this.load.image("bg_서십자각터", "assets/bg/bg_서십자각터.png");
   }
 
   create() {

@@ -1,7 +1,7 @@
 {
     "background": "bg_서십자각터",
     "leftChar": "player",
-    "rightChar": "???",
+    "rightChar": "거짓귀",
     "nextScene": "CutScene",
     "nextParam": "cutscene1",
     "script": [

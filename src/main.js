@@ -7,6 +7,7 @@ import MapScene from "./scenes/MapScene";
 import DialogScene from "./scenes/DialogScene";
 import PatternPuzzleScene from "./scenes/PatternPuzzleScene";
 import CutScene from "./scenes/CutScene";
+import TutorialScene from "./scenes/TutorialScene";
 
 const config = {
   type: Phaser.AUTO,
@@ -17,7 +18,7 @@ const config = {
     mode: Phaser.Scale.EXPAND,          // 화면 크기에 맞게 스케일 조정
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  scene: [TitleScene, LoginScene, ScenarioSelectScene, MainScene, MapScene, DialogScene, CutScene, PatternPuzzleScene]
+  scene: [TitleScene, LoginScene, ScenarioSelectScene, MainScene, MapScene, DialogScene, CutScene, TutorialScene, PatternPuzzleScene]
 };
 
 new Phaser.Game(config);
