@@ -1,7 +1,9 @@
 {
-    "background": "bg_서십자각터",
+    "background": "bg_서십자각터_dark",
     "leftChar": "세종의 영혼",
     "rightChar": "player",
+    "nextScene": "MoveScene",
+    "nextParam": "move1",
     "script": [
         { "name": "{player}", "text": "?!!!", "pos": "right" },
         { "name": "세종의 영혼", "text": "어서 광화문의 해태를 찾아가서 도움을 구하거라!!", "pos": "left" },

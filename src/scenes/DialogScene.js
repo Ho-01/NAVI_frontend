@@ -77,6 +77,8 @@ export default class DialogScene extends Phaser.Scene {
       }
     };
 
+    this.cameras.main.fadeIn(50, 0, 0, 0);
+
     // 첫 줄 보여주기
     this.showLine(this.script[this.index]);
 
