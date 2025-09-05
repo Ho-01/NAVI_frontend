@@ -2,17 +2,15 @@
     "background": "bg_광화문",
     "leftChar": "player",
     "rightChar": "해태",
-    "nextScene": "TutorialScene",
-    "nextParam": "tutorial1",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_광화문명명1",
     "script": [
         { "name": "해태", "text": "안녕! 깜짝 놀랐지?", "pos": "right" },
         { "name": "{player}", "text": "(헉!! 해태가.. 살아 움직인다?!)", "pos": "left" },
         { "name": "해태", "text": "그 할아버지는 변장한 악귀였어. 네가 건드린 건, 음.. ‘봉인을 유지하는 덮개’라고 해야 하나?", "pos": "right" },
         { "name": "{player}", "text": "덮개?!", "pos": "left" },
         { "name": "해태", "text": "응, 세종 님이 마지막 힘으로 널 지켜주신 거야.", "pos": "right" },
-        { "name": "{player}", "text": "세종대왕님... 이제 어쩌면 좋지? 봉인을 되돌릴 방법은 없는거야?", "pos": "left" },
-        { "name": "해태", "text": "있어! 나 혼자는 힘들지만 네 도움이 있다면 충분히 가능할 거야", "pos": "right" },
-        { "name": "{player}", "text": "응..! 내가 할 수 있는게 있을진 모르겠지만... 최선을 다해볼게", "pos": "left" },
-        { "name": "해태", "text": "좋아! 일단 봉인의 중심인 근정전으로 들어가야 해. 시간이 없으니 서두르자 {player}!!", "pos": "right" }
+        { "name": "{player}", "text": "세종? 봉인? 무슨 말이야?", "pos": "left" },
+        { "name": "해태", "text": "옛날 옛적, 세종 님이 '광화'라는 이름을 붙이던 날...", "pos": "right" }
     ]
 }

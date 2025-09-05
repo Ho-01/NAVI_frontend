@@ -1,26 +1,25 @@
 import Phaser from "phaser";
 
-export default class 광화문2 extends Phaser.Scene {
+export default class 광화문3 extends Phaser.Scene {
   constructor() {
-    super({ key: "광화문2" });
+    super({ key: "광화문3" });
   }
 
   create() {
-    console.log("광화문2 맵");
+    console.log("광화문3 맵");
     const { width, height } = this.scale;
     this.bg = this.add.image(width*0.5, height*0.5, "bg_광화문").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
-    // 비겁귀
-    const 비겁귀 = this.add.image(width*0.7, height*0.7, "비겁귀").setOrigin(0.5).setScale(0.9);
-    const 비겁귀_interaction = this.add.image(width*0.7, height*0.7, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
-    비겁귀.setInteractive({useHandCursor: true})
+    const 비겁귀자물쇠 = this.add.image(width*0.9, height*0.6, "비겁귀자물쇠").setOrigin(0.5).setScale(0.3);
+    const 비겁귀자물쇠_interaction = this.add.image(width*0.9, height*0.6, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
+    비겁귀자물쇠.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        비겁귀_interaction.setAlpha(1);
+        비겁귀자물쇠_interaction.setAlpha(1);
         this.cameras.main.fadeOut(50, 0, 0, 0);
         setTimeout(() => {
-            this.scene.start("DialogScene", { json: this.cache.json.get("dialog5"), returnScene: "광화문3" });
+            this.scene.start("DialogScene", { json: this.cache.json.get("dialog6"), returnScene: "광화문4" });
         }, 100);
     });
 

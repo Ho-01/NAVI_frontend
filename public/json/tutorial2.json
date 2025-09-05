@@ -1,0 +1,8 @@
+{
+    "script": [
+        { "name": "해태", "text": "이미 알고 있겠지만, 문제를 푸는 방법을 다시 알려줄게!!! 화면 위쪽에는 문제, 아래쪽에는 답안 제출과 힌트보기 버튼이 있어!", "pos": "left", "image": "tutorial2_1" },
+        { "name": "해태", "text": "힌트는 문제별로 제공되는 개수가 달라! 힌트가 하나인 문제도 있고, 세개인 문제도 있어!", "pos": "left", "image": "tutorial2_1" },
+        { "name": "해태", "text": "다 풀었다면, 답안을 제출하면 돼!", "pos": "left", "image": "tutorial2_1" },
+        { "name": "해태", "text": "틀려도 괜찮아, 다시 풀 수 있으니까!", "pos": "left", "image": "tutorial2_1" }
+    ]
+}

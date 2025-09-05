@@ -56,14 +56,17 @@ export default class MoveScene extends Phaser.Scene {
     const 이동취소 = this.add.text(W*0.5, H*0.75, "이동 취소", {fontSize: W*0.05, backgroundColor: "#e88798",color: "#000",padding: { x: 80, y: 50 }
     }).setOrigin(0.5).setInteractive({ useHandCursor: true }).setAlpha(0)
     .on("pointerdown", () => {
-        this.scene.start("서십자각터");
+        console.log(this.moveCancel);
+        this.scene.start(this.moveCancel);
     });
-    if(this.moveCancel===true){
+    if(this.moveCancel!=false){
         이동취소.setAlpha(1);
     }
 
     this.add.text(W*0.5, H*0.85, this.tips, {
-          fontSize: W*0.03, color: "#000", wordWrap: { width: W * 0.8 }, align: "center"
+          fontSize: W*0.03, color: "#000", wordWrap: { width: W * 0.7 }, align: "center"
         }).setOrigin(0.5).setVisible(true);
+    
+    this.cameras.main.fadeIn(50, 0, 0, 0);
   }
 }

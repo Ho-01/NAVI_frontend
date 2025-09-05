@@ -1,10 +1,10 @@
 {
     "background": "bg_광화문",
-    "leftChar": "player",
+    "leftChar": "비겁귀",
     "rightChar": "해태",
     "script": [
-		    { "name": "{player}", "text": "해태! 이 녀석이 광화문에 장난질을 쳐놓고 갔어!", "pos": "left" },
-		    { "name": "해태", "text": "성곽을 밟고 넘어가다니!! 무엄한 놈..", "pos": "right" },
-		    { "name": "{player}", "text": "자물쇠에 이상한 문양이 새겨져 있는데..? 잘하면 풀어낼 수 있을지도 몰라", "pos": "left" }
+		    { "name": "해태", "text": "누구냐!! 광화문에 무슨 짓을 하는거야!", "pos": "right" },
+		    { "name": "비겁귀", "text": "우히히~ 알 것 없다!", "pos": "left" },
+		    { "name": "비겁귀", "text": "그 밖에서 얌전히 구경이나 하시지!", "pos": "left" }
     ]
 }

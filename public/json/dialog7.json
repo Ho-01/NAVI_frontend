@@ -1,0 +1,11 @@
+{
+    "background": "bg_광화문",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "nextScene": "TutorialScene",
+    "nextParam": "tutorial3",
+    "script": [
+		    { "name": "해태", "text": "광화문이 열렸어!! 해냈구나 {player}!", "pos": "right" },
+		    { "name": "{player}", "text": "응, 어서 안쪽으로 들어가자!", "pos": "left" }
+    ]
+}

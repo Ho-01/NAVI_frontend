@@ -2,8 +2,9 @@ import Phaser from "phaser";
 import TitleScene from "./scenes/TitleScene";
 import LoginScene from "./scenes/LoginScene";
 import ScenarioSelectScene from "./scenes/ScenarioSelectScene";
-import MainScene from "./scenes/MainScene";
+import PreloadScene from "./scenes/PreloadScene";
 import MapScene from "./scenes/MapScene";
+import ProblemScene from "./scenes/problems/ProblemScene";
 import DialogScene from "./scenes/DialogScene";
 import PatternPuzzleScene from "./scenes/PatternPuzzleScene";
 import CutScene from "./scenes/CutScene";
@@ -12,6 +13,9 @@ import MoveScene from "./scenes/MoveScene";
 import 서십자각터 from "./scenes/maps/서십자각터";
 import 광화문 from "./scenes/maps/광화문";
 import 광화문2 from "./scenes/maps/광화문2";
+import 광화문3 from "./scenes/maps/광화문3";
+import 광화문4 from "./scenes/maps/광화문4";
+import 흥례문 from "./scenes/maps/흥례문";
 
 const config = {
   type: Phaser.AUTO,
@@ -23,8 +27,8 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [TitleScene, LoginScene, ScenarioSelectScene, 
-    서십자각터, 광화문, 광화문2,
-    MainScene, MapScene, MoveScene, DialogScene, CutScene, TutorialScene, PatternPuzzleScene]
+    서십자각터, 광화문, 광화문2, 광화문3, 광화문4, 흥례문,
+    PreloadScene, MapScene, ProblemScene, MoveScene, DialogScene, CutScene, TutorialScene, PatternPuzzleScene]
 };
 
 new Phaser.Game(config);

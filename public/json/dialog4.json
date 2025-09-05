@@ -1,10 +1,11 @@
 {
     "background": "bg_광화문",
-    "leftChar": "비겁귀",
+    "leftChar": "player",
     "rightChar": "해태",
     "script": [
-		    { "name": "해태", "text": "누구냐!! 광화문에 무슨 짓을 하는거야!", "pos": "right" },
-		    { "name": "비겁귀", "text": "우히히~ 알 것 없다!", "pos": "left" },
-		    { "name": "비겁귀", "text": "그 밖에서 얌전히 구경이나 하시지!", "pos": "left" }
+        { "name": "{player}", "text": "세종대왕님... 이제 어쩌면 좋지? 봉인을 되돌릴 방법은 없는거야?", "pos": "left" },
+        { "name": "해태", "text": "있어! 나 혼자는 힘들지만 네 도움이 있다면 충분히 가능할 거야", "pos": "right" },
+        { "name": "{player}", "text": "응..! 내가 할 수 있는게 있을진 모르겠지만... 최선을 다해볼게", "pos": "left" },
+        { "name": "해태", "text": "좋아! 일단 봉인의 중심인 근정전으로 들어가야 해. 시간이 없으니 서두르자 {player}!!", "pos": "right" }
     ]
 }

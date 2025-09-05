@@ -1,28 +1,16 @@
 import Phaser from "phaser";
 
-export default class 광화문2 extends Phaser.Scene {
+export default class 광화문4 extends Phaser.Scene {
   constructor() {
-    super({ key: "광화문2" });
+    super({ key: "광화문4" });
   }
 
   create() {
-    console.log("광화문2 맵");
+    console.log("광화문4 맵");
     const { width, height } = this.scale;
     this.bg = this.add.image(width*0.5, height*0.5, "bg_광화문").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
-
-    // 비겁귀
-    const 비겁귀 = this.add.image(width*0.7, height*0.7, "비겁귀").setOrigin(0.5).setScale(0.9);
-    const 비겁귀_interaction = this.add.image(width*0.7, height*0.7, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
-    비겁귀.setInteractive({useHandCursor: true})
-    .on("pointerdown", () => {
-        비겁귀_interaction.setAlpha(1);
-        this.cameras.main.fadeOut(50, 0, 0, 0);
-        setTimeout(() => {
-            this.scene.start("DialogScene", { json: this.cache.json.get("dialog5"), returnScene: "광화문3" });
-        }, 100);
-    });
 
     // 해태메뉴
     const 메뉴배경 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
@@ -43,10 +31,29 @@ export default class 광화문2 extends Phaser.Scene {
         this.showMapOverlay("map");
     });
 
+    // 이동메뉴
+    const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
+    const 흥례문으로 = this.add.image(width*0.9, height*0.7, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
+    this.tweens.add({ targets: 흥례문으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
+    const 이동화살표 = { 흥례문으로 }
+
+    짚신.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        if(흥례문으로.visible===false){
+            Object.values(이동화살표).forEach(icon => icon.setVisible(true));
+        }else{
+            Object.values(이동화살표).forEach(icon => icon.setVisible(false));
+        }
+    });
+    흥례문으로.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        this.scene.start("MoveScene", {json: this.cache.json.get("move_f광화문_t흥례문"), returnScene: "흥례문"});
+    }); 
+
     // 지도 오버레이 초기화(처음 1회)
     this.initMapOverlay();
-
-    this.cameras.main.fadeIn(50, 0, 0, 0);
+    
+    this.cameras.main.fadeIn(50, 0, 0, 0); // 진입시 페이드인
   }
 
   initMapOverlay() {

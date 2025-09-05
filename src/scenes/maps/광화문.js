@@ -23,8 +23,8 @@ export default class 광화문 extends Phaser.Scene {
             this.scene.start("DialogScene", { json: this.cache.json.get("dialog3"), returnScene: "광화문2" });
         }, 100);
     });
-    const debug = this.add.graphics().lineStyle(2, 0xff0000, 0.8);
-    debug.strokeRect(해태.x, 해태.y, 해태.width, 해태.height);
+    // const debug = this.add.graphics().lineStyle(2, 0xff0000, 0.8);
+    // debug.strokeRect(해태.x, 해태.y, 해태.width, 해태.height);
 
     // 해태메뉴
     const 메뉴 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
@@ -37,11 +37,7 @@ export default class 광화문 extends Phaser.Scene {
             메뉴.setAlpha(0);
         }
     });
-    // 이동메뉴
-    const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(0)
-    .setInteractive({useHandCursor: true})
-    .on("pointerdown", () => {
-        
-    });
+
+    this.cameras.main.fadeIn(50, 0, 0, 0);
   }
 }

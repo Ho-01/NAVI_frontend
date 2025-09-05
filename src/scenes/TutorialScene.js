@@ -76,6 +76,8 @@ export default class TutorialScene extends Phaser.Scene {
         }
       }
     });
+    
+    this.cameras.main.fadeIn(50, 0, 0, 0);
   }
 
   showLine(line) {
