@@ -12,11 +12,11 @@ export default class 광화문3 extends Phaser.Scene {
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
-    const 비겁귀자물쇠 = this.add.image(width*0.9, height*0.6, "비겁귀자물쇠").setOrigin(0.5).setScale(0.3);
-    const 비겁귀자물쇠_interaction = this.add.image(width*0.9, height*0.6, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
-    비겁귀자물쇠.setInteractive({useHandCursor: true})
+    const 광화문자물쇠 = this.add.image(width*0.9, height*0.6, "광화문자물쇠").setOrigin(0.5).setScale(0.3);
+    const 광화문자물쇠_interaction = this.add.image(width*0.9, height*0.6, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
+    광화문자물쇠.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        비겁귀자물쇠_interaction.setAlpha(1);
+        광화문자물쇠_interaction.setAlpha(1);
         this.cameras.main.fadeOut(50, 0, 0, 0);
         setTimeout(() => {
             this.scene.start("DialogScene", { json: this.cache.json.get("dialog6"), returnScene: "광화문4" });

@@ -1,7 +1,7 @@
 {
     "background": "bg_서십자각터",
     "leftChar": "player",
-    "rightChar": "거짓귀",
+    "rightChar": "어둑시니_할아버지",
     "nextScene": "ProblemScene",
     "nextParam": "problem1",
     "script": [

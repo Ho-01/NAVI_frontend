@@ -13,13 +13,13 @@ export default class 서십자각터 extends Phaser.Scene {
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
-    
-    const 거짓귀 = this.add.image(width*0.4, height*0.5, "거짓귀").setOrigin(0.5).setScale(0.7);
-    const 거짓귀_interaction = this.add.image(width*0.4, height*0.5, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
-    거짓귀.setInteractive({ useHandCursor: true })
+
+    const 어둑시니_할아버지 = this.add.image(width*0.4, height*0.5, "어둑시니_할아버지").setOrigin(0.5).setScale(0.7);
+    const 어둑시니_할아버지_interaction = this.add.image(width*0.4, height*0.5, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
+    어둑시니_할아버지.setInteractive({ useHandCursor: true })
     .once("pointerdown", () => {
-      거짓귀.disableInteractive();
-      거짓귀_interaction.setAlpha(1);
+      어둑시니_할아버지.disableInteractive();
+      어둑시니_할아버지_interaction.setAlpha(1);
       this.cameras.main.fadeOut(50, 0, 0, 0);
       setTimeout(() => {
         this.scene.start("DialogScene", { json: this.cache.json.get("dialog1"), returnScene: "광화문" });

@@ -53,7 +53,7 @@ export default class 흥례문 extends Phaser.Scene {
     }); 
     영제교로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("ProblemScene", {json: this.cache.json.get("problem3"), returnScene: "흥례문2"});
+        this.scene.start("DialogScene", {json: this.cache.json.get("dialog8"), returnScene: "영제교"});
     })
 
     // 지도 오버레이 초기화(처음 1회)

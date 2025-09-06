@@ -14,6 +14,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog5", "json/dialog5.json");
     this.load.json("dialog6", "json/dialog6.json");
     this.load.json("dialog7", "json/dialog7.json");
+    this.load.json("dialog8", "json/dialog8.json");
+    this.load.json("dialog9", "json/dialog9.json");
     // JSON 컷씬 파일 로드
     this.load.json("cutscene1", "json/cutscene1.json");
     this.load.json("cutscene2", "json/cutscene2.json");
@@ -27,6 +29,7 @@ export default class PreloadScene extends Phaser.Scene {
     // JSON 문제 파일 로드
     this.load.json("problem1", "json/problem1.json");
     this.load.json("problem2", "json/problem2.json");
+    this.load.json("problem3", "json/problem3.json");
     // JSON 맵 이동 파일 로드
     this.load.json("move1", "json/move1.json");
     this.load.json("move_f광화문_t흥례문", "json/move_f광화문_t흥례문.json");
@@ -65,11 +68,11 @@ export default class PreloadScene extends Phaser.Scene {
 
     // 캐릭터 이미지
     this.load.image("player", "assets/char/char_player.png");
-    this.load.image("거짓귀", "assets/char/char_거짓귀.png");
+    this.load.image("어둑시니_할아버지", "assets/char/char_어둑시니_할아버지.png");
     this.load.image("세종의 영혼", "assets/char/char_세종의 영혼.png");
     this.load.image("해태", "assets/char/char_해태.png");
-    this.load.image("비겁귀", "assets/char/char_비겁귀.png");
-    this.load.image("비겁귀자물쇠", "assets/char/char_비겁귀자물쇠.png");
+    this.load.image("어둑시니_광화문", "assets/char/char_어둑시니_광화문.png");
+    this.load.image("광화문자물쇠", "assets/char/char_광화문자물쇠.png");
     
     // 배경 이미지
     this.load.image("bg_서십자각터", "assets/bg/bg_서십자각터.jpg");
@@ -97,7 +100,7 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     // 시작 → 맵으로 이동
     // this.scene.start("MapScene");
-    this.scene.start("서십자각터");
+    this.scene.start("흥례문");
   }
 }
 
