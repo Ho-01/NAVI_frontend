@@ -1,4 +1,9 @@
 import Phaser from "phaser";
+import GourdOverlay from "../../ui/GourdOverlay";
+import AutoGrant  from "../../features/inventory/autoGrant"; 
+import InventoryButton from "../../ui/InventoryButton.js";
+import InventoryOverlay from "../../ui/InventoryOverlay";
+
 
 export default class 강녕전 extends Phaser.Scene {
   constructor() {
@@ -17,6 +22,14 @@ export default class 강녕전 extends Phaser.Scene {
     this.tweens.add({ targets: mapTitle, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
     const mapTitleText = this.add.text(width*0.3, height*0.065, "강녕전", { fontSize: width*0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
+    
+    // 씬 진입 시 자동 지급(매핑표 기준) 
+    AutoGrant(this); 
+
+    // 호리병,인벤토리 오버레이 준비 
+    const inv = this.game.registry.get("inventory"); 
+    this.inventoryOverlay = new InventoryOverlay(this); 
+    this.gourdOverlay = new GourdOverlay(this);
 
     // 해태메뉴
     const 메뉴배경 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
@@ -36,6 +49,7 @@ export default class 강녕전 extends Phaser.Scene {
     호리병아이콘.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
         console.log("호리병 아이콘 클릭");
+        this.gourdOverlay.show();
     });
     지도아이콘.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
@@ -65,6 +79,10 @@ export default class 강녕전 extends Phaser.Scene {
     this.initMapOverlay();
     
     this.cameras.main.fadeIn(50, 0, 0, 0); // 진입시 페이드인
+
+    // 인벤토리 버튼 설치
+    
+    this.inventoryBtn = new InventoryButton(this);
   }
 
   initMapOverlay() {

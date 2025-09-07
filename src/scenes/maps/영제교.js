@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import GourdOverlay from "../../ui/GourdOverlay";
+
 
 export default class 영제교 extends Phaser.Scene {
   constructor() {
@@ -11,6 +13,9 @@ export default class 영제교 extends Phaser.Scene {
     this.bg = this.add.image(width*0.5, height*0.5, "bg_영제교").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
+
+    // 호리병 오버레이
+    this.gourdOverlay = new GourdOverlay(this);
 
     // 해태메뉴
     const 메뉴배경 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
@@ -29,6 +34,7 @@ export default class 영제교 extends Phaser.Scene {
     호리병아이콘.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
         console.log("호리병 아이콘 클릭");
+        this.gourdOverlay.show();
     });
 
     // 이동메뉴

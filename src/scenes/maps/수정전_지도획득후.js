@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import GourdOverlay from "../../ui/GourdOverlay";
+
 
 export default class 수정전_지도획득후 extends Phaser.Scene {
   constructor() {
@@ -18,6 +20,9 @@ export default class 수정전_지도획득후 extends Phaser.Scene {
     const mapTitleText = this.add.text(width*0.3, height*0.065, "수정전", { fontSize: width*0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
+    // 호리병 오버레이
+    this.gourdOverlay = new GourdOverlay(this);
+
     // 해태메뉴
     const 메뉴배경 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
     const 호리병아이콘 = this.add.image(width*0.9, height*0.11, "icon_호리병").setOrigin(0.5).setScale(0.3).setAlpha(0);
@@ -36,6 +41,7 @@ export default class 수정전_지도획득후 extends Phaser.Scene {
     호리병아이콘.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
         console.log("호리병 아이콘 클릭");
+        this.gourdOverlay.show();
     });
     지도아이콘.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {

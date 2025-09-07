@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { createInventoryStore } from "../features/inventory/store";
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -8,7 +9,7 @@ export default class PreloadScene extends Phaser.Scene {
   preload() {
     const { width, height } = this.scale;
     // 로딩중 텍스트
-    this.로딩중텍스트 = this.add.text(width/2, height/2, "로딩 중.. 잠시만 기다려주세요", {
+    this.로딩중텍스트 = this.add.text(width / 2, height / 2, "로딩 중.. 잠시만 기다려주세요", {
       fontSize: "32px",
       color: "#ffffffff"
     }).setOrigin(0.5);
@@ -52,7 +53,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("cutscene_광화문명명6", "assets/cutscenes/cutscene_광화문명명6.png");
     this.load.image("cutscene_광화문명명7", "assets/cutscenes/cutscene_광화문명명7.png");
     this.load.image("cutscene_근정문파괴", "assets/cutscenes/cutscene_근정문파괴.png");
-    
+
     // JSON 문제 파일 로드
     this.load.json("problem1", "json/problem1.json");
     this.load.json("problem2", "json/problem2.json");
@@ -95,7 +96,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("어둑시니_근정문", "assets/char/char_어둑시니_근정문.png");
     this.load.image("어둑시니_영제교", "assets/char/char_어둑시니_영제교.png");
     this.load.image("청룡", "assets/char/char_청룡.png");
-    
+
     // 맵 이름 띄울 빈 두루마리
     this.load.image("맵_타이틀", "assets/맵_타이틀.png");
 
@@ -127,15 +128,42 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("icon_왼쪽이동", "assets/icons/icon_왼쪽이동.png");
     this.load.image("icon_오른쪽이동", "assets/icons/icon_오른쪽이동.png");
     this.load.image("icon_선택", "assets/icons/icon_선택.png");
+    this.load.image("icon_인벤토리", "assets/icons/icon_인벤토리.png");
 
     // 지도
     this.load.image("map", "assets/map.png");
+
+    // 아이템, 유령 이미지
+    this.load.image("item_1", "assets/items/item_1.png");
+    this.load.image("item_2", "assets/items/item_2.png");
+    this.load.image("item_3", "assets/items/item_3.png");
+    this.load.image("item_4", "assets/items/item_4.png");
+
+    this.load.image("ghost_1", "assets/items/ghost_1.png");
+    this.load.image("ghost_2", "assets/items/ghost_2.png");
+    this.load.image("ghost_3", "assets/items/ghost_3.png");
+    this.load.image("ghost_4", "assets/items/ghost_4.png");
+    this.load.image("ghost_5", "assets/items/ghost_5.png");
   }
 
   create() {
     // 시작 → 맵으로 이동
     // this.scene.start("경회루");
+
+    const inventoryStore = window.inventoryStore; // 전역 스토어 접근 (만들어둔 store.js 기준)
+
+    if (!this.game.registry.get("inventory")) {
+      this.game.registry.set("inventory", createInventoryStore());
+    }
+
+    // 추가 코드: gourd 스토어도 초기화
+    if (!this.game.registry.get("gourd")) {
+      this.game.registry.set("gourd", createInventoryStore());
+    }
     this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
+    if (!this.game.registry.get("inventory")) {
+      this.game.registry.set("inventory", createInventoryStore());
+    }
   }
 }
 
