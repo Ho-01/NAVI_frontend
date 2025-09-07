@@ -19,18 +19,6 @@ export default class 서십자각터 extends Phaser.Scene {
     const mapTitleText = this.add.text(width*0.3, height*0.065, "서십자각터", { fontSize: width*0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
-    // 해태메뉴
-    const 메뉴 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
-    const 해태아이콘 = this.add.image(width*0.9, height*0.05, "icon_해태").setOrigin(0.5).setScale(1.3)
-    .setInteractive({useHandCursor: true})
-    .on("pointerdown", () => {
-        if(메뉴.alpha===0){
-            메뉴.setAlpha(1);
-        }else{
-            메뉴.setAlpha(0);
-        }
-    });
-
     // 이동메뉴
     const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
     const 광화문앞으로 = this.add.image(width*0.5, height*0.45, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
@@ -48,7 +36,7 @@ export default class 서십자각터 extends Phaser.Scene {
     광화문앞으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
         this.scene.start("MoveScene", {json: this.cache.json.get("move_f서십자각터_t광화문"), returnScene: "광화문"});
-    })
+    });
 
     // 그릴거 다 그리고 페이드인
     this.cameras.main.fadeIn(50, 0, 0, 0);

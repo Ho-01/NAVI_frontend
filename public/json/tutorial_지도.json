@@ -1,8 +1,9 @@
 {
     "char": "해태",
     "script": [
-        { "name": "해태", "text": "근정전으로 제대로 찾아가기 위해 지도를 준비했어!", "pos": "left", "image": "tutorial1_1" },
-        { "name": "해태", "text": "지도를 보면 우리가 어디 있는지, 다음 목표는 어딘지 한눈에 알 수 있어!", "pos": "left", "image": "tutorial1_1" },
-        { "name": "해태", "text": "오른쪽 위 아이콘을 눌러 언제든지 지도를 펼칠 수 있으니까 길을 잃었을 때 사용해봐!", "pos": "left", "image": "tutorial1_2" }
+        { "name": "해태", "text": "지도를 얻었으니 사용법을 설명해줄게!", "pos": "left", "image": "tutorial_지도_1" },
+        { "name": "해태", "text": "지도를 보면 우리가 어디 있는지, 다음 목표는 어딘지 한눈에 알 수 있어!", "pos": "left", "image": "tutorial_지도_1" },
+        { "name": "해태", "text": "오른쪽 위 아이콘을 눌러 언제든지 지도를 펼칠 수 있으니까 기억해둬!", "pos": "left", "image": "tutorial_지도_2" },
+        { "name": "해태", "text": "이제 서둘러 경회루로 가보자!!", "pos": "left", "image": "tutorial_지도_2" }
     ]
 }

@@ -46,7 +46,7 @@ export default class ScenarioSelectScene extends Phaser.Scene {
 
     const hit1 = this.add.rectangle(cardW/2, cardH/2, cardW, cardH, 0x000000, 0)
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.scene.start("MainScene"));
+      .on("pointerdown", () => this.scene.start("PreloadScene"));
     c1.add(hit1);
 
     // ───────── 2번 카드 (락) ─────────

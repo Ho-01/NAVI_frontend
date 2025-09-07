@@ -19,16 +19,24 @@ export default class 광화문 extends Phaser.Scene {
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
     // 해태메뉴
-    const 메뉴 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
-    const 해태아이콘 = this.add.image(width*0.9, height*0.05, "icon_해태").setOrigin(0.5).setScale(1.3)
-    .setInteractive({useHandCursor: true})
+    const 메뉴배경 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
+    const 호리병아이콘 = this.add.image(width*0.9, height*0.11, "icon_호리병").setOrigin(0.5).setScale(0.3).setAlpha(0);
+    const 해태아이콘 = this.add.image(width*0.9, height*0.05, "icon_해태").setOrigin(0.5).setScale(1.3);
+    this.드롭다운메뉴 = {메뉴배경, 호리병아이콘}
+
+    해태아이콘.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        if(메뉴.alpha===0){
-            메뉴.setAlpha(1);
+        if(메뉴배경.alpha===0){
+            Object.values(this.드롭다운메뉴).forEach(icon => icon.setAlpha(1));
         }else{
-            메뉴.setAlpha(0);
+            Object.values(this.드롭다운메뉴).forEach(icon => icon.setAlpha(0));
         }
     });
+    호리병아이콘.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        console.log("호리병 아이콘 클릭");
+    });
+
 
     // 이동메뉴
     const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);

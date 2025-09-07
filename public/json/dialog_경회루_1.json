@@ -1,0 +1,10 @@
+{
+    "background": "bg_경회루",
+    "leftChar": "해태",
+    "rightChar": "청룡",
+    "script": [
+    		{ "name": "해태", "text": "경회루대사~입니다리~", "pos": "left" },
+		    { "name": "청룡", "text": "그래그래 난 청룡이다~", "pos": "right" },
+            { "name": "해태", "text": "네에~", "pos": "left" }
+    ]
+}
