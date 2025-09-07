@@ -13,13 +13,13 @@ export default class PreloadScene extends Phaser.Scene {
     // }).setOrigin(0.5);
 
     // JSON 대사 파일 로드
-    this.load.json("dialog1", "json/dialog1.json");
-    this.load.json("dialog2", "json/dialog2.json");
-    this.load.json("dialog3", "json/dialog3.json");
-    this.load.json("dialog4", "json/dialog4.json");
-    this.load.json("dialog5", "json/dialog5.json");
+    this.load.json("dialog_서십자각터_1", "json/dialog_서십자각터_1.json");
+    this.load.json("dialog_서십자각터_2", "json/dialog_서십자각터_2.json");
+    this.load.json("dialog_광화문_1", "json/dialog_광화문_1.json");
+    this.load.json("dialog_광화문_2", "json/dialog_광화문_2.json");
+    this.load.json("dialog_광화문_3", "json/dialog_광화문_3.json");
+    this.load.json("dialog_광화문_4", "json/dialog_광화문_4.json");
     this.load.json("dialog6", "json/dialog6.json");
-    this.load.json("dialog7", "json/dialog7.json");
     this.load.json("dialog8", "json/dialog8.json");
     this.load.json("dialog9", "json/dialog9.json");
     this.load.json("dialog10", "json/dialog10.json");
@@ -129,7 +129,7 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     // 시작 → 맵으로 이동
     // this.scene.start("서십자각터");
-    this.scene.start("DialogScene", { json: this.cache.json.get("dialog1"), returnScene: "서십자각터" });
+    this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
   }
 }
 

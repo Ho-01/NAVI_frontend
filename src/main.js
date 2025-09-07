@@ -12,9 +12,6 @@ import TutorialScene from "./scenes/TutorialScene";
 import MoveScene from "./scenes/MoveScene";
 import 서십자각터 from "./scenes/maps/서십자각터";
 import 광화문 from "./scenes/maps/광화문";
-import 광화문2 from "./scenes/maps/광화문2";
-import 광화문3 from "./scenes/maps/광화문3";
-import 광화문4 from "./scenes/maps/광화문4";
 import 흥례문 from "./scenes/maps/흥례문";
 import 영제교 from "./scenes/maps/영제교";
 import 영제교2 from "./scenes/maps/영제교2";
@@ -31,7 +28,7 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [TitleScene, LoginScene, ScenarioSelectScene, 
-    서십자각터, 광화문, 광화문2, 광화문3, 광화문4, 흥례문, 영제교, 영제교2, 근정문, 수정전,
+    서십자각터, 광화문, 흥례문, 영제교, 영제교2, 근정문, 수정전,
     PreloadScene, MapScene, ProblemScene, MoveScene, DialogScene, CutScene, TutorialScene, PatternPuzzleScene]
 };
 
