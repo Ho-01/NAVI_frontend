@@ -6,6 +6,12 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
+    // 로딩중 텍스트
+    // this.add.text("로딩 중.. 잠시만 기다려주세요", {
+    //   fontSize: "32px",
+    //   color: "#333"
+    // }).setOrigin(0.5);
+
     // JSON 대사 파일 로드
     this.load.json("dialog1", "json/dialog1.json");
     this.load.json("dialog2", "json/dialog2.json");
@@ -16,6 +22,12 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog7", "json/dialog7.json");
     this.load.json("dialog8", "json/dialog8.json");
     this.load.json("dialog9", "json/dialog9.json");
+    this.load.json("dialog10", "json/dialog10.json");
+    this.load.json("dialog11", "json/dialog11.json");
+    this.load.json("dialog12", "json/dialog12.json");
+    this.load.json("dialog13", "json/dialog13.json");
+    this.load.json("dialog14", "json/dialog14.json");
+    this.load.json("dialog15", "json/dialog15.json");
     // JSON 컷씬 파일 로드
     this.load.json("cutscene1", "json/cutscene1.json");
     this.load.json("cutscene2", "json/cutscene2.json");
@@ -30,15 +42,24 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("problem1", "json/problem1.json");
     this.load.json("problem2", "json/problem2.json");
     this.load.json("problem3", "json/problem3.json");
+    this.load.json("problem4", "json/problem4.json");
+    this.load.json("problem5", "json/problem5.json");
+    this.load.json("problem6", "json/problem6.json");
     // JSON 맵 이동 파일 로드
-    this.load.json("move1", "json/move1.json");
+    this.load.json("move_f서십자각터_t광화문", "json/move_f서십자각터_t광화문.json");
     this.load.json("move_f광화문_t흥례문", "json/move_f광화문_t흥례문.json");
     this.load.json("move_f흥례문_t광화문", "json/move_f흥례문_t광화문.json");
+    this.load.json("move_f흥례문_t영제교", "json/move_f흥례문_t영제교.json");
+    this.load.json("move_f영제교_t근정문", "json/move_f영제교_t근정문.json");
+    this.load.json("move_f근정문_t수정전", "json/move_f근정문_t수정전.json");
     // JSON 튜토리얼 파일 로드
-    this.load.json("tutorial1", "json/tutorial1.json");
-    this.load.json("tutorial2", "json/tutorial2.json");
-    this.load.json("tutorial3", "json/tutorial3.json");
+    this.load.json("tutorial_이동", "json/tutorial_이동.json");
+    this.load.json("tutorial_지도", "json/tutorial_지도.json");
+    this.load.json("tutorial_문제와힌트", "json/tutorial_문제와힌트.json");
     // 튜토리얼 이미지
+    this.load.image("tutorial_이동_1", "assets/tutorials/tutorial_이동_1.png");
+    this.load.image("tutorial_이동_2", "assets/tutorials/tutorial_이동_2.png");
+    this.load.image("tutorial_이동_3", "assets/tutorials/tutorial_이동_3.png");
     this.load.image("tutorial1_1", "assets/tutorials/tutorial1_1.png");
     this.load.image("tutorial1_2", "assets/tutorials/tutorial1_2.png");
     this.load.image("tutorial2_1", "assets/tutorials/tutorial2_1.png");
@@ -56,7 +77,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("cutscene_광화문명명6", "assets/cutscenes/cutscene_광화문명명6.png");
     this.load.image("cutscene_광화문명명7", "assets/cutscenes/cutscene_광화문명명7.png");
     
-    // 이 아래로는 첫로딩때 한번에 로드할것
     this.load.image("move", "assets/move.png");
     // 빈 말풍선 이미지
     this.load.image("speech_left", "assets/speech_left.png");
@@ -72,8 +92,12 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("세종의 영혼", "assets/char/char_세종의 영혼.png");
     this.load.image("해태", "assets/char/char_해태.png");
     this.load.image("어둑시니_광화문", "assets/char/char_어둑시니_광화문.png");
+    this.load.image("어둑시니_근정문", "assets/char/char_어둑시니_근정문.png");
     this.load.image("광화문자물쇠", "assets/char/char_광화문자물쇠.png");
     
+    // 맵 이름 띄울 빈 두루마리
+    this.load.image("맵_타이틀", "assets/맵_타이틀.png");
+
     // 배경 이미지
     this.load.image("bg_서십자각터", "assets/bg/bg_서십자각터.jpg");
     this.load.image("bg_서십자각터_dark", "assets/bg/bg_서십자각터_dark.jpeg");
@@ -81,6 +105,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("bg_흥례문", "assets/bg/bg_흥례문.jpg");
     this.load.image("bg_영제교", "assets/bg/bg_영제교.jpg");
     this.load.image("bg_근정문", "assets/bg/bg_근정문.jpg");
+    this.load.image("bg_근정문_dark", "assets/bg/bg_근정문_dark.png");
+    this.load.image("bg_수정전", "assets/bg/bg_수정전.jpg");
+    this.load.image("bg_경회루", "assets/bg/bg_경회루.jpg");
+    this.load.image("bg_강녕전", "assets/bg/bg_강녕전.png");
+    this.load.image("bg_교태전", "assets/bg/bg_교태전.png");
     this.load.image("scroll", "assets/scroll.png");
 
     // 아이콘
@@ -91,7 +120,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("icon_아래쪽이동", "assets/icons/icon_아래쪽이동.png");
     this.load.image("icon_왼쪽이동", "assets/icons/icon_왼쪽이동.png");
     this.load.image("icon_오른쪽이동", "assets/icons/icon_오른쪽이동.png");
-
+    this.load.image("icon_선택", "assets/icons/icon_선택.png");
 
     // 지도
     this.load.image("map", "assets/map.png");
@@ -99,8 +128,8 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     // 시작 → 맵으로 이동
-    // this.scene.start("MapScene");
-    this.scene.start("흥례문");
+    // this.scene.start("서십자각터");
+    this.scene.start("DialogScene", { json: this.cache.json.get("dialog1"), returnScene: "서십자각터" });
   }
 }
 

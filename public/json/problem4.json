@@ -1,0 +1,9 @@
+{
+    "title": "문제4 - 혀 내민 경계병(영제교 천록)",
+    "problem": "악귀가 천록상 중 하나에 숨어들었다. 다른 녀석을 고르자!",
+    "hint1": "넷 가운데 하나만 이상한데..?",
+    "hint2": "👅",
+    "answer": "북서쪽 천록(혀를 내민 조각상)",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog11"
+}

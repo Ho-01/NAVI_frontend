@@ -1,14 +1,14 @@
 import Phaser from "phaser";
 
-export default class 흥례문 extends Phaser.Scene {
+export default class 영제교2 extends Phaser.Scene {
   constructor() {
-    super({ key: "흥례문" });
+    super({ key: "영제교2" });
   }
 
   create() {
-    console.log("흥례문 맵");
+    console.log("영제교2 맵");
     const { width, height } = this.scale;
-    this.bg = this.add.image(width*0.5, height*0.5, "bg_흥례문").setOrigin(0.5).setDepth(-1);
+    this.bg = this.add.image(width*0.5, height*0.5, "bg_영제교").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
@@ -33,27 +33,21 @@ export default class 흥례문 extends Phaser.Scene {
 
     // 이동메뉴
     const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
-    const 영제교로 = this.add.image(width*0.5, height*0.65, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
-    this.tweens.add({ targets: 영제교로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
-    const 광화문으로 = this.add.image(width*0.5, height*0.9, "icon_아래쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
-    this.tweens.add({ targets: 광화문으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
-    const 이동화살표 = { 영제교로, 광화문으로 }
+    const 근정문앞으로 = this.add.image(width*0.85, height*0.65, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
+    this.tweens.add({ targets: 근정문앞으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
+    const 이동화살표 = { 근정문앞으로 }
 
     짚신.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        if(영제교로.visible===false){
+        if(근정문앞으로.visible===false){
             Object.values(이동화살표).forEach(icon => icon.setVisible(true));
         }else{
             Object.values(이동화살표).forEach(icon => icon.setVisible(false));
         }
     });
-    광화문으로.setInteractive({useHandCursor: true})
+    근정문앞으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("MoveScene", {json: this.cache.json.get("move_f흥례문_t광화문"), returnScene: "광화문4"});
-    }); 
-    영제교로.setInteractive({useHandCursor: true})
-    .on("pointerdown", () => {
-        this.scene.start("DialogScene", {json: this.cache.json.get("dialog8"), returnScene: "영제교2"});
+        this.scene.start("MoveScene", {json: this.cache.json.get("move_f영제교_t근정문"), returnScene: "근정문"});
     })
 
     // 지도 오버레이 초기화(처음 1회)

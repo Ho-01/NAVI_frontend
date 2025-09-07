@@ -2,5 +2,7 @@
     "imageKey": "move",
     "text": "광화문으로 이동해 주세요...",
     "moveCancel": false,
+    "nextScene": "DialogScene",
+    "nextParam": "dialog3",
     "tips": "그거 아시나요? 광화문은 1426년(세종8년)에 빛이 사방에 퍼져 만방을 교화시킨다는 뜻으로 이름붙여진 것입니다"
 }

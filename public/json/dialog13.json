@@ -1,0 +1,13 @@
+{
+    "background": "bg_근정문_dark",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "script": [
+            { "name": "해태", "text": "근정전의 봉인마저 풀려버렸어!!...", "pos": "right" },
+		    { "name": "{player}", "text": "조금만 더 빨리 막았더라면..!", "pos": "left" },
+		    { "name": "해태", "text": "이제 근정전에 진입하려면 [사방신]님들의 힘을 빌리는 수밖에 없어", "pos": "right" },
+		    { "name": "{player}", "text": "[사방신]? 그게 뭔데?", "pos": "left" },
+		    { "name": "해태", "text": "청룡님,백호님,주작님,현무님.. 근정전의 네 방향 봉인을 지켜주시는 네 분의 신들이야.", "pos": "right" },
+		    { "name": "해태", "text": "봉인해제의 영향인지 몰라도 지금은 청룡님의 기운만이 느껴져.. 경회루에 계신 것 같으니 가보자!! 서둘러야 해!", "pos": "right" }
+    ]
+}

@@ -51,7 +51,11 @@ export default class MoveScene extends Phaser.Scene {
     const 도착했어요 = this.add.text(W*0.5, H*0.65, "도착했어요!", {fontSize: W*0.05, backgroundColor: "#87b4e8",color: "#000",padding: { x: 80, y: 50 }
     }).setOrigin(0.5).setInteractive({ useHandCursor: true })
     .on("pointerdown", () => {
-        this.scene.start(this.returnScene);
+        if(this.nextScene){
+          this.scene.start(this.nextScene, { json: this.cache.json.get(this.nextParam), returnScene: this.returnScene });
+        }else{
+          this.scene.start(this.returnScene);
+        }
     });
     const 이동취소 = this.add.text(W*0.5, H*0.75, "이동 취소", {fontSize: W*0.05, backgroundColor: "#e88798",color: "#000",padding: { x: 80, y: 50 }
     }).setOrigin(0.5).setInteractive({ useHandCursor: true }).setAlpha(0)

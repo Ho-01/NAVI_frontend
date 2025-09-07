@@ -9,22 +9,10 @@ export default class 서십자각터 extends Phaser.Scene {
   create() {
     console.log("서십자각터 맵");
     const { width, height } = this.scale;
-    this.bg = this.add.image(width*0.5, height*0.5, "bg_서십자각터").setOrigin(0.5).setDepth(-1);
+    this.bg = this.add.image(width*0.5, height*0.5, "bg_서십자각터_dark").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
-
-    const 어둑시니_할아버지 = this.add.image(width*0.4, height*0.5, "어둑시니_할아버지").setOrigin(0.5).setScale(0.7);
-    const 어둑시니_할아버지_interaction = this.add.image(width*0.4, height*0.5, "interaction").setOrigin(0.5).setScale(0.4).setAlpha(0);
-    어둑시니_할아버지.setInteractive({ useHandCursor: true })
-    .once("pointerdown", () => {
-      어둑시니_할아버지.disableInteractive();
-      어둑시니_할아버지_interaction.setAlpha(1);
-      this.cameras.main.fadeOut(50, 0, 0, 0);
-      setTimeout(() => {
-        this.scene.start("DialogScene", { json: this.cache.json.get("dialog1"), returnScene: "광화문" });
-      }, 100);
-    });
 
     // 해태메뉴
     const 메뉴 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
@@ -37,6 +25,25 @@ export default class 서십자각터 extends Phaser.Scene {
             메뉴.setAlpha(0);
         }
     });
+
+    // 이동메뉴
+    const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
+    const 광화문앞으로 = this.add.image(width*0.5, height*0.45, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
+    this.tweens.add({ targets: 광화문앞으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
+    const 이동화살표 = { 광화문앞으로 }
+
+    짚신.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        if(광화문앞으로.visible===false){
+            Object.values(이동화살표).forEach(icon => icon.setVisible(true));
+        }else{
+            Object.values(이동화살표).forEach(icon => icon.setVisible(false));
+        }
+    });
+    광화문앞으로.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        this.scene.start("MoveScene", {json: this.cache.json.get("move_f서십자각터_t광화문"), returnScene: "광화문"});
+    })
 
     // 그릴거 다 그리고 페이드인
     this.cameras.main.fadeIn(50, 0, 0, 0);

@@ -1,16 +1,22 @@
 import Phaser from "phaser";
 
-export default class 흥례문 extends Phaser.Scene {
+export default class 수정전 extends Phaser.Scene {
   constructor() {
-    super({ key: "흥례문" });
+    super({ key: "수정전" });
   }
 
   create() {
-    console.log("흥례문 맵");
+    console.log("수정전 맵");
     const { width, height } = this.scale;
-    this.bg = this.add.image(width*0.5, height*0.5, "bg_흥례문").setOrigin(0.5).setDepth(-1);
+    this.bg = this.add.image(width*0.5, height*0.5, "bg_수정전").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
+
+    // 맵 타이틀
+    const mapTitle = this.add.image(width*0.3, height*0.07, "맵_타이틀").setOrigin(0.5).setScale(0.7).setAlpha(0);
+    this.tweens.add({ targets: mapTitle, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
+    const mapTitleText = this.add.text(width*0.3, height*0.065, "수정전", { fontSize: width*0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
+    this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
     // 해태메뉴
     const 메뉴배경 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
@@ -33,27 +39,21 @@ export default class 흥례문 extends Phaser.Scene {
 
     // 이동메뉴
     const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
-    const 영제교로 = this.add.image(width*0.5, height*0.65, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
-    this.tweens.add({ targets: 영제교로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
-    const 광화문으로 = this.add.image(width*0.5, height*0.9, "icon_아래쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
-    this.tweens.add({ targets: 광화문으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
-    const 이동화살표 = { 영제교로, 광화문으로 }
+    const 수정전안으로 = this.add.image(width*0.30, height*0.50, "icon_선택").setOrigin(0.5).setScale(0.4).setVisible(false);
+    this.tweens.add({ targets: 수정전안으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
+    const 이동화살표 = { 수정전안으로 }
 
     짚신.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        if(영제교로.visible===false){
+        if(수정전안으로.visible===false){
             Object.values(이동화살표).forEach(icon => icon.setVisible(true));
         }else{
             Object.values(이동화살표).forEach(icon => icon.setVisible(false));
         }
     });
-    광화문으로.setInteractive({useHandCursor: true})
+    수정전안으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("MoveScene", {json: this.cache.json.get("move_f흥례문_t광화문"), returnScene: "광화문4"});
-    }); 
-    영제교로.setInteractive({useHandCursor: true})
-    .on("pointerdown", () => {
-        this.scene.start("DialogScene", {json: this.cache.json.get("dialog8"), returnScene: "영제교2"});
+        this.scene.start("ProblemScene", {json: this.cache.json.get("problem6"), returnScene: "수정전"});
     })
 
     // 지도 오버레이 초기화(처음 1회)

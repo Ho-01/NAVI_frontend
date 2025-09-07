@@ -12,19 +12,6 @@ export default class 광화문 extends Phaser.Scene {
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
-    // 해태
-    const 해태 = this.add.zone(width*0.05, height*0.4, width*0.4, height*0.2).setOrigin(0);
-    const 해태_interaction = this.add.image(width*0.2, height*0.5, "interaction").setOrigin(0).setScale(0.4).setAlpha(0);
-    해태.setInteractive({useHandCursor: true})
-    .on("pointerdown", () => {
-        해태_interaction.setAlpha(1);
-        this.cameras.main.fadeOut(50, 0, 0, 0);
-        setTimeout(() => {
-            this.scene.start("DialogScene", { json: this.cache.json.get("dialog3"), returnScene: "광화문2" });
-        }, 100);
-    });
-    // const debug = this.add.graphics().lineStyle(2, 0xff0000, 0.8);
-    // debug.strokeRect(해태.x, 해태.y, 해태.width, 해태.height);
 
     // 해태메뉴
     const 메뉴 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
@@ -37,6 +24,25 @@ export default class 광화문 extends Phaser.Scene {
             메뉴.setAlpha(0);
         }
     });
+
+    // 이동메뉴
+    const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
+    const 흥례문으로 = this.add.image(width*0.9, height*0.7, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
+    this.tweens.add({ targets: 흥례문으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
+    const 이동화살표 = { 흥례문으로 }
+
+    짚신.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        if(흥례문으로.visible===false){
+            Object.values(이동화살표).forEach(icon => icon.setVisible(true));
+        }else{
+            Object.values(이동화살표).forEach(icon => icon.setVisible(false));
+        }
+    });
+    흥례문으로.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        this.scene.start("MoveScene", {json: this.cache.json.get("move_f광화문_t흥례문"), returnScene: "흥례문"});
+    }); 
 
     this.cameras.main.fadeIn(50, 0, 0, 0);
   }

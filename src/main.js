@@ -17,6 +17,9 @@ import 광화문3 from "./scenes/maps/광화문3";
 import 광화문4 from "./scenes/maps/광화문4";
 import 흥례문 from "./scenes/maps/흥례문";
 import 영제교 from "./scenes/maps/영제교";
+import 영제교2 from "./scenes/maps/영제교2";
+import 근정문 from "./scenes/maps/근정문";
+import 수정전 from "./scenes/maps/수정전";
 
 const config = {
   type: Phaser.AUTO,
@@ -28,7 +31,7 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [TitleScene, LoginScene, ScenarioSelectScene, 
-    서십자각터, 광화문, 광화문2, 광화문3, 광화문4, 흥례문, 영제교,
+    서십자각터, 광화문, 광화문2, 광화문3, 광화문4, 흥례문, 영제교, 영제교2, 근정문, 수정전,
     PreloadScene, MapScene, ProblemScene, MoveScene, DialogScene, CutScene, TutorialScene, PatternPuzzleScene]
 };
 

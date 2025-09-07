@@ -13,6 +13,9 @@ export default class TutorialScene extends Phaser.Scene {
     }
     this.script = json.script;
     this.returnScene = data.returnScene;
+    if (json.char) {
+      this.char = json.char;
+    }else{this.char=null;}
     if (json.nextScene) {
       this.nextScene = json.nextScene;
     }else{this.nextScene=null;}
@@ -34,12 +37,19 @@ export default class TutorialScene extends Phaser.Scene {
     const maxW = width  * 0.4;
     const maxH = height * 0.4;
 
-    const left  = this.add.image(width * 0.25, height * 0.75, "해태")
+    this.해태  = this.add.image(width * 0.25, height * 0.75, "해태")
     .setOrigin(0.5)
-    .setAlpha(0.5);
+    .setAlpha(0);
     // 생성된 이미지의 원본 크기 기준으로 fit 스케일 계산
-    left.setScale(Math.min(maxW / left.width,  maxH / left.height));
-    this.characters={left}
+    this.해태.setScale(Math.min(maxW / this.해태.width,  maxH / this.해태.height));
+
+    this.세종의영혼  = this.add.image(width * 0.25, height * 0.75, "세종의 영혼")
+    .setOrigin(0.5)
+    .setAlpha(0);
+    // 생성된 이미지의 원본 크기 기준으로 fit 스케일 계산
+    this.세종의영혼.setScale(Math.min(maxW / this.세종의영혼.width,  maxH / this.세종의영혼.height));
+
+    this.characters = {해태: this.해태, 세종의영혼: this.세종의영혼};
 
     // 말풍선+텍스트+이름 묶음
     this.bubbles = {
@@ -82,7 +92,11 @@ export default class TutorialScene extends Phaser.Scene {
 
   showLine(line) {
     // 초기화
-    Object.values(this.characters).forEach(c => c.setAlpha(1));
+    if(this.char==="해태"){
+        this.해태.setAlpha(1); this.세종의영혼.setAlpha(0);
+    } else if(this.char==="세종의 영혼"){
+        this.해태.setAlpha(0); this.세종의영혼.setAlpha(1);
+    }
     Object.values(this.bubbles).forEach(b => {
       b.box.setVisible(true);
       b.text.setVisible(true);
@@ -91,7 +105,7 @@ export default class TutorialScene extends Phaser.Scene {
 
     // 현재 줄
     const bubble = this.bubbles[line.pos];
-    const char = this.characters[line.pos];
+    const char = this.characters[line.name==="해태"?"해태":"세종의영혼"];
     if (!bubble || !char) return;
 
     this.bg.setTexture(line.image).setAlpha(1).setPosition(this.W / 2, this.H * 0.4);
