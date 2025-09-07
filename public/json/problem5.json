@@ -4,6 +4,6 @@
     "hint1": "다시 ㄱㄱ",
     "hint2": "다시 ㄱㄱ",
     "answer": "없어 정답 못맞추게 낼거야 ㅋㅋ",
-    "nextScene": "DialogScene",
-    "nextParam": "dialog13"
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_근정문파괴"
 }

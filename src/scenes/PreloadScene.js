@@ -19,15 +19,15 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog_광화문_2", "json/dialog_광화문_2.json");
     this.load.json("dialog_광화문_3", "json/dialog_광화문_3.json");
     this.load.json("dialog_광화문_4", "json/dialog_광화문_4.json");
-    this.load.json("dialog6", "json/dialog6.json");
-    this.load.json("dialog8", "json/dialog8.json");
-    this.load.json("dialog9", "json/dialog9.json");
-    this.load.json("dialog10", "json/dialog10.json");
-    this.load.json("dialog11", "json/dialog11.json");
-    this.load.json("dialog12", "json/dialog12.json");
-    this.load.json("dialog13", "json/dialog13.json");
-    this.load.json("dialog14", "json/dialog14.json");
-    this.load.json("dialog15", "json/dialog15.json");
+    this.load.json("dialog_흥례문_1", "json/dialog_흥례문_1.json");
+    this.load.json("dialog_흥례문_2", "json/dialog_흥례문_2.json");
+    this.load.json("dialog_영제교_1", "json/dialog_영제교_1.json");
+    this.load.json("dialog_영제교_2", "json/dialog_영제교_2.json");
+    this.load.json("dialog_근정문_1", "json/dialog_근정문_1.json");
+    this.load.json("dialog_근정문_2", "json/dialog_근정문_2.json");
+    this.load.json("dialog_수정전_1", "json/dialog_수정전_1.json");
+    this.load.json("dialog_수정전_2", "json/dialog_수정전_2.json");
+
     // JSON 컷씬 파일 로드
     this.load.json("cutscene1", "json/cutscene1.json");
     this.load.json("cutscene2", "json/cutscene2.json");
@@ -38,6 +38,19 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("cutscene_광화문명명5", "json/cutscene_광화문명명5.json");
     this.load.json("cutscene_광화문명명6", "json/cutscene_광화문명명6.json");
     this.load.json("cutscene_광화문명명7", "json/cutscene_광화문명명7.json");
+    this.load.json("cutscene_근정문파괴", "json/cutscene_근정문파괴.json");
+    // 컷씬 이미지
+    this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
+    this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
+    this.load.image("cutscene_광화문명명1", "assets/cutscenes/cutscene_광화문명명1.png");
+    this.load.image("cutscene_광화문명명2", "assets/cutscenes/cutscene_광화문명명2.png");
+    this.load.image("cutscene_광화문명명3", "assets/cutscenes/cutscene_광화문명명3.png");
+    this.load.image("cutscene_광화문명명4", "assets/cutscenes/cutscene_광화문명명4.png");
+    this.load.image("cutscene_광화문명명5", "assets/cutscenes/cutscene_광화문명명5.png");
+    this.load.image("cutscene_광화문명명6", "assets/cutscenes/cutscene_광화문명명6.png");
+    this.load.image("cutscene_광화문명명7", "assets/cutscenes/cutscene_광화문명명7.png");
+    this.load.image("cutscene_근정문파괴", "assets/cutscenes/cutscene_근정문파괴.png");
+    
     // JSON 문제 파일 로드
     this.load.json("problem1", "json/problem1.json");
     this.load.json("problem2", "json/problem2.json");
@@ -66,17 +79,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("tutorial3_1", "assets/tutorials/tutorial3_1.png");
     this.load.image("tutorial3_2", "assets/tutorials/tutorial3_2.png");
     this.load.image("tutorial3_3", "assets/tutorials/tutorial3_3.png");
-    // 컷씬 이미지
-    this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
-    this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
-    this.load.image("cutscene_광화문명명1", "assets/cutscenes/cutscene_광화문명명1.png");
-    this.load.image("cutscene_광화문명명2", "assets/cutscenes/cutscene_광화문명명2.png");
-    this.load.image("cutscene_광화문명명3", "assets/cutscenes/cutscene_광화문명명3.png");
-    this.load.image("cutscene_광화문명명4", "assets/cutscenes/cutscene_광화문명명4.png");
-    this.load.image("cutscene_광화문명명5", "assets/cutscenes/cutscene_광화문명명5.png");
-    this.load.image("cutscene_광화문명명6", "assets/cutscenes/cutscene_광화문명명6.png");
-    this.load.image("cutscene_광화문명명7", "assets/cutscenes/cutscene_광화문명명7.png");
-    
+
     this.load.image("move", "assets/move.png");
     // 빈 말풍선 이미지
     this.load.image("speech_left", "assets/speech_left.png");
@@ -128,8 +131,8 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     // 시작 → 맵으로 이동
-    // this.scene.start("서십자각터");
-    this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
+    this.scene.start("영제교");
+    // this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
   }
 }
 

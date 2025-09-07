@@ -12,6 +12,12 @@ export default class 근정문 extends Phaser.Scene {
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
+    // 맵 타이틀
+    const mapTitle = this.add.image(width*0.3, height*0.07, "맵_타이틀").setOrigin(0.5).setScale(0.7).setAlpha(0);
+    this.tweens.add({ targets: mapTitle, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
+    const mapTitleText = this.add.text(width*0.3, height*0.065, "근정문", { fontSize: width*0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
+    this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
+
     // 해태메뉴
     const 메뉴배경 = this.add.image(width*0.9, height*0.15, "scroll").setOrigin(0.5).setScale(0.1).setAlpha(0);
     const 지도아이콘 = this.add.image(width*0.9, height*0.1, "icon_지도").setOrigin(0.5).setScale(0.15).setAlpha(0);

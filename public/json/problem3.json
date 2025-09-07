@@ -5,5 +5,5 @@
     "hint2": "해(日)가 뜨는 곳은 동쪽, 달(月)이 뜨는 곳은 서쪽.",
     "answer": "중앙: 왕 , 좌측 문=무신, 우측 문=문신",
     "nextScene": "DialogScene",
-    "nextParam": "dialog9"
+    "nextParam": "dialog_흥례문_2"
 }

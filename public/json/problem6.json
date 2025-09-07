@@ -5,5 +5,5 @@
     "hint2": "몇년도인지 적어볼까?",
     "answer": "[순서] 집현전 → 수정전 → 내각 본부 AND [입력값] 집현전=세종 / 수정전=1867 / 내각 본부=1894",
     "nextScene": "DialogScene",
-    "nextParam": "dialog15"
+    "nextParam": "dialog_수정전_2"
 }

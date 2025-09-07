@@ -47,7 +47,7 @@ export default class 영제교 extends Phaser.Scene {
     });
     근정문앞으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("DialogScene", {json: this.cache.json.get("dialog10"), returnScene: "영제교2"});
+        this.scene.start("MoveScene", {json: this.cache.json.get("move_f영제교_t근정문"), returnScene: "근정문"});
     })
 
     // 지도 오버레이 초기화(처음 1회)
