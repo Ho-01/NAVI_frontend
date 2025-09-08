@@ -72,7 +72,7 @@ export default class 경회루 extends Phaser.Scene {
     });
     아미산으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("아미산");
+        this.scene.start("MoveScene", {json: this.cache.json.get("move_f경회루_t아미산"), returnScene: "아미산"});
     })
 
     // 지도 오버레이 초기화(처음 1회)
