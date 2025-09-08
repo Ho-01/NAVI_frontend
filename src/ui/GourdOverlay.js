@@ -1,0 +1,87 @@
+import Phaser from "phaser";
+
+export default class GourdOverlay {
+  constructor(scene) {
+    this.scene = scene;
+    const { width: W, height: H } = scene.scale;
+
+    // 컨테이너
+    this.gourdOverlay = scene.add.container(0, 0).setDepth(9999).setScrollFactor(0).setVisible(false);
+
+    // 입력 차단용 반투명 bg
+    this.bg = scene.add.rectangle(W*0.5, H*0.5, W, H, 0x000000, 0.65).setAlpha(0)
+    .setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        this.gourdOverlay.setVisible(false);
+        this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.popupBg.setAlpha(0); this.popupText.setAlpha(0); this.emptyGourdText.setAlpha(0);
+    });
+
+    // 호리병 배경 이미지
+    this.gourdImg = scene.add.image(W*0.5, H*0.5, "__dummy__").setAlpha(0).setScrollFactor(0).setScale(1.5);
+
+    // 악귀1
+    this.ghost_1 = scene.add.image(W*0.2, H*0.5, "ghost_1").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀1: 악귀1입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀2
+    this.ghost_2 = scene.add.image(W*0.8, H*0.5, "ghost_2").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀2: 악귀2입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀3
+    this.ghost_3 = scene.add.image(W*0.5, H*0.3, "ghost_3").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀3: 악귀3입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀4
+    this.ghost_4 = scene.add.image(W*0.5, H*0.7, "ghost_4").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀4: 악귀4입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀 없을 때 표시할 텍스트
+    this.emptyGourdText = scene.add.text(W*0.5, H*0.5, "호리병이 비었습니다", {
+        fontSize: Math.round(W*0.04), color:"#fff", align:"center"
+    }).setOrigin(0.5).setAlpha(0).setDepth(10001);
+
+    // 악귀 설명 팝업 박스 + 텍스트
+   this.popupBg = this.scene.add.rectangle(W/2, H/2, W*0.7, H*0.1, 0xfffaee, 0.95).setStrokeStyle(7, 0x333333).setDepth(10000).setAlpha(0);
+   this.popupText = this.scene.add.text(W/2, H/2, "", {
+     fontSize: Math.round(W*0.045), color:"#000", wordWrap:{width: W*0.65}, align:"center"
+   }).setOrigin(0.5).setDepth(10001).setAlpha(0);
+   this.popupBg.setInteractive().on("pointerdown", () => { this.popupBg.setAlpha(0); this.popupText.setAlpha(0); });
+
+    // 컨테이너에 모든 요소 넣어두기
+    this.gourdOverlay.add([this.bg, this.gourdImg, this.ghost_1, this.ghost_2, this.ghost_3, this.ghost_4, this.popupBg, this.popupText, this.emptyGourdText]);
+  }
+
+
+  show(){
+    this.gourdImg.setTexture("icon_호리병");
+
+    // 컨테이너 보이게 표시
+    this.gourdOverlay.setVisible(true);
+    this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.ghost_1.setAlpha(0); this.ghost_2.setAlpha(0); this.ghost_3.setAlpha(0); this.ghost_4.setAlpha(0);
+
+    // 저장소에서 보유중악귀 불러오기
+    const gourd = this.scene.game.registry.get("gourd");
+    const items = gourd?.items?.() ?? [];   // ← 보유한 것만
+    console.log("보유중 악귀:", items);
+    const 보유중악귀 = [];
+    items.forEach((itemKey, index) => {
+        보유중악귀.push(this[itemKey]);
+    });
+
+    // 호리병 비었을 때 텍스트 표시
+    if(보유중악귀.length===0){this.emptyGourdText.setAlpha(1);}
+    // 보유중인 악귀들만 페이드인 효과
+    this.scene.tweens.add({ targets: 보유중악귀, alpha: 1.0, duration: 300, ease: "Quad.easeOut", delay: 200 });
+    // 배경+호리병 페이드인 효과
+    this.scene.tweens.add({ targets: this.bg,  alpha: 0.65, duration: 150, ease: "Quad.easeOut" });
+    this.scene.tweens.add({ targets: this.gourdImg, alpha: 1.0,  duration: 180, ease: "Quad.easeOut" });
+  }
+}
