@@ -30,6 +30,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog_수정전_1", "json/dialog_수정전_1.json");
     this.load.json("dialog_수정전_2", "json/dialog_수정전_2.json");
     this.load.json("dialog_경회루_1", "json/dialog_경회루_1.json");
+    this.load.json("dialog_경회루_2", "json/dialog_경회루_2.json");
 
     // JSON 컷씬 파일 로드
     this.load.json("cutscene1", "json/cutscene1.json");
@@ -61,6 +62,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("problem4", "json/problem4.json");
     this.load.json("problem5", "json/problem5.json");
     this.load.json("problem6", "json/problem6.json");
+    this.load.json("problem7", "json/problem7.json");
     // JSON 맵 이동 파일 로드
     this.load.json("move_f서십자각터_t광화문", "json/move_f서십자각터_t광화문.json");
     this.load.json("move_f광화문_t흥례문", "json/move_f광화문_t흥례문.json");
@@ -158,7 +160,7 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    this.scene.start("광화문");
+    this.scene.start("수정전_지도획득후");
     // this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
   }
 }
