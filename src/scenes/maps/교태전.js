@@ -57,7 +57,7 @@ export default class 교태전 extends Phaser.Scene {
 
     // 이동메뉴
     const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
-    const 아미산으로 = this.add.image(width*0.90, height*0.80, "icon_오른쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
+    const 아미산으로 = this.add.image(width*0.50, height*0.40, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
     this.tweens.add({ targets: 아미산으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
     const 생물방으로 = this.add.image(width*0.90, height*0.80, "icon_오른쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
     this.tweens.add({ targets: 생물방으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });

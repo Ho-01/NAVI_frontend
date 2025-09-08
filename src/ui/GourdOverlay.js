@@ -5,103 +5,76 @@ export default class GourdOverlay {
     this.scene = scene;
     const { width: W, height: H } = scene.scale;
 
-    this.root = scene.add.container(0, 0).setDepth(9999).setScrollFactor(0).setVisible(false);
+    // 컨테이너
+    this.gourdOverlay = scene.add.container(0, 0).setDepth(9999).setScrollFactor(0).setVisible(false);
 
-    const dim = scene.add.rectangle(W/2, H/2, W, H, 0x000000, 0.65)
-      .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.hide());
-
-    const panel = scene.add.image(W/2, H/2, "scroll").setOrigin(0.5);
-    const tex = scene.textures.get("scroll")?.getSourceImage?.();
-    if (tex) panel.setScale(Math.min((W*0.85)/tex.width, (H*0.75)/tex.height));
-
-    const title = scene.add.text(W/2, H*0.22, "호리병(영혼 보관)", {
-      fontSize: Math.round(W*0.05), color: "#000", fontStyle: "bold",
-    }).setOrigin(0.5);
-
-    this.content = scene.add.container(0, 0);
-    this.root.add([dim, panel, title, this.content]);
-
-    // 호리병 변경 시, 열려있다면 즉시 리렌더
-    const gourd = scene.game.registry.get("gourd"); 
-    gourd?.events?.on("inventory:granted", () => { 
-      if (this.root?.visible) this.show(); 
-    }); 
- 
-    scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.destroy());
-    scene.events.once(Phaser.Scenes.Events.DESTROY,  () => this.destroy());
-  }
-
-  destroy() { this.root?.destroy(true); this.root = null; this.content = null; }
-
-  show() { 
-    const gourd = this.scene.game.registry.get("gourd"); 
-    const items = gourd?.items?.() ?? [];   // ← 보유한 것만 
-    this._render(items); 
-    this.root?.setVisible(true); 
-  }
-  hide() { this.root?.setVisible(false); }
-
-  _render(keys = []) {
-    if (!this.content) return;
-    const s = this.scene;
-    const { width: W, height: H } = s.scale;
-    this.content.removeAll(true);
-
-    if (!keys.length) {
-      this.content.add(
-        s.add.text(W/2, H*0.52, "보관된 영혼이 없습니다.", { fontSize: Math.round(W*0.035), color: "#222" }).setOrigin(0.5)
-      );
-      return;
-    }
-
-    const cols = 4, cellW = W*0.18, cellH = H*0.14;
-    const startX = W/2 - (cellW*(cols-1))/2, startY = H*0.32;
-
-    keys.forEach((key, i) => {
-      const c = i % cols, r = Math.floor(i/cols);
-      const x = startX + c*cellW, y = startY + r*cellH;
-
-      const texKey = s.textures.exists(key) ? key : null; // ghost_*는 그대로 텍스처 키
-      if (texKey) {
-        const img = s.add.image(x, y, texKey).setOrigin(0.5);
-         img.setInteractive({ useHandCursor: true })
-          .on("pointerdown", () => {
-            this._showDesc(key);
-          });
-        const raw = s.textures.get(texKey)?.getSourceImage?.();
-        if (raw) img.setScale(Math.min((cellW*0.7)/raw.width, (cellH*0.6)/raw.height));
-
-        const label = s.add.text(x, y+cellH*0.33, key, { fontSize: Math.round(W*0.028), color: "#000" }).setOrigin(0.5);
-        this.content.add([img, label]);
-      } else {
-        const box = s.add.rectangle(x, y, cellW*0.7, cellH*0.55, 0xffffff, 0.9).setStrokeStyle(2, 0x333333);
-        const label = s.add.text(x, y, key, { fontSize: Math.round(W*0.03), color:"#000" }).setOrigin(0.5);
-        this.content.add([box, label]);
-      }
+    // 입력 차단용 반투명 bg
+    this.bg = scene.add.rectangle(W*0.5, H*0.5, W, H, 0x000000, 0.65).setAlpha(0)
+    .setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        this.gourdOverlay.setVisible(false);
+        this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.popupBg.setAlpha(0); this.popupText.setAlpha(0);
     });
+
+    // 호리병 배경 이미지
+    this.gourdImg = scene.add.image(W*0.5, H*0.5, "__dummy__").setAlpha(0).setScrollFactor(0);
+
+    // 악귀1
+    this.ghost_1 = scene.add.image(W*0.2, H*0.5, "ghost_1").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀1: 악귀1입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀2
+    this.ghost_2 = scene.add.image(W*0.8, H*0.5, "ghost_2").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀2: 악귀2입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀3
+    this.ghost_3 = scene.add.image(W*0.5, H*0.3, "ghost_3").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀3: 악귀3입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀4
+    this.ghost_4 = scene.add.image(W*0.5, H*0.7, "ghost_4").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+        this.popupText.setText("악귀4: 악귀4입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    });
+
+    // 악귀 설명 팝업 박스 + 텍스트
+   this.popupBg = this.scene.add.rectangle(W/2, H/2, W*0.7, H*0.1, 0xfffaee, 0.95).setStrokeStyle(7, 0x333333).setDepth(10000).setAlpha(0);
+   this.popupText = this.scene.add.text(W/2, H/2, "", {
+     fontSize: Math.round(W*0.045), color:"#000", wordWrap:{width: W*0.65}, align:"center"
+   }).setOrigin(0.5).setDepth(10001).setAlpha(0);
+   this.popupBg.setInteractive().on("pointerdown", () => { this.popupBg.setAlpha(0); this.popupText.setAlpha(0); });
+
+    // 컨테이너에 모든 요소 넣어두기
+    this.gourdOverlay.add([this.bg, this.gourdImg, this.ghost_1, this.ghost_2, this.ghost_3, this.ghost_4, this.popupBg, this.popupText]);
   }
-   _showDesc(key) {
-   const { width: W, height: H } = this.scene.scale;
-   // 설명 매핑
-   const descMap = {
-     ghost_1: "광화문에서 만난 첫 번째 유령",
-     ghost_2: "슬픔에 잠긴 유령",
-     ghost_3: "분노의 기운을 띤 유령",
-     ghost_4: "희망을 잃은 유령",
-     ghost_5: "진실을 알고 있는 유령",
-   };
-   const text = descMap[key] || "알 수 없는 영혼";
 
-   // 팝업 박스 + 텍스트
-   const bg = this.scene.add.rectangle(W/2, H/2, W*0.7, H*0.3, 0xffffff, 0.95)
-     .setStrokeStyle(3, 0x333333)
-     .setDepth(10000);
-   const t = this.scene.add.text(W/2, H/2, text, {
-     fontSize: Math.round(W*0.035), color:"#000", wordWrap:{width: W*0.65}, align:"center"
-   }).setOrigin(0.5).setDepth(10001);
 
-   // 클릭 시 닫기
-   bg.setInteractive().on("pointerdown", () => { bg.destroy(); t.destroy(); });
- }
+  show(){
+    this.gourdImg.setTexture("icon_호리병");
+
+    // 컨테이너 보이게 표시
+    this.gourdOverlay.setVisible(true);
+    this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.ghost_1.setAlpha(0); this.ghost_2.setAlpha(0); this.ghost_3.setAlpha(0); this.ghost_4.setAlpha(0);
+
+    // 저장소에서 보유중악귀 불러오기
+    const gourd = this.scene.game.registry.get("gourd");
+    const items = gourd?.items?.() ?? [];   // ← 보유한 것만
+    console.log("보유중 악귀:", items);
+    const 보유중악귀 = [];
+    items.forEach((itemKey, index) => {
+        보유중악귀.push(this[itemKey]);
+    });
+
+    // 보유중인 악귀들만 페이드인 효과
+    this.scene.tweens.add({ targets: 보유중악귀, alpha: 1.0, duration: 300, ease: "Quad.easeOut", delay: 200 });
+    // 배경+호리병 페이드인 효과
+    this.scene.tweens.add({ targets: this.bg,  alpha: 0.65, duration: 150, ease: "Quad.easeOut" });
+    this.scene.tweens.add({ targets: this.gourdImg, alpha: 1.0,  duration: 180, ease: "Quad.easeOut" });
+  }
 }

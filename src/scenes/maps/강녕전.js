@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import GourdOverlay from "../../ui/GourdOverlay";
+import GourdOverlay from "../../ui/GourdOverlay.js";
 import AutoGrant  from "../../features/inventory/autoGrant"; 
 import InventoryButton from "../../ui/InventoryButton.js";
 import InventoryOverlay from "../../ui/InventoryOverlay";

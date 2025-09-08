@@ -143,15 +143,13 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("ghost_2", "assets/items/ghost_2.png");
     this.load.image("ghost_3", "assets/items/ghost_3.png");
     this.load.image("ghost_4", "assets/items/ghost_4.png");
-    this.load.image("ghost_5", "assets/items/ghost_5.png");
   }
 
   create() {
     // 시작 → 맵으로 이동
-    // this.scene.start("경회루");
-
+    
     const inventoryStore = window.inventoryStore; // 전역 스토어 접근 (만들어둔 store.js 기준)
-
+    
     if (!this.game.registry.get("inventory")) {
       this.game.registry.set("inventory", createInventoryStore());
     }
@@ -160,10 +158,8 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
+    // this.scene.start("근정문");
     this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
-    if (!this.game.registry.get("inventory")) {
-      this.game.registry.set("inventory", createInventoryStore());
-    }
   }
 }
 

@@ -42,16 +42,9 @@ export default class ProblemScene extends Phaser.Scene {
 
     // 터치/클릭 시 다음 씬으로 이동
     this.input.once("pointerdown", () => {
-      const raw = this.rewardItem;
-      const reward = (typeof raw === "string") ? raw.trim() : null;
-      console.log("[ProblemScene] rewardItem(raw) =", raw, " => ", reward);
-      if (reward) {
-        autoGrant(this, reward);
-      } else {
-        console.warn("[ProblemScene] rewardItem 미설정 또는 빈 문자열");
-      }
       if (this.rewardItem) {
-        autoGrant(this.rewardItem);   // 예: "item_1" or "ghost_2"
+        console.log("[ProblemScene] 보상 아이템 지급:", this.rewardItem);
+        autoGrant(this, this.rewardItem);   // 예: "item_1" or "ghost_2"
       }
       this.scene.start(this.nextScene, {
         json: this.cache.json.get(this.nextParam),
