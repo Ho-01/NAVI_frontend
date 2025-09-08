@@ -13,11 +13,11 @@ export default class GourdOverlay {
     .setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
         this.gourdOverlay.setVisible(false);
-        this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.popupBg.setAlpha(0); this.popupText.setAlpha(0);
+        this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.popupBg.setAlpha(0); this.popupText.setAlpha(0); this.emptyGourdText.setAlpha(0);
     });
 
     // 호리병 배경 이미지
-    this.gourdImg = scene.add.image(W*0.5, H*0.5, "__dummy__").setAlpha(0).setScrollFactor(0);
+    this.gourdImg = scene.add.image(W*0.5, H*0.5, "__dummy__").setAlpha(0).setScrollFactor(0).setScale(1.5);
 
     // 악귀1
     this.ghost_1 = scene.add.image(W*0.2, H*0.5, "ghost_1").setOrigin(0.5).setScale(0.3).setAlpha(0)
@@ -43,6 +43,11 @@ export default class GourdOverlay {
         this.popupText.setText("악귀4: 악귀4입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
     });
 
+    // 악귀 없을 때 표시할 텍스트
+    this.emptyGourdText = scene.add.text(W*0.5, H*0.5, "호리병이 비었습니다", {
+        fontSize: Math.round(W*0.04), color:"#fff", align:"center"
+    }).setOrigin(0.5).setAlpha(0).setDepth(10001);
+
     // 악귀 설명 팝업 박스 + 텍스트
    this.popupBg = this.scene.add.rectangle(W/2, H/2, W*0.7, H*0.1, 0xfffaee, 0.95).setStrokeStyle(7, 0x333333).setDepth(10000).setAlpha(0);
    this.popupText = this.scene.add.text(W/2, H/2, "", {
@@ -51,7 +56,7 @@ export default class GourdOverlay {
    this.popupBg.setInteractive().on("pointerdown", () => { this.popupBg.setAlpha(0); this.popupText.setAlpha(0); });
 
     // 컨테이너에 모든 요소 넣어두기
-    this.gourdOverlay.add([this.bg, this.gourdImg, this.ghost_1, this.ghost_2, this.ghost_3, this.ghost_4, this.popupBg, this.popupText]);
+    this.gourdOverlay.add([this.bg, this.gourdImg, this.ghost_1, this.ghost_2, this.ghost_3, this.ghost_4, this.popupBg, this.popupText, this.emptyGourdText]);
   }
 
 
@@ -71,6 +76,8 @@ export default class GourdOverlay {
         보유중악귀.push(this[itemKey]);
     });
 
+    // 호리병 비었을 때 텍스트 표시
+    if(보유중악귀.length===0){this.emptyGourdText.setAlpha(1);}
     // 보유중인 악귀들만 페이드인 효과
     this.scene.tweens.add({ targets: 보유중악귀, alpha: 1.0, duration: 300, ease: "Quad.easeOut", delay: 200 });
     // 배경+호리병 페이드인 효과
