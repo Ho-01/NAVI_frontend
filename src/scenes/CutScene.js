@@ -56,12 +56,12 @@ export default class CutScene extends Phaser.Scene {
   // --- 이펙트 스위처 ---
   runEffect(effectName) {
     if(effectName==="진동"){
-        this.cameras.main.shake(180, 0.0025);
+        this.cameras.main.shake(180, 0.004);
     } else if(effectName==="섬광"){
-        this.cameras.main.flash(120);
+        this.cameras.main.flash(150);
     } else if(effectName==="천둥"){
-        this.cameras.main.flash(120, 230, 240, 255);
-        this.cameras.main.shake(150, 0.004);
+        this.cameras.main.flash(150, 230, 240, 255);
+        this.cameras.main.shake(180, 0.004);
     }
   }
 }
