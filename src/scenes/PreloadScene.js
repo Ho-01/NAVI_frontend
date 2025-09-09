@@ -188,4 +188,5 @@ export default class PreloadScene extends Phaser.Scene {
     }
     // this.scene.start("근정문");
     this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
+  }
 }
