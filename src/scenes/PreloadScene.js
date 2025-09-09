@@ -158,15 +158,19 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("map", "assets/map.png");
 
     // 아이템, 유령 이미지
-    this.load.image("item_1", "assets/items/item_1.png");
-    this.load.image("item_2", "assets/items/item_2.png");
-    this.load.image("item_3", "assets/items/item_3.png");
-    this.load.image("item_4", "assets/items/item_4.png");
+    this.load.image("item_1", "assets/items/item_백호.png");
+    this.load.image("item_2", "assets/items/item_주작.png");
+    this.load.image("item_3", "assets/items/item_청룡.png");
+    this.load.image("item_4", "assets/items/item_현무.png");
 
     this.load.image("ghost_1", "assets/items/ghost_1.png");
     this.load.image("ghost_2", "assets/items/ghost_2.png");
     this.load.image("ghost_3", "assets/items/ghost_3.png");
     this.load.image("ghost_4", "assets/items/ghost_4.png");
+
+    //오버레이 이미지
+    this.load.image("overlay_inventory", "assets/overlay/overlay_inventory.png");
+    this.load.image("overlay_bundle", "assets/overlay/overlay_bundle.png");
   }
 
   create() {
@@ -182,8 +186,7 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    // this.scene.start("교태전");
+    // this.scene.start("근정문");
     this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
   }
 }
-

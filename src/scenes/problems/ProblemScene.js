@@ -42,10 +42,12 @@ export default class ProblemScene extends Phaser.Scene {
 
     // 터치/클릭 시 다음 씬으로 이동
     this.input.once("pointerdown", () => {
+
+      // 보상 지급 (한 번만 지급되게 onceId 부여) 
       if (this.rewardItem) {
-        console.log("[ProblemScene] 보상 아이템 지급:", this.rewardItem);
-        autoGrant(this, this.rewardItem);   // 예: "item_1" or "ghost_2"
+        autoGrant(this, this.rewardItem, { onceId: `problem:${this.nextParam || this.title}` });
       }
+
       this.scene.start(this.nextScene, {
         json: this.cache.json.get(this.nextParam),
         returnScene: this.returnScene

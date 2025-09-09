@@ -11,7 +11,7 @@ export default class InventoryButton {
     const {
       xRatio = 0.10,  // 좌측 비율
       yRatio = 0.90,  // 하단 비율
-      scale = 0.08,
+      scale = 0.15,
       textureKey = "icon_인벤토리",
     } = opts;
 
