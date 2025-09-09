@@ -1,0 +1,10 @@
+{
+    "background": "bg_강녕전",
+    "leftChar": "잡귀",
+    "rightChar": "해태",
+    "script": [
+        { "name": "해태", "text": "얌전히 호리병 속으로 들어와라 잡귀녀석들!!", "pos": "right" },
+        { "name": "잡귀", "text": "끼아아아아아악", "pos": "left" },
+        { "name": "해태", "text": "어패다!! 놈들이 빨려들어가면서 바닥에 떨어뜨렸어!", "pos": "right" }
+    ]
+}

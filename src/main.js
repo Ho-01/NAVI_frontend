@@ -21,7 +21,7 @@ import 아미산 from "./scenes/maps/아미산";
 import 교태전 from "./scenes/maps/교태전";
 import 강녕전 from "./scenes/maps/강녕전";
 import 생물방 from "./scenes/maps/생물방";
-import 소주방우물 from "./scenes/maps/소주방우물";
+import 소주방 from "./scenes/maps/소주방";
 
 const config = {
   type: Phaser.AUTO,
@@ -33,7 +33,7 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [TitleScene, LoginScene, ScenarioSelectScene, 
-    서십자각터, 광화문, 흥례문, 영제교, 근정문, 수정전, 수정전_지도획득후, 경회루, 아미산, 교태전, 강녕전, 생물방, 소주방우물,
+    서십자각터, 광화문, 흥례문, 영제교, 근정문, 수정전, 수정전_지도획득후, 경회루, 아미산, 교태전, 강녕전, 생물방, 소주방,
     PreloadScene, MapScene, ProblemScene, MoveScene, DialogScene, CutScene, TutorialScene]
 };
 

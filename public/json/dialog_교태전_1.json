@@ -1,0 +1,9 @@
+{
+    "background": "bg_교태전",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "script": [
+		    { "name": "해태", "text": "강녕전 쪽에서 음산한 악귀의 기운이 느껴져…", "pos": "right" },
+		    { "name": "해태", "text": "조금만 더 가보자..", "pos": "right" }
+    ]
+}

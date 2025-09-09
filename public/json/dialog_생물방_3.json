@@ -1,0 +1,10 @@
+{
+    "background": "bg_생물방",
+    "leftChar": "아귀",
+    "rightChar": "해태",
+    "script": [
+		    { "name": "해태", "text": "얌전히 들어가라 아귀!", "pos": "right" },
+            { "name": "아귀", "text": "크아아아아아악!!!", "pos": "left" },
+		    { "name": "해태", "text": "어패도 같이 빨려들어가지 않게 조심해 {player}!!!", "pos": "right" }
+    ]
+}

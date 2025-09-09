@@ -5,7 +5,7 @@
     "nextScene": "ProblemScene",
     "nextParam": "problem8",
     "script": [
-            { "name": "{player}", "text": "분명 청룡님이 표시해준대로라면 굴뚝 근처에 어패가 있어야 하는데...", "pos": "left" },
+            { "name": "{player}", "text": "분명 청룡님이 표시해준대로라면 이 근처에 어패가 있어야 하는데...", "pos": "left" },
             { "name": "해태", "text": "굴뚝이 너무 많아서 어느 것이 어패를 숨기고 있는지 모르겠어...", "pos": "right" },
 		    { "name": "{player}", "text": "어...? 이것 좀 봐 해태. 굴뚝 무늬가 조금씩 달라!", "pos": "left" }
     ]

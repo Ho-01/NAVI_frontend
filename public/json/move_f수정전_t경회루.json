@@ -2,7 +2,7 @@
     "imageKey": "move",
     "text": "경회루로 이동해 주세요...",
     "moveCancel": "수정전_지도획득후",
-    "nextScene": "DialogScene",
-    "nextParam": "dialog_경회루_1",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_청룡등장",
     "tips": "경회루툴팁"
 }

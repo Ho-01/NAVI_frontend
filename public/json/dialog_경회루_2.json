@@ -2,6 +2,8 @@
     "background": "bg_경회루",
     "leftChar": "player",
     "rightChar": "청룡",
+    "nextScene": "TutorialScene",
+    "nextParam": "tutorial_어패함",
     "script": [
 		    { "name": "청룡", "text": "좋다.. 너희에게는 믿고 맡겨도 괜찮을 것 같군. 여기 [어패함]을 챙겨가거라", "pos": "right" },
             { "name": "{player}", "text": "감사합니다 청룡님!! 이건...?", "pos": "left" },

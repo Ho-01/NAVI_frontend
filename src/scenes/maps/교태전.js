@@ -79,11 +79,23 @@ export default class 교태전 extends Phaser.Scene {
     });
     생물방으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("생물방");
+        const inv = this.game.registry.get("inventory");
+        const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_4");
+        if(!현무어패획득여부){
+            this.scene.start("DialogScene", {json: this.cache.json.get("dialog_생물방_1"), returnScene: "생물방"});
+        }else{
+            this.scene.start("생물방");
+        }
     });
     강녕전으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("강녕전");
+        const inv = this.game.registry.get("inventory");
+        const 주작어패획득여부 = (inv?.items?.() ?? []).includes("item_3");
+        if(!주작어패획득여부){
+            this.scene.start("DialogScene", {json: this.cache.json.get("dialog_강녕전_1"), returnScene: "강녕전"});
+        }else{
+            this.scene.start("강녕전");   
+        }
     });
 
     // 지도 오버레이 초기화(처음 1회)

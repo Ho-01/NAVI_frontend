@@ -59,9 +59,9 @@ export default class 생물방 extends Phaser.Scene {
     const 짚신 = this.add.image(width*0.9, height*0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
     const 교태전으로 = this.add.image(width*0.10, height*0.80, "icon_왼쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
     this.tweens.add({ targets: 교태전으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
-    const 소주방우물로 = this.add.image(width*0.50, height*0.90, "icon_아래쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
-    this.tweens.add({ targets: 소주방우물로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
-    const 이동화살표 = { 교태전으로, 소주방우물로 }
+    const 소주방으로 = this.add.image(width*0.50, height*0.90, "icon_아래쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
+    this.tweens.add({ targets: 소주방으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
+    const 이동화살표 = { 교태전으로, 소주방으로 }
 
     짚신.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
@@ -75,9 +75,15 @@ export default class 생물방 extends Phaser.Scene {
     .on("pointerdown", () => {
         this.scene.start("교태전");
     });
-    소주방우물로.setInteractive({useHandCursor: true})
+    소주방으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
-        this.scene.start("소주방우물");
+        const inv = this.game.registry.get("inventory");
+        const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_4");
+        if(!현무어패획득여부){
+            this.scene.start("DialogScene", {json: this.cache.json.get("dialog_소주방_1"), returnScene: "소주방"});
+        }else{
+            this.scene.start("소주방");
+        }
     });
 
     // 지도 오버레이 초기화(처음 1회)
