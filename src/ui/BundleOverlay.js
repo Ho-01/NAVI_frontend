@@ -79,7 +79,7 @@ export default class BundleOverlay {
         const cell = Math.min(pw * 0.3, ph * 0.32);
 
         // 패널 스케일 보정(혹시 창 크기 바뀐 경우)
-        this.panel.setDisplaySize(W * 0.68, H * 0.50); // 화면의 68%×50%로 축소
+        this.panel.setDisplaySize(W * 0.9, H * 0.6);
 
         const cx = this.panel.x, cy = this.panel.y;
         const topY = cy - ph * 0.18;

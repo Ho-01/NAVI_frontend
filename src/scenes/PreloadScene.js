@@ -121,6 +121,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("어둑시니_근정문", "assets/char/char_어둑시니_근정문.png");
     this.load.image("어둑시니_영제교", "assets/char/char_어둑시니_영제교.png");
     this.load.image("청룡", "assets/char/char_청룡.png");
+    this.load.image("잡귀", "assets/char/char_잡귀.png");
+    this.load.image("아귀", "assets/char/char_아귀.png");
 
     // 맵 이름 띄울 빈 두루마리
     this.load.image("맵_타이틀", "assets/맵_타이틀.png");
