@@ -1,0 +1,12 @@
+{
+    "background": "bg_경회루",
+    "leftChar": "해태",
+    "rightChar": "청룡",
+    "nextScene": "ProblemScene",
+    "nextParam": "problem7",
+    "script": [
+		    { "name": "청룡", "text": "물렀거라! 이런 엄중한 시기에..! 여기가 어느 곳인 줄 알고 안방처럼 드나드느냐!", "pos": "right" },
+            { "name": "해태", "text": "처..청룡님..! 그게 아닙니다! 저희는 함께 봉인을 되돌리기 위해 노력하는 중입니다!", "pos": "left" },
+            { "name": "청룡", "text": "믿을 수 없구나! 너희가 직접 결백함과 올곧음을 증명해 보이거라..", "pos": "right" }
+    ]
+}

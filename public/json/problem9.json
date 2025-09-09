@@ -1,0 +1,10 @@
+{
+    "title": "문제9 - 강녕전/교태전",
+    "problem": "화면에 한자 **? 日 首 思 福**가 보인다. 아래 보기 중 물음표에 들어갈 글자를 고르라. 보기: ① 口 ② 場 ③ 二 ④ 追 ⑤",
+    "hint1": "ㅁ",
+    "hint2": "“글자 안의 네모(ㅁ) 를 세어 보자.”",
+    "answer": "① 口",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_강녕전_2",
+    "rewardItem": "item_3"
+}

@@ -1,0 +1,7 @@
+{
+    "effect": "섬광",
+    "imageKey": "cutscene_아귀처치",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_생물방_3",
+    "rewardItem": "item_4"
+}

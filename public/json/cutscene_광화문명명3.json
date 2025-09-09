@@ -1,0 +1,6 @@
+{
+    "effect": "진동",
+    "imageKey": "cutscene_광화문명명3",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_광화문명명4"
+}

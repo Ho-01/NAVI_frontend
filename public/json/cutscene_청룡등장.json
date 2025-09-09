@@ -1,0 +1,6 @@
+{
+    "effect": "천둥",
+    "imageKey": "cutscene_청룡등장",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_경회루_1"
+}

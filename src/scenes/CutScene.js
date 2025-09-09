@@ -1,0 +1,67 @@
+// CutScene.js
+import Phaser from "phaser";
+import autoGrant from "/src/features/inventory/autoGrant.js";
+
+export default class CutScene extends Phaser.Scene {
+  constructor() {
+    super({ key: "CutScene" });
+  }
+
+  init(data) {
+    const json = data.json;
+    if (!json) {
+        console.error("json undefined!", data);
+        return;
+    }
+    this.returnScene = data.returnScene;
+    this.effect = json.effect;
+    this.rewardItem = json.rewardItem || null; // 보상 아이템 (없을 수도 있음)
+    if(json.imageKey){
+      this.imageKey = json.imageKey;
+    } else{this.imageKey=null;}
+    if (json.nextScene) {
+      this.nextScene = json.nextScene;
+    }else{this.nextScene=null;}
+    if(json.nextParam){
+      this.nextParam = json.nextParam;
+    }else{this.nextParam=null;}
+  }
+
+  create() {
+    console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);
+    const { width: W, height: H } = this.scale;
+
+    this.cameras.main.setBackgroundColor("#000000");
+
+    const img = this.add.image(W * 0.5, H * 0.5, this.imageKey).setOrigin(0.5);
+    // 비율 유지 스케일링
+    const tex = this.textures.get(this.imageKey).getSourceImage();
+    const sx = W / tex.width, sy = H / tex.height;
+    const s = Math.min(sx, sy); // 전체 화면 안쪽에 꽉 차게
+    img.setScale(s);
+
+    // === 2) 이펙트 실행 ===
+    this.runEffect(this.effect);
+
+    // === 3) 터치/클릭 시 다음 씬으로 이동 ===
+    this.input.once("pointerdown", () => {
+      if (this.rewardItem) {
+        console.log("[ProblemScene] 보상 아이템 지급:", this.rewardItem);
+        autoGrant(this, this.rewardItem);   // 예: "item_1" or "ghost_2"
+      }
+      this.scene.start(this.nextScene, { json: this.cache.json.get(this.nextParam), returnScene: this.returnScene });
+    });
+  }
+
+  // --- 이펙트 스위처 ---
+  runEffect(effectName) {
+    if(effectName==="진동"){
+        this.cameras.main.shake(180, 0.004);
+    } else if(effectName==="섬광"){
+        this.cameras.main.flash(150);
+    } else if(effectName==="천둥"){
+        this.cameras.main.flash(150, 230, 240, 255);
+        this.cameras.main.shake(180, 0.004);
+    }
+  }
+}

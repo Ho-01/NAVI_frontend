@@ -1,0 +1,13 @@
+{
+    "background": "bg_영제교",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "nextScene": "ProblemScene",
+    "nextParam": "problem4",
+    "script": [
+            { "name": "해태", "text": "뭔가 이상해...!", "pos": "right" },
+		    { "name": "{player}", "text": "무슨 일이야 해태??", "pos": "left" },
+		    { "name": "해태", "text": "다리 아래 석상에서 악귀의 기운이 느껴져.. 이대로는 앞으로 지나갈 수 없을 것 같아", "pos": "right" },
+		    { "name": "해태", "text": "분명 허점이 있을 거야! 찾아보자!", "pos": "right" }
+    ]
+}

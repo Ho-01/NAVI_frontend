@@ -1,0 +1,11 @@
+{
+    "background": "bg_흥례문",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "nextScene": "ProblemScene",
+    "nextParam": "problem3",
+    "script": [
+		    { "name": "해태", "text": "잠깐!! 그렇게 마구잡이로 들어가면 안돼!!", "pos": "right" },
+            { "name": "해태", "text": "아무리 지금같이 긴박한 상황이라도 흥례문에 들어설 때는 예를 갖춰야 한다구!!", "pos": "right" }
+    ]
+}

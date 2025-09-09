@@ -1,0 +1,8 @@
+{
+    "imageKey": "move",
+    "text": "영제교로 이동해 주세요...",
+    "moveCancel": false,
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_영제교_1",
+    "tips": "흥례문 중앙에서 경복궁 안쪽을 들여다보면 영제교를 지나 근정문, 근정전이 차례로 일자로 서 있는 것을 볼 수 있습니다. 근정전에 가려 보이지는 않는 사정전과 강령전, 교태전도 모두 일자로 배치되어 있습니다"
+}

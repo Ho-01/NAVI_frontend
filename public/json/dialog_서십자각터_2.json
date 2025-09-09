@@ -1,0 +1,14 @@
+{
+    "background": "bg_서십자각터_dark",
+    "leftChar": "세종의 영혼",
+    "rightChar": "player",
+    "nextScene": "TutorialScene",
+    "nextParam": "tutorial_이동",
+    "script": [
+        { "name": "{player}", "text": "?!!!", "pos": "right" },
+        { "name": "세종의 영혼", "text": "물러서거라!!!", "pos": "left" },
+        { "name": "{player}", "text": "!!!", "pos": "right" },
+        { "name": "세종의 영혼", "text": "봉인을 붙잡아두는데 한계가 있으니 광화문으로 가서 해태의 도움을 구하거라!!", "pos": "left" },
+        { "name": "{player}", "text": "네.. 넵!!", "pos": "right" }
+    ]
+}
