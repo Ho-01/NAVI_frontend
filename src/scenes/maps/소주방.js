@@ -5,26 +5,24 @@ import InventoryOverlay from "../../ui/InventoryOverlay";
 import BundleOverlay from "../../ui/BundleOverlay";
 import RewardPopup from "../../ui/RewardPopup";
 
-export default class 소주방우물 extends Phaser.Scene {
+
+export default class 소주방 extends Phaser.Scene {
   constructor() {
-    super({ key: "소주방우물" });
+    super({ key: "소주방" });
   }
 
   create() {
-    console.log("소주방우물 맵");
+    console.log("소주방 맵");
     const { width, height } = this.scale;
-    this.bg = this.add.image(width * 0.5, height * 0.5, "bg_소주방우물").setOrigin(0.5).setDepth(-1);
+    this.bg = this.add.image(width*0.5, height*0.5, "bg_소주방").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
     // 맵 타이틀
     const mapTitle = this.add.image(width * 0.3, height * 0.07, "맵_타이틀").setOrigin(0.5).setScale(0.7).setAlpha(0);
     this.tweens.add({ targets: mapTitle, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
-    const mapTitleText = this.add.text(width * 0.3, height * 0.065, "소주방 우물", { fontSize: width * 0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
+    const mapTitleText = this.add.text(width*0.3, height*0.065, "소주방", { fontSize: width*0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
-
-    // 씬 진입 시 자동 지급(매핑표 기준) 
-    AutoGrant(this);
 
     // 호리병,인벤토리 오버레이 준비 
     const inv = this.game.registry.get("inventory");
@@ -63,11 +61,17 @@ export default class 소주방우물 extends Phaser.Scene {
         } else {
           Object.values(이동화살표).forEach(icon => icon.setVisible(false));
         }
-      });
-    생물방으로.setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => {
-        this.scene.start("생물방");
-      });
+    });
+    생물방으로.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        const inv = this.game.registry.get("inventory");
+        const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_4");
+        if(!현무어패획득여부){
+            this.scene.start("DialogScene", {json: this.cache.json.get("dialog_생물방_2"), returnScene: "생물방"});
+        }else{
+            this.scene.start("생물방");
+        }
+    });
 
     // 지도 오버레이 초기화(처음 1회)
     this.initMapOverlay();

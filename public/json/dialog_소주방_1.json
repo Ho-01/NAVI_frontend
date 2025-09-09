@@ -1,0 +1,12 @@
+{
+    "background": "bg_소주방",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "nextScene": "ProblemScene",
+    "nextParam": "problem_10",
+    "script": [
+		    { "name": "해태", "text": "휴… 들키지 않았어", "pos": "right" },
+            { "name": "{player}", "text": "저 녀석을 어쩌지? 지도에 표시된 걸 보니 어패를 갖고 있는 것 같은데…", "pos": "left" },
+		    { "name": "해태", "text": "아귀는 물에 약해. 마침 여기 우물이 있으니까 물을 퍼다가 부어버리자!", "pos": "right" }
+    ]
+}

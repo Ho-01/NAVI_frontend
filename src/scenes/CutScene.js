@@ -1,5 +1,6 @@
 // CutScene.js
 import Phaser from "phaser";
+import autoGrant from "/src/features/inventory/autoGrant.js";
 
 export default class CutScene extends Phaser.Scene {
   constructor() {
@@ -14,6 +15,7 @@ export default class CutScene extends Phaser.Scene {
     }
     this.returnScene = data.returnScene;
     this.effect = json.effect;
+    this.rewardItem = json.rewardItem || null; // 보상 아이템 (없을 수도 있음)
     if(json.imageKey){
       this.imageKey = json.imageKey;
     } else{this.imageKey=null;}
@@ -42,20 +44,24 @@ export default class CutScene extends Phaser.Scene {
     this.runEffect(this.effect);
 
     // === 3) 터치/클릭 시 다음 씬으로 이동 ===
-    this.input.once("pointerdown", () => 
-        this.scene.start(this.nextScene, { json: this.cache.json.get(this.nextParam), returnScene: this.returnScene })
-    );
+    this.input.once("pointerdown", () => {
+      if (this.rewardItem) {
+        console.log("[ProblemScene] 보상 아이템 지급:", this.rewardItem);
+        autoGrant(this, this.rewardItem);   // 예: "item_1" or "ghost_2"
+      }
+      this.scene.start(this.nextScene, { json: this.cache.json.get(this.nextParam), returnScene: this.returnScene });
+    });
   }
 
   // --- 이펙트 스위처 ---
   runEffect(effectName) {
     if(effectName==="진동"){
-        this.cameras.main.shake(180, 0.0025);
+        this.cameras.main.shake(180, 0.004);
     } else if(effectName==="섬광"){
-        this.cameras.main.flash(120);
+        this.cameras.main.flash(150);
     } else if(effectName==="천둥"){
-        this.cameras.main.flash(120, 230, 240, 255);
-        this.cameras.main.shake(150, 0.004);
+        this.cameras.main.flash(150, 230, 240, 255);
+        this.cameras.main.shake(180, 0.004);
     }
   }
 }

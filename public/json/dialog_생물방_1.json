@@ -1,0 +1,11 @@
+{
+    "background": "bg_생물방",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "script": [
+		    { "name": "해태", "text": "쉿..!", "pos": "right" },
+            { "name": "{player}", "text": "(왜그래 해태?)", "pos": "left" },
+		    { "name": "해태", "text": "(저쪽을 봐 {player}! 아귀야… 아직 우리를 눈치채지 못했나봐)", "pos": "right" },
+            { "name": "해태", "text": "(조용히 소주방으로 넘어가자..!)", "pos": "right" }
+    ]
+}

@@ -23,9 +23,6 @@ export default class 교태전 extends Phaser.Scene {
         const mapTitleText = this.add.text(width * 0.3, height * 0.065, "교태전", { fontSize: width * 0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
         this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
-        // 씬 진입 시 자동 지급(매핑표 기준) 
-        AutoGrant(this);
-
         // 호리병,인벤토리 오버레이 준비 
         const inv = this.game.registry.get("inventory");
         this.inventoryOverlay = new InventoryOverlay(this);
@@ -50,7 +47,6 @@ export default class 교태전 extends Phaser.Scene {
                 this.bundleOverlay.show();   // ← toggleAt 제거
             });
 
-
         // 이동메뉴
         const 짚신 = this.add.image(width * 0.9, height * 0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
         const 아미산으로 = this.add.image(width * 0.50, height * 0.40, "icon_위쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);
@@ -61,26 +57,38 @@ export default class 교태전 extends Phaser.Scene {
         this.tweens.add({ targets: 강녕전으로, alpha: { from: 0.1, to: 1 }, duration: 700, yoyo: true, repeat: -1, hold: 100, repeatDelay: 100, ease: "Quad.easeInOut" });
         const 이동화살표 = { 아미산으로, 강녕전으로, 생물방으로 }
 
-        짚신.setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => {
-                if (아미산으로.visible === false) {
-                    Object.values(이동화살표).forEach(icon => icon.setVisible(true));
-                } else {
-                    Object.values(이동화살표).forEach(icon => icon.setVisible(false));
-                }
-            });
-        아미산으로.setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => {
-                this.scene.start("아미산");
-            });
-        생물방으로.setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => {
+        짚신.setInteractive({useHandCursor: true})
+        .on("pointerdown", () => {
+            if(아미산으로.visible===false){
+                Object.values(이동화살표).forEach(icon => icon.setVisible(true));
+            }else{
+                Object.values(이동화살표).forEach(icon => icon.setVisible(false));
+            }
+        });
+        아미산으로.setInteractive({useHandCursor: true})
+        .on("pointerdown", () => {
+            this.scene.start("아미산");
+        });
+        생물방으로.setInteractive({useHandCursor: true})
+        .on("pointerdown", () => {
+            const inv = this.game.registry.get("inventory");
+            const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_4");
+            if(!현무어패획득여부){
+                this.scene.start("DialogScene", {json: this.cache.json.get("dialog_생물방_1"), returnScene: "생물방"});
+            }else{
                 this.scene.start("생물방");
-            });
-        강녕전으로.setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => {
-                this.scene.start("강녕전");
-            });
+            }
+        });
+        강녕전으로.setInteractive({useHandCursor: true})
+        .on("pointerdown", () => {
+            const inv = this.game.registry.get("inventory");
+            const 주작어패획득여부 = (inv?.items?.() ?? []).includes("item_3");
+            if(!주작어패획득여부){
+                this.scene.start("DialogScene", {json: this.cache.json.get("dialog_강녕전_1"), returnScene: "강녕전"});
+            }else{
+                this.scene.start("강녕전");   
+            }
+        });
 
         // 지도 오버레이 초기화(처음 1회)
         this.initMapOverlay();

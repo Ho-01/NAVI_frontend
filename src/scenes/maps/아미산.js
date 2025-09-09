@@ -23,9 +23,6 @@ export default class 아미산 extends Phaser.Scene {
     const mapTitleText = this.add.text(width * 0.3, height * 0.065, "아미산", { fontSize: width * 0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
-    // 씬 진입 시 자동 지급(매핑표 기준) 
-    AutoGrant(this);
-
     // 호리병,인벤토리 오버레이 준비 
     const inv = this.game.registry.get("inventory");
     this.inventoryOverlay = new InventoryOverlay(this);
@@ -63,11 +60,17 @@ export default class 아미산 extends Phaser.Scene {
         } else {
           Object.values(이동화살표).forEach(icon => icon.setVisible(false));
         }
-      });
-    교태전으로.setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => {
-        this.scene.start("교태전");
-      });
+    });
+    교태전으로.setInteractive({useHandCursor: true})
+    .on("pointerdown", () => {
+        const inv = this.game.registry.get("inventory");
+        const 주작어패획득여부 = (inv?.items?.() ?? []).includes("item_3");
+        if(!주작어패획득여부){
+            this.scene.start("DialogScene", {json: this.cache.json.get("dialog_교태전_1"), returnScene: "교태전"});
+        }else{
+            this.scene.start("교태전");   
+        }
+    });
 
     // 지도 오버레이 초기화(처음 1회)
     this.initMapOverlay();
