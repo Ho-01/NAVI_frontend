@@ -12,9 +12,10 @@ export default class InventoryOverlay {
       .on("pointerdown", () => this.hide());
 
     const panel = scene.add.image(W / 2, H / 2, "overlay_inventory").setOrigin(0.5);
-   this.panelSize = { w: W*1.2, h: H*0.68 };
+    const tex = scene.textures.get("overlay_inventory")?.getSourceImage?.();
+    if (tex) panel.setScale(Math.min((W * 0.85) / tex.width, (H * 0.75) / tex.height));
 
-    const title = scene.add.text(W / 2, H * 0.22, {
+    const title = scene.add.text(W / 2, H * 0.22,  {
       fontSize: Math.round(W * 0.05), color: "#000", fontStyle: "bold",
     }).setOrigin(0.5);
 
@@ -25,15 +26,15 @@ export default class InventoryOverlay {
 
 
     const inv = scene.game.registry.get("inventory");
-    inv?.events?.on("inventory:granted", () => {
-      if (!this.root.visible) return;
-      this._render((inv.items?.() ?? []).filter(this._allow));
-    });
-    inv?.events?.on("inventory:removed", () => {
-      if (!this.root.visible) return;
-      this._render((inv.items?.() ?? []).filter(this._allow));
-    });
-
+    const onGranted = (k) => { 
+   if (!this.container || this.container.destroyed) return; // null/파괴 가드 
+   // 자동 오픈 원치 않으면 visible 건드리지 말고 목록만 갱신 
+   this.refresh && this.refresh(); 
+ }; 
+ inv?.events?.on("inventory:granted", onGranted); 
+ this.scene.events.once(Phaser.Scenes.Events.DESTROY, () => { 
+   inv?.events?.off("inventory:granted", onGranted); 
+});
     scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.destroy());
     scene.events.once(Phaser.Scenes.Events.DESTROY, () => this.destroy());
   }
@@ -55,7 +56,7 @@ export default class InventoryOverlay {
     this.content.removeAll(true);
 
     if (!items.length) {
-      this.content.add(s.add.text(W / 2, H * 0.52, {
+      this.content.add(s.add.text(W / 2, H * 0.52,  {
         fontSize: Math.round(W * 0.035), color: "#222",
       }).setOrigin(0.5));
       return;

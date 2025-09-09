@@ -78,7 +78,7 @@ export default class 수정전 extends Phaser.Scene {
 
         this.cameras.main.fadeIn(50, 0, 0, 0); // 진입시 페이드인
 
-        this.rewardPopup = new RewardPopup(this);
+    this.rewardPopup = new RewardPopup(this, { ignoreList: ["map", "bundle", "지도", "상자"] })
 
     }
 

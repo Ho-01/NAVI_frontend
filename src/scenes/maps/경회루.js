@@ -4,6 +4,7 @@ import AutoGrant from "../../features/inventory/autoGrant";
 import InventoryOverlay from "../../ui/InventoryOverlay";
 import BundleOverlay from "../../ui/BundleOverlay";
 import RewardPopup from "../../ui/RewardPopup";
+import { createInventoryStore } from "../../features/inventory/store";
 
 export default class 경회루 extends Phaser.Scene {
   constructor() {
@@ -11,6 +12,7 @@ export default class 경회루 extends Phaser.Scene {
   }
 
   create() {
+
     console.log("경회루 맵");
     const { width, height } = this.scale;
     this.bg = this.add.image(width * 0.5, height * 0.5, "bg_경회루").setOrigin(0.5).setDepth(-1);
@@ -23,8 +25,16 @@ export default class 경회루 extends Phaser.Scene {
     const mapTitleText = this.add.text(width * 0.3, height * 0.065, "경회루", { fontSize: width * 0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
-    // 씬 진입 시 자동 지급(매핑표 기준) 
-    AutoGrant(this);
+
+    if (!this.game.registry.get("inventory"))
+      this.game.registry.set("inventory", createInventoryStore());
+    if (!this.game.registry.get("gourd"))
+      this.game.registry.set("gourd", createInventoryStore());
+
+    // 팝업은 '항상' 먼저 1회 생성 (지도/상자 제외) 
+    this.rewardPopup = new RewardPopup(this, {
+      ignoreList: ["map", "bundle", "box", "chest", "지도", "상자"]
+    });
 
 
 
@@ -53,7 +63,8 @@ export default class 경회루 extends Phaser.Scene {
       });
 
 
-    // 씬 진입 시 자동 지급(매핑표 기준)
+    // 씬 진입 시 자동 지급(매핑표 기준) 
+    AutoGrant(this);
 
     // 이동메뉴
     const 짚신 = this.add.image(width * 0.9, height * 0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
@@ -79,6 +90,7 @@ export default class 경회루 extends Phaser.Scene {
 
     this.cameras.main.fadeIn(50, 0, 0, 0); // 진입시 페이드인
 
+    this.rewardPopup = new RewardPopup(this);
   }
 
   initMapOverlay() {
@@ -110,7 +122,6 @@ export default class 경회루 extends Phaser.Scene {
     this.tweens.add({ targets: bg, alpha: 0.65, duration: 150, ease: "Quad.easeOut" });
     this.tweens.add({ targets: mapImg, alpha: 1.0, duration: 180, ease: "Quad.easeOut" });
 
-    this.rewardPopup = new RewardPopup(this);
 
   }
 

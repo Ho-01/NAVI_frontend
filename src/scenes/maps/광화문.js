@@ -42,12 +42,6 @@ export default class 광화문 extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.bundleOverlay.show();   // ← toggleAt 제거
             });
-        // 호리병아이콘.setInteractive({useHandCursor: true})
-        // .on("pointerdown", () => {
-        //     console.log("호리병 아이콘 클릭");
-        //     this.gourdOverlay.show();
-        // });
-
 
         // 이동메뉴
         const 짚신 = this.add.image(width * 0.9, height * 0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);

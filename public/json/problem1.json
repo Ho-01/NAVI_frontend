@@ -5,5 +5,6 @@
     "hint2": false,
     "answer": "알맞게 퍼즐 맞추기",
     "nextScene": "CutScene",
-    "nextParam": "cutscene1"
+    "nextParam": "cutscene1",
+    "rewardItem": "ghost_1"
 }

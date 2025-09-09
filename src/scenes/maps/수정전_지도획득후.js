@@ -100,7 +100,7 @@ export default class 수정전_지도획득후 extends Phaser.Scene {
     this.tweens.add({ targets: bg, alpha: 0.65, duration: 150, ease: "Quad.easeOut" });
     this.tweens.add({ targets: mapImg, alpha: 1.0, duration: 180, ease: "Quad.easeOut" });
 
-    this.rewardPopup = new RewardPopup(this);
+    this.rewardPopup = new RewardPopup(this, { ignoreList: ["map", "bundle", "지도", "상자"] })
 
   }
 }
