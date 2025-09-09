@@ -62,10 +62,6 @@ export default class 경회루 extends Phaser.Scene {
         this.bundleOverlay.show();   // ← toggleAt 제거
       });
 
-
-    // 씬 진입 시 자동 지급(매핑표 기준) 
-    AutoGrant(this);
-
     // 이동메뉴
     const 짚신 = this.add.image(width * 0.9, height * 0.9, "icon_짚신").setOrigin(0.5).setScale(0.8).setAlpha(1);
     const 아미산으로 = this.add.image(width * 0.90, height * 0.70, "icon_오른쪽이동").setOrigin(0.5).setScale(0.4).setVisible(false);

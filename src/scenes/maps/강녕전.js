@@ -18,6 +18,15 @@ export default class 강녕전 extends Phaser.Scene {
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기
     this.bg.setScale(Math.max(width / this.bg.width, height / this.bg.height));
 
+    // 어패4개 모두 획득했는지 체크
+    const inv = this.game.registry.get("inventory");
+    const items = inv?.items?.() ?? [];   // ← 보유한 것만
+    const need = ["item_1", "item_2", "item_3", "item_4"];
+    const hasAll = need.every(k => items.includes(k));
+    if(hasAll){
+        this.scene.start("DialogScene", {json: this.cache.json.get("dialog_근정전_1"), returnScene: "근정전_dark"});
+    }
+
     // 맵 타이틀
     const mapTitle = this.add.image(width * 0.3, height * 0.07, "맵_타이틀").setOrigin(0.5).setScale(0.7).setAlpha(0);
     this.tweens.add({ targets: mapTitle, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
@@ -25,7 +34,6 @@ export default class 강녕전 extends Phaser.Scene {
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
     // 호리병,인벤토리 오버레이 준비 
-    const inv = this.game.registry.get("inventory");
     this.inventoryOverlay = new InventoryOverlay(this);
     this.gourdOverlay = new GourdOverlay(this);
 

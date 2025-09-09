@@ -41,6 +41,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog_생물방_3", "json/dialog_생물방_3.json");
     this.load.json("dialog_소주방_1", "json/dialog_소주방_1.json");
     this.load.json("dialog_소주방_2", "json/dialog_소주방_2.json");
+    this.load.json("dialog_근정전_1", "json/dialog_근정전_1.json");
 
     // JSON 컷씬 파일 로드
     this.load.json("cutscene1", "json/cutscene1.json");
@@ -140,6 +141,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("bg_교태전", "assets/bg/bg_교태전.png");
     this.load.image("bg_생물방", "assets/bg/bg_생물방.png");
     this.load.image("bg_소주방", "assets/bg/bg_소주방.png");
+    this.load.image("bg_근정전_dark", "assets/bg/bg_근정전_dark.png");
     this.load.image("scroll", "assets/scroll.png");
 
     // 아이콘
@@ -186,7 +188,7 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    // this.scene.start("근정문");
-    this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
+    this.scene.start("수정전_지도획득후");
+    // this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
   }
 }
