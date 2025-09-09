@@ -1,0 +1,8 @@
+{
+    "imageKey": "move",
+    "text": "아미산으로 이동해 주세요...",
+    "moveCancel": false,
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_아미산_1",
+    "tips": "아미산 툴팁"
+}

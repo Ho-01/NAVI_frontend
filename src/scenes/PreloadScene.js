@@ -30,6 +30,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog_수정전_1", "json/dialog_수정전_1.json");
     this.load.json("dialog_수정전_2", "json/dialog_수정전_2.json");
     this.load.json("dialog_경회루_1", "json/dialog_경회루_1.json");
+    this.load.json("dialog_경회루_2", "json/dialog_경회루_2.json");
+    this.load.json("dialog_아미산_1", "json/dialog_아미산_1.json");
+    this.load.json("dialog_아미산_2", "json/dialog_아미산_2.json");
 
     // JSON 컷씬 파일 로드
     this.load.json("cutscene1", "json/cutscene1.json");
@@ -61,6 +64,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("problem4", "json/problem4.json");
     this.load.json("problem5", "json/problem5.json");
     this.load.json("problem6", "json/problem6.json");
+    this.load.json("problem7", "json/problem7.json");
+    this.load.json("problem8", "json/problem8.json");
     // JSON 맵 이동 파일 로드
     this.load.json("move_f서십자각터_t광화문", "json/move_f서십자각터_t광화문.json");
     this.load.json("move_f광화문_t흥례문", "json/move_f광화문_t흥례문.json");
@@ -68,6 +73,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("move_f영제교_t근정문", "json/move_f영제교_t근정문.json");
     this.load.json("move_f근정문_t수정전", "json/move_f근정문_t수정전.json");
     this.load.json("move_f수정전_t경회루", "json/move_f수정전_t경회루.json");
+    this.load.json("move_f경회루_t아미산", "json/move_f경회루_t아미산.json");
     // JSON 튜토리얼 파일 로드
     this.load.json("tutorial_이동", "json/tutorial_이동.json");
     this.load.json("tutorial_지도", "json/tutorial_지도.json");
@@ -134,15 +140,19 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("map", "assets/map.png");
 
     // 아이템, 유령 이미지
-    this.load.image("item_1", "assets/items/item_1.png");
-    this.load.image("item_2", "assets/items/item_2.png");
-    this.load.image("item_3", "assets/items/item_3.png");
-    this.load.image("item_4", "assets/items/item_4.png");
+    this.load.image("item_1", "assets/items/item_백호.png");
+    this.load.image("item_2", "assets/items/item_주작.png");
+    this.load.image("item_3", "assets/items/item_청룡.png");
+    this.load.image("item_4", "assets/items/item_현무.png");
 
     this.load.image("ghost_1", "assets/items/ghost_1.png");
     this.load.image("ghost_2", "assets/items/ghost_2.png");
     this.load.image("ghost_3", "assets/items/ghost_3.png");
     this.load.image("ghost_4", "assets/items/ghost_4.png");
+
+    //오버레이 이미지
+    this.load.image("overlay_inventory", "assets/overlay/overlay_inventory.png");
+    this.load.image("overlay_bundle", "assets/overlay/overlay_bundle.png");
   }
 
   create() {
@@ -160,6 +170,4 @@ export default class PreloadScene extends Phaser.Scene {
     }
     // this.scene.start("근정문");
     this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
-  }
 }
-

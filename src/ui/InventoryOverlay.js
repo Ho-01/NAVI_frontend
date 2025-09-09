@@ -11,22 +11,30 @@ export default class InventoryOverlay {
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => this.hide());
 
-    const panel = scene.add.image(W / 2, H / 2, "scroll").setOrigin(0.5);
-    const tex = scene.textures.get("scroll")?.getSourceImage?.();
+    const panel = scene.add.image(W / 2, H / 2, "overlay_inventory").setOrigin(0.5);
+    const tex = scene.textures.get("overlay_inventory")?.getSourceImage?.();
     if (tex) panel.setScale(Math.min((W * 0.85) / tex.width, (H * 0.75) / tex.height));
 
-    const title = scene.add.text(W / 2, H * 0.22, "인벤토리", {
+    const title = scene.add.text(W / 2, H * 0.22,  {
       fontSize: Math.round(W * 0.05), color: "#000", fontStyle: "bold",
     }).setOrigin(0.5);
 
     this.content = scene.add.container(0, 0);
     this.root.add([dim, panel, title, this.content]);
 
-    const inv = scene.game.registry.get("inventory");
-    inv?.events?.on("inventory:granted", () => {
-      if (this.root?.visible) this.render(inv.items());
-    });
+    this._allow = (k) => /^item_/i.test(k) || /^ghost_/i.test(k);
 
+
+    const inv = scene.game.registry.get("inventory");
+    const onGranted = (k) => { 
+   if (!this.container || this.container.destroyed) return; // null/파괴 가드 
+   // 자동 오픈 원치 않으면 visible 건드리지 말고 목록만 갱신 
+   this.refresh && this.refresh(); 
+ }; 
+ inv?.events?.on("inventory:granted", onGranted); 
+ this.scene.events.once(Phaser.Scenes.Events.DESTROY, () => { 
+   inv?.events?.off("inventory:granted", onGranted); 
+});
     scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.destroy());
     scene.events.once(Phaser.Scenes.Events.DESTROY, () => this.destroy());
   }
@@ -35,19 +43,20 @@ export default class InventoryOverlay {
 
   show() {
     const inv = this.scene.game.registry.get("inventory");
-    const items = inv?.items?.() ?? [];       // ← 보유한 것만 
+    const items = (inv?.items?.() ?? []).filter(this._allow);       // ← 보유한 것만 
     this.render(items);
     this.root?.setVisible(true);
   }
   hide() { this.root?.setVisible(false); }
 
   render(items = []) {
+    items = items.filter(this._allow);
     const s = this.scene; if (!this.content) return;
     const { width: W, height: H } = s.scale;
     this.content.removeAll(true);
 
     if (!items.length) {
-      this.content.add(s.add.text(W / 2, H * 0.52, "보유한 아이템이 없습니다.", {
+      this.content.add(s.add.text(W / 2, H * 0.52,  {
         fontSize: Math.round(W * 0.035), color: "#222",
       }).setOrigin(0.5));
       return;
