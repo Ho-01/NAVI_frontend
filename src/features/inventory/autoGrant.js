@@ -4,6 +4,7 @@ import { updateMyInventory } from "./api";
 function routeStoreByKey(key) {
   if (/^ghost_\d+$/i.test(key)) return "gourd";
   if (/^item_\d+$/i.test(key)) return "inventory";
+  if (key === "map" || key === "box") return "inventory";
   return null;
 }
 

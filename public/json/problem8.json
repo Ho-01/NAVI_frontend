@@ -5,5 +5,6 @@
     "hint2": "- 십장생: 학, 사슴, 거북, 소나무, 불로초, 해, 달, 구름, 산, 물  - 부귀: 봉황, 박쥐, 매화, 국화",
     "answer": "4",
     "nextScene": "DialogScene",
-    "nextParam": "dialog_아미산_2"
+    "nextParam": "dialog_아미산_2",
+    "rewardItem": "item_1"
 }

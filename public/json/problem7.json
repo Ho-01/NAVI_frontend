@@ -5,5 +5,6 @@
     "hint2": "몇개 씩 있을까요?",
     "answer": "12, 24, 3",
     "nextScene": "DialogScene",
-    "nextParam": "dialog_경회루_2"
+    "nextParam": "dialog_경회루_2",
+    "rewardItem": "item_3"
 }
