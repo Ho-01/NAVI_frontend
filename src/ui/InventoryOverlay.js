@@ -15,7 +15,7 @@ export default class InventoryOverlay {
     const tex = scene.textures.get("overlay_inventory")?.getSourceImage?.();
     if (tex) panel.setScale(Math.min((W * 0.85) / tex.width, (H * 0.75) / tex.height));
 
-    const title = scene.add.text(W / 2, H * 0.22,  {
+    const title = scene.add.text(W / 2, H * 0.22, {
       fontSize: Math.round(W * 0.05), color: "#000", fontStyle: "bold",
     }).setOrigin(0.5);
 
@@ -26,15 +26,15 @@ export default class InventoryOverlay {
 
 
     const inv = scene.game.registry.get("inventory");
-    const onGranted = (k) => { 
-   if (!this.container || this.container.destroyed) return; // null/파괴 가드 
-   // 자동 오픈 원치 않으면 visible 건드리지 말고 목록만 갱신 
-   this.refresh && this.refresh(); 
- }; 
- inv?.events?.on("inventory:granted", onGranted); 
- this.scene.events.once(Phaser.Scenes.Events.DESTROY, () => { 
-   inv?.events?.off("inventory:granted", onGranted); 
-});
+    const onGranted = (k) => {
+      if (!this.container || this.container.destroyed) return; // null/파괴 가드 
+      // 자동 오픈 원치 않으면 visible 건드리지 말고 목록만 갱신 
+      this.refresh && this.refresh();
+    };
+    inv?.events?.on("inventory:granted", onGranted);
+    this.scene.events.once(Phaser.Scenes.Events.DESTROY, () => {
+      inv?.events?.off("inventory:granted", onGranted);
+    });
     scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.destroy());
     scene.events.once(Phaser.Scenes.Events.DESTROY, () => this.destroy());
   }
@@ -56,14 +56,14 @@ export default class InventoryOverlay {
     this.content.removeAll(true);
 
     if (!items.length) {
-      this.content.add(s.add.text(W / 2, H * 0.52,  {
+      this.content.add(s.add.text(W / 2, H * 0.52, {
         fontSize: Math.round(W * 0.035), color: "#222",
       }).setOrigin(0.5));
       return;
     }
 
     const cols = 4, cellW = W * 0.18, cellH = H * 0.14;
-    const startX = W / 2 - (cellW * (cols - 1)) / 2, startY = H * 0.32;
+    const startX = W / 2 - (cellW * (cols - 1)) / 2, startY = H * 0.55;
 
     items.forEach((key, i) => {
       const c = i % cols, r = Math.floor(i / cols);
@@ -75,13 +75,11 @@ export default class InventoryOverlay {
       if (texKey) {
         const img = s.add.image(x, y, texKey).setOrigin(0.5);
         const raw = s.textures.get(texKey)?.getSourceImage?.();
-        if (raw) img.setScale(Math.min((cellW * 0.7) / raw.width, (cellH * 0.6) / raw.height));
-        const label = s.add.text(x, y + cellH * 0.33, key, { fontSize: Math.round(W * 0.028), color: "#000" }).setOrigin(0.5);
-        this.content.add([img, label]);
+        if (raw) img.setScale(Math.min((cellW * 0.85) / raw.width, (cellH * 0.8) / raw.height));
+        this.content.add([img]);
       } else {
         const box = s.add.rectangle(x, y, cellW * 0.7, cellH * 0.55, 0xffffff, 0.9).setStrokeStyle(2, 0x333333);
-        const label = s.add.text(x, y, key, { fontSize: Math.round(W * 0.03), color: "#000" }).setOrigin(0.5);
-        this.content.add([box, label]);
+        this.content.add([box]);
       }
     });
   }

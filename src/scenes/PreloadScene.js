@@ -13,6 +13,9 @@ export default class PreloadScene extends Phaser.Scene {
       fontSize: "32px",
       color: "#ffffffff"
     }).setOrigin(0.5);
+    //팝업 띄우기위한 세팅
+    if (!this.game.registry.get("rewardQueue"))
+      this.game.registry.set("rewardQueue", []);
 
     // JSON 대사 파일 로드
     this.load.json("dialog_서십자각터_1", "json/dialog_서십자각터_1.json");
@@ -162,10 +165,10 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("map", "assets/map.png");
 
     // 아이템, 유령 이미지
-    this.load.image("item_1", "assets/items/item_백호.png");
-    this.load.image("item_2", "assets/items/item_주작.png");
-    this.load.image("item_3", "assets/items/item_청룡.png");
-    this.load.image("item_4", "assets/items/item_현무.png");
+    this.load.image("item_백호", "assets/items/item_백호.png");
+    this.load.image("item_주작", "assets/items/item_주작.png");
+    this.load.image("item_청룡", "assets/items/item_청룡.png");
+    this.load.image("item_현무", "assets/items/item_현무.png");
 
     this.load.image("ghost_1", "assets/items/ghost_1.png");
     this.load.image("ghost_2", "assets/items/ghost_2.png");
@@ -179,9 +182,9 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     // 시작 → 맵으로 이동
-    
+
     const inventoryStore = window.inventoryStore; // 전역 스토어 접근 (만들어둔 store.js 기준)
-    
+
     if (!this.game.registry.get("inventory")) {
       this.game.registry.set("inventory", createInventoryStore());
     }

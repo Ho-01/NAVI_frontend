@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "vite": "^7.1.4"
+    "vite": "^7.1.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
