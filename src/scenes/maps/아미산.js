@@ -23,9 +23,6 @@ export default class 아미산 extends Phaser.Scene {
     const mapTitleText = this.add.text(width*0.3, height*0.065, "아미산", { fontSize: width*0.05, color: "#333" }).setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
 
-    // 씬 진입 시 자동 지급(매핑표 기준) 
-    AutoGrant(this); 
-
     // 호리병,인벤토리 오버레이 준비 
     const inv = this.game.registry.get("inventory"); 
     this.inventoryOverlay = new InventoryOverlay(this); 
