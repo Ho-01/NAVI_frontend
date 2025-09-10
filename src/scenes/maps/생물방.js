@@ -20,10 +20,10 @@ export default class 생물방 extends Phaser.Scene {
         // 어패4개 모두 획득했는지 체크
         const inv = this.game.registry.get("inventory");
         const items = inv?.items?.() ?? [];   // ← 보유한 것만
-        const need = ["item_1", "item_2", "item_3", "item_4"];
+        const need = ["item_청룡", "item_백호", "item_주작", "item_현무"];
         const hasAll = need.every(k => items.includes(k));
         if(hasAll){
-            this.scene.start("DialogScene", {json: this.cache.json.get("dialog_근정전_1"), returnScene: "근정전_dark"});
+            this.scene.start("DialogScene", {json: this.cache.json.get("dialog_어패모두획득_생물방"), returnScene: "근정전_dark"});
         }
 
         // 맵 타이틀
@@ -78,9 +78,9 @@ export default class 생물방 extends Phaser.Scene {
         소주방으로.setInteractive({useHandCursor: true})
         .on("pointerdown", () => {
             const inv = this.game.registry.get("inventory");
-            const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_4");
+            const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_현무");
             if(!현무어패획득여부){
-                this.scene.start("DialogScene", {json: this.cache.json.get("dialog_소주방_1"), returnScene: "소주방"});
+                this.scene.start("MoveScene", {json: this.cache.json.get("move_f생물방_t소주방"), returnScene: "소주방"});
             }else{
                 this.scene.start("소주방");
             }

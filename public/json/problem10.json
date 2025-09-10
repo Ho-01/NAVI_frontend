@@ -5,6 +5,5 @@
     "hint2": "바가지 전체가 물속에 들어가야 가득 찬다.",
     "answer": "4.2 m (4.0+0.2)",
     "nextScene": "DialogScene",
-    "nextParam": "dialog_소주방_2",
-     "rewardItem": "item_현무"
+    "nextParam": "dialog_소주방_2"
 }
