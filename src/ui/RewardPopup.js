@@ -72,7 +72,7 @@ export default class RewardPopup {
       "line-height:1.15",
       "opacity:0",
       "transition:opacity .18s, transform .18s",
-      "pointer-events:auto",
+      "pointer-events:none",
       "z-index:9999",
       "user-select:none",
       "white-space:nowrap",
@@ -174,6 +174,7 @@ export default class RewardPopup {
     // 표시(중앙 고정)
     this.el.style.opacity = "1";
     this.el.style.transform = "translate(-50%,-50%)";
+    this.el.style.pointerEvents = "auto";
 
     let closed = false;
     let timer = null;
@@ -187,6 +188,7 @@ export default class RewardPopup {
       this.el.removeEventListener("click", close);
       this.el.style.opacity = "0";
       this.el.style.transform = "translate(-50%,-50%)";
+      this.el.style.pointerEvents = "none";
       setTimeout(() => done(), 180);
     };
 
