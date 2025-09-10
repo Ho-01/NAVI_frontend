@@ -31,11 +31,14 @@ export default class 경회루 extends Phaser.Scene {
     if (!this.game.registry.get("gourd"))
       this.game.registry.set("gourd", createInventoryStore());
 
-    // 팝업은 '항상' 먼저 1회 생성 (지도/상자 제외) 
     this.rewardPopup = new RewardPopup(this, {
       ignoreList: ["map", "bundle", "box", "chest", "지도", "상자"]
     });
 
+    // 🔽 ProblemScene에서 지급된 보상들을 팝업으로 소모
+    const q = this.game.registry.get("rewardQueue") || [];
+    q.forEach(k => this.rewardPopup.enqueue(k));
+    this.game.registry.set("rewardQueue", []);
 
 
     // 호리병,인벤토리 오버레이 준비 
@@ -86,7 +89,7 @@ export default class 경회루 extends Phaser.Scene {
 
     this.cameras.main.fadeIn(50, 0, 0, 0); // 진입시 페이드인
 
-    this.rewardPopup = new RewardPopup(this);
+
   }
 
   initMapOverlay() {
