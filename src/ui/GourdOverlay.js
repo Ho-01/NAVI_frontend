@@ -20,19 +20,19 @@ export default class GourdOverlay {
     this.gourdImg = scene.add.image(W*0.5, H*0.5, "__dummy__").setAlpha(0).setScrollFactor(0).setScale(1.5);
 
     // 악귀1 : 잡귀
-    this.ghost_잡귀 = scene.add.image(W*0.2, H*0.5, "잡귀").setOrigin(0.5).setScale(1).setAlpha(0)
+    this.ghost_잡귀 = scene.add.image(W*0.2, H*0.5, "잡귀").setOrigin(0.5).setScale(1.5).setAlpha(0)
     .setInteractive({useHandCursor: true}).on("pointerdown", () => {
         this.popupText.setText("잡귀: 강녕전에서 붙잡았습니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
     });
 
     // 악귀2 : 아귀
-    this.ghost_아귀 = scene.add.image(W*0.8, H*0.5, "아귀").setOrigin(0.5).setScale(1).setAlpha(0)
+    this.ghost_아귀 = scene.add.image(W*0.8, H*0.5, "아귀").setOrigin(0.5).setScale(1.5).setAlpha(0)
     .setInteractive({useHandCursor: true}).on("pointerdown", () => {
         this.popupText.setText("아귀: 생물방에서 붙잡았습니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
     });
 
     // 악귀3 : 어둑시니
-    this.ghost_어둑시니 = scene.add.image(W*0.5, H*0.3, "어둑시니").setOrigin(0.5).setScale(1).setAlpha(0)
+    this.ghost_어둑시니 = scene.add.image(W*0.5, H*0.3, "어둑시니").setOrigin(0.5).setScale(1.5).setAlpha(0)
     .setInteractive({useHandCursor: true}).on("pointerdown", () => {
         this.popupText.setText("어둑시니: 근정전에서 붙잡았습니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
     });

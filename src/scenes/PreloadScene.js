@@ -185,7 +185,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("ghost_2", "assets/items/ghost_2.png");
     this.load.image("ghost_3", "assets/items/ghost_3.png");
     this.load.image("ghost_4", "assets/items/ghost_4.png");
-
+    this.load.image("ghost_잡귀", "assets/char/char_잡귀.png");
+    this.load.image("ghost_아귀", "assets/char/char_아귀.png");
     //오버레이 이미지
     this.load.image("overlay_inventory", "assets/overlay/overlay_inventory.png");
     this.load.image("overlay_bundle", "assets/overlay/overlay_bundle.png");
