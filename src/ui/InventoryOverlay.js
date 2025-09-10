@@ -15,12 +15,8 @@ export default class InventoryOverlay {
     const tex = scene.textures.get("overlay_inventory")?.getSourceImage?.();
     if (tex) panel.setScale(Math.min((W * 0.85) / tex.width, (H * 0.75) / tex.height));
 
-    const title = scene.add.text(W / 2, H * 0.22, {
-      fontSize: Math.round(W * 0.05), color: "#000", fontStyle: "bold",
-    }).setOrigin(0.5);
-
     this.content = scene.add.container(0, 0);
-    this.root.add([dim, panel, title, this.content]);
+    this.root.add([dim, panel, this.content]);
 
     this._allow = (k) => /^item_/i.test(k) || /^ghost_/i.test(k);
 
@@ -55,12 +51,6 @@ export default class InventoryOverlay {
     const { width: W, height: H } = s.scale;
     this.content.removeAll(true);
 
-    if (!items.length) {
-      this.content.add(s.add.text(W / 2, H * 0.52, {
-        fontSize: Math.round(W * 0.035), color: "#222",
-      }).setOrigin(0.5));
-      return;
-    }
 
     const cols = 4, cellW = W * 0.18, cellH = H * 0.14;
     const startX = W / 2 - (cellW * (cols - 1)) / 2, startY = H * 0.55;
