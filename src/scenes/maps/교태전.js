@@ -72,9 +72,9 @@ export default class 교태전 extends Phaser.Scene {
         생물방으로.setInteractive({useHandCursor: true})
         .on("pointerdown", () => {
             const inv = this.game.registry.get("inventory");
-            const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_4");
+            const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_현무");
             if(!현무어패획득여부){
-                this.scene.start("DialogScene", {json: this.cache.json.get("dialog_생물방_1"), returnScene: "생물방"});
+                this.scene.start("CutScene", {json: this.cache.json.get("cutscene_아귀등장"), returnScene: "생물방"});
             }else{
                 this.scene.start("생물방");
             }
@@ -82,7 +82,7 @@ export default class 교태전 extends Phaser.Scene {
         강녕전으로.setInteractive({useHandCursor: true})
         .on("pointerdown", () => {
             const inv = this.game.registry.get("inventory");
-            const 주작어패획득여부 = (inv?.items?.() ?? []).includes("item_3");
+            const 주작어패획득여부 = (inv?.items?.() ?? []).includes("item_주작");
             if(!주작어패획득여부){
                 this.scene.start("DialogScene", {json: this.cache.json.get("dialog_강녕전_1"), returnScene: "강녕전"});
             }else{

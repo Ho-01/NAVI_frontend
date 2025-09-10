@@ -1,9 +1,9 @@
 {
     "background": "bg_근정전_dark",
     "leftChar": "player",
-    "rightChar": "해태",
+    "rightChar": "어둑시니",
     "script": [
-            { "name": "해태", "text": "4개 다 모았다", "pos": "right" },
-		    { "name": "{player}", "text": "근정전 고", "pos": "left" }
+            { "name": "어둑시니", "text": "어", "pos": "right" },
+		    { "name": "{player}", "text": "둑", "pos": "left" }
     ]
 }

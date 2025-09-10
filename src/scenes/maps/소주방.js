@@ -65,7 +65,7 @@ export default class 소주방 extends Phaser.Scene {
     생물방으로.setInteractive({useHandCursor: true})
     .on("pointerdown", () => {
         const inv = this.game.registry.get("inventory");
-        const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_4");
+        const 현무어패획득여부 = (inv?.items?.() ?? []).includes("item_현무");
         if(!현무어패획득여부){
             this.scene.start("DialogScene", {json: this.cache.json.get("dialog_생물방_2"), returnScene: "생물방"});
         }else{

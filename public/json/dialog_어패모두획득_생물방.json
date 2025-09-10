@@ -1,0 +1,11 @@
+{
+    "background": "bg_생물방",
+    "leftChar": "player",
+    "rightChar": "해태",
+    "nextScene": "MoveScene",
+    "nextParam": "move_f생물방_t근정전",
+    "script": [
+            { "name": "해태", "text": "4개의 어패를 모두 모았어! 이제 근정전에 들어갈 수 있을거야", "pos": "right" },
+		    { "name": "{player}", "text": "응! 한번 들어가 보자 해태!", "pos": "left" }
+    ]
+}

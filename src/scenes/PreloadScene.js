@@ -44,7 +44,10 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog_생물방_3", "json/dialog_생물방_3.json");
     this.load.json("dialog_소주방_1", "json/dialog_소주방_1.json");
     this.load.json("dialog_소주방_2", "json/dialog_소주방_2.json");
+    this.load.json("dialog_어패모두획득_생물방", "json/dialog_어패모두획득_생물방.json");
+    this.load.json("dialog_어패모두획득_강녕전", "json/dialog_어패모두획득_강녕전.json");
     this.load.json("dialog_근정전_1", "json/dialog_근정전_1.json");
+    // this.load.json("dialog_근정전_2", "json/dialog_근정전_2.json");
 
     // JSON 컷씬 파일 로드
     this.load.json("cutscene1", "json/cutscene1.json");
@@ -58,7 +61,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("cutscene_광화문명명7", "json/cutscene_광화문명명7.json");
     this.load.json("cutscene_근정문파괴", "json/cutscene_근정문파괴.json");
     this.load.json("cutscene_청룡등장", "json/cutscene_청룡등장.json");
+    this.load.json("cutscene_아귀등장", "json/cutscene_아귀등장.json");
     this.load.json("cutscene_아귀처치", "json/cutscene_아귀처치.json");
+    this.load.json("cutscene_어둑시니등장", "json/cutscene_어둑시니등장.json");
     // 컷씬 이미지
     this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
     this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
@@ -71,7 +76,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("cutscene_광화문명명7", "assets/cutscenes/cutscene_광화문명명7.png");
     this.load.image("cutscene_근정문파괴", "assets/cutscenes/cutscene_근정문파괴.png");
     this.load.image("cutscene_청룡등장", "assets/cutscenes/cutscene_청룡등장.png");
+    this.load.image("cutscene_아귀등장", "assets/cutscenes/cutscene_아귀등장.png");
     this.load.image("cutscene_아귀처치", "assets/cutscenes/cutscene_아귀처치.png");
+    this.load.image("cutscene_어둑시니등장", "assets/cutscenes/cutscene_어둑시니등장.png");
 
     // JSON 문제 파일 로드
     this.load.json("problem1", "json/problem1.json");
@@ -84,6 +91,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("problem8", "json/problem8.json");
     this.load.json("problem9", "json/problem9.json");
     this.load.json("problem_10", "json/problem10.json");
+    this.load.json("problem_11", "json/problem11.json");
     // JSON 맵 이동 파일 로드
     this.load.json("move_f서십자각터_t광화문", "json/move_f서십자각터_t광화문.json");
     this.load.json("move_f광화문_t흥례문", "json/move_f광화문_t흥례문.json");
@@ -92,6 +100,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("move_f근정문_t수정전", "json/move_f근정문_t수정전.json");
     this.load.json("move_f수정전_t경회루", "json/move_f수정전_t경회루.json");
     this.load.json("move_f경회루_t아미산", "json/move_f경회루_t아미산.json");
+    this.load.json("move_f생물방_t소주방", "json/move_f생물방_t소주방.json");
+    this.load.json("move_f강녕전_t근정전", "json/move_f강녕전_t근정전.json");
+    this.load.json("move_f생물방_t근정전", "json/move_f생물방_t근정전.json");
     // JSON 튜토리얼 파일 로드
     this.load.json("tutorial_이동", "json/tutorial_이동.json");
     this.load.json("tutorial_호리병", "json/tutorial_호리병.json");

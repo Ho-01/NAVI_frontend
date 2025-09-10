@@ -19,29 +19,29 @@ export default class GourdOverlay {
     // 호리병 배경 이미지
     this.gourdImg = scene.add.image(W*0.5, H*0.5, "__dummy__").setAlpha(0).setScrollFactor(0).setScale(1.5);
 
-    // 악귀1
-    this.ghost_1 = scene.add.image(W*0.2, H*0.5, "ghost_1").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    // 악귀1 : 잡귀
+    this.ghost_잡귀 = scene.add.image(W*0.2, H*0.5, "잡귀").setOrigin(0.5).setScale(1).setAlpha(0)
     .setInteractive({useHandCursor: true}).on("pointerdown", () => {
-        this.popupText.setText("악귀1: 악귀1입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+        this.popupText.setText("잡귀: 강녕전에서 붙잡았습니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
     });
 
-    // 악귀2
-    this.ghost_2 = scene.add.image(W*0.8, H*0.5, "ghost_2").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    // 악귀2 : 아귀
+    this.ghost_아귀 = scene.add.image(W*0.8, H*0.5, "아귀").setOrigin(0.5).setScale(1).setAlpha(0)
     .setInteractive({useHandCursor: true}).on("pointerdown", () => {
-        this.popupText.setText("악귀2: 악귀2입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+        this.popupText.setText("아귀: 생물방에서 붙잡았습니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
     });
 
-    // 악귀3
-    this.ghost_3 = scene.add.image(W*0.5, H*0.3, "ghost_3").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    // 악귀3 : 어둑시니
+    this.ghost_어둑시니 = scene.add.image(W*0.5, H*0.3, "어둑시니").setOrigin(0.5).setScale(1).setAlpha(0)
     .setInteractive({useHandCursor: true}).on("pointerdown", () => {
-        this.popupText.setText("악귀3: 악귀3입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+        this.popupText.setText("어둑시니: 근정전에서 붙잡았습니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
     });
 
-    // 악귀4
-    this.ghost_4 = scene.add.image(W*0.5, H*0.7, "ghost_4").setOrigin(0.5).setScale(0.3).setAlpha(0)
-    .setInteractive({useHandCursor: true}).on("pointerdown", () => {
-        this.popupText.setText("악귀4: 악귀4입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
-    });
+    // // 악귀4
+    // this.ghost_4 = scene.add.image(W*0.5, H*0.7, "ghost_4").setOrigin(0.5).setScale(0.3).setAlpha(0)
+    // .setInteractive({useHandCursor: true}).on("pointerdown", () => {
+    //     this.popupText.setText("악귀4: 악귀4입니다"); this.popupBg.setAlpha(1); this.popupText.setAlpha(1);
+    // });
 
     // 악귀 없을 때 표시할 텍스트
     this.emptyGourdText = scene.add.text(W*0.5, H*0.5, "호리병이 비었습니다", {
@@ -56,7 +56,7 @@ export default class GourdOverlay {
    this.popupBg.setInteractive().on("pointerdown", () => { this.popupBg.setAlpha(0); this.popupText.setAlpha(0); });
 
     // 컨테이너에 모든 요소 넣어두기
-    this.gourdOverlay.add([this.bg, this.gourdImg, this.ghost_1, this.ghost_2, this.ghost_3, this.ghost_4, this.popupBg, this.popupText, this.emptyGourdText]);
+    this.gourdOverlay.add([this.bg, this.gourdImg, this.ghost_잡귀, this.ghost_아귀, this.ghost_어둑시니, this.popupBg, this.popupText, this.emptyGourdText]);
   }
 
 
@@ -65,7 +65,7 @@ export default class GourdOverlay {
 
     // 컨테이너 보이게 표시
     this.gourdOverlay.setVisible(true);
-    this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.ghost_1.setAlpha(0); this.ghost_2.setAlpha(0); this.ghost_3.setAlpha(0); this.ghost_4.setAlpha(0);
+    this.bg.setAlpha(0); this.gourdImg.setAlpha(0); this.ghost_잡귀.setAlpha(0); this.ghost_아귀.setAlpha(0); this.ghost_어둑시니.setAlpha(0);
 
     // 저장소에서 보유중악귀 불러오기
     const gourd = this.scene.game.registry.get("gourd");

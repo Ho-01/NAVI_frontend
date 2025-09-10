@@ -1,0 +1,6 @@
+{
+    "effect": "천둥",
+    "imageKey": "cutscene_어둑시니등장",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_근정전_1"
+}

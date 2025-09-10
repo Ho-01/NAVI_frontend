@@ -1,0 +1,6 @@
+{
+    "effect": "섬광",
+    "imageKey": "cutscene_아귀등장",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_생물방_1"
+}

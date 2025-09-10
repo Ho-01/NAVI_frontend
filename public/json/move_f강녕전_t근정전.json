@@ -1,0 +1,8 @@
+{
+    "imageKey": "move",
+    "text": "근정전으로 이동해 주세요...",
+    "moveCancel": false,
+    "nextScene": "ProblemScene",
+    "nextParam": "problem_11",
+    "tips": "근정전툴팁"
+}
