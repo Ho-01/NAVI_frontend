@@ -9,6 +9,7 @@ function saveTokensFrom(data) {
   const { accessToken, refreshToken } = data || {};
   if (accessToken) TokenStorage.setAccess(accessToken);
   if (refreshToken) TokenStorage.setRefresh(refreshToken);
+  console.log("[AuthService] 토큰 저장:", { accessToken, refreshToken });
 }
 
 const AuthService = {
