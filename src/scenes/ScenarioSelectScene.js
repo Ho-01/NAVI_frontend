@@ -1,5 +1,6 @@
 // ScenarioSelectScene.js
 import Phaser from "phaser";
+import RunService from "../features/run/service.js";
 
 export default class ScenarioSelectScene extends Phaser.Scene {
   constructor() {
@@ -29,7 +30,7 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     const left = (W - (cardW * 2 + gapX)) / 2, top = py(0.12);
     const corner = Math.max(16, W * 0.02);
 
-    // ───────── 1번 카드 (언락) ─────────
+    // ───────── 1번 카드 : 경복궁 시나리오 GYEONBOKGUNG ─────────
     const c1 = this.add.container(left, top);
 
     const bg1 = this.add.graphics();
@@ -44,10 +45,38 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     c1.add(this.add.text(cardW/2, cardH*0.60, "경복궁:", {fontSize:f(0.04), color:"#333"}).setOrigin(0.5,0));
     c1.add(this.add.text(cardW/2, cardH*0.68, "사라진 빛의 비밀", {fontSize:f(0.04), color:"#333"}).setOrigin(0.5,0));
 
-    const hit1 = this.add.rectangle(cardW/2, cardH/2, cardW, cardH, 0x000000, 0)
+    RunService.getMyGame("GYEONGBOKGUNG").then(res => {
+      if(res==false){
+        console.log("시나리오 기록 없음, 새 게임 시작");
+        c1.add(this.add.text(cardW/2, cardH*0.90, `새 게임 시작`, {fontSize:f(0.05), color:"#ab0c0cff"}).setOrigin(0.5,0));
+        c1.add(hit1_새게임시작);
+      } else {
+        console.log("시나리오 기록 있음, 이어하기");
+        c1.add(this.add.text(cardW/2, cardH*0.90, `이어하기`, {fontSize:f(0.05), color:"#0c7a0cff"}).setOrigin(0.5,0));
+        c1.add(hit1_이어하기);
+      }
+    }).catch(err => {
+      console.error("시나리오 기록 조회 실패:", err);
+      c1.add(this.add.text(cardW/2, cardH*0.90, `ERROR`, {fontSize:f(0.05), color:"#ab0c0cff"}).setOrigin(0.5,0));
+    });
+
+    const hit1_새게임시작 = this.add.rectangle(cardW/2, cardH/2, cardW, cardH, 0x000000, 0)
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.scene.start("PreloadScene"));
-    c1.add(hit1);
+      .on("pointerdown", () => {
+        console.log("새 게임 시작");
+        RunService.startNewGame("GYEONGBOKGUNG").then(res => {
+          this.scene.start("PreloadScene");
+        }).catch(err => {
+          console.error("새 게임 시작 실패:", err);
+          this.scene.start("TitleScene");
+        });
+      });
+    const hit1_이어하기 = this.add.rectangle(cardW/2, cardH/2, cardW, cardH, 0x000000, 0)
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => {
+        console.log("이어하기");
+        this.scene.start("PreloadScene");
+      });
 
     // ───────── 2번 카드 (락) ─────────
     const c2 = this.add.container(left + cardW + gapX, top);

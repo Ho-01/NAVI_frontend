@@ -15,22 +15,27 @@ const RunStorage = {
 
     getRunId(){
         if (this._runId == null) this._runId = sessionStorage.getItem("runId") || null;
+        console.log("[RunStorage] getRunId:", this._runId);
         return this._runId;
     },
     getScenario(){
         if (this._scenario == null) this._scenario = sessionStorage.getItem("scenario") || null;
+        console.log("[RunStorage] getScenario:", this._scenario);
         return this._scenario;
     },
     getStatus(){
         if (this._status == null) this._status = sessionStorage.getItem("status") || null;
+        console.log("[RunStorage] getStatus:", this._status);
         return this._status;
     },
     getHintCount(){
         if (this._hintCount == null) this._hintCount = sessionStorage.getItem("hintCount") || 0;
-        return Number(this._hintCount);
+        console.log("[RunStorage] getHintCount:", this._hintCount);
+        return this._hintCount;
     },
     getStartedAt(){
         if (this._startedAt == null) this._startedAt = sessionStorage.getItem("startedAt") || null;
+        console.log("[RunStorage] getStartedAt:", this._startedAt);
         return this._startedAt;
     },
 
@@ -38,25 +43,30 @@ const RunStorage = {
         this._runId = id || null;
         if(id)sessionStorage.setItem("runId", id);
         else sessionStorage.removeItem("runId");
+        console.log("[RunStorage] setRunId:", id);
     },
     setScenario(scenario){
         this._scenario = scenario || null;
         if(scenario)sessionStorage.setItem("scenario", scenario);
         else sessionStorage.removeItem("scenario");
+        console.log("[RunStorage] setScenario:", scenario);
     },
     setStatus(status){
         this._status = status || null;
         if(status)sessionStorage.setItem("status", status);
         else sessionStorage.removeItem("status");
+        console.log("[RunStorage] setStatus:", status);
     },
     setHintCount(count){
         this._hintCount = count || 0;
         sessionStorage.setItem("hintCount", this._hintCount);
+        console.log("[RunStorage] setHintCount:", count);
     },
     setStartedAt(time){
         this._startedAt = time || null;
         if(time)sessionStorage.setItem("startedAt", time);
         else sessionStorage.removeItem("startedAt");
+        console.log("[RunStorage] setStartedAt:", time);
     },
 
     clear(){

@@ -9,7 +9,7 @@ const getLeaderboard = (scenario) =>
     appClient.get(`/runs/${scenario}/leaderboard`, { auth: true });
 
 const getMyGames = () =>
-    appClient.get("/runs/im_progress", { auth: true });
+    appClient.get("/runs/in_progress", { auth: true });
 
 const gameClear = (runId) =>
     appClient.put(`/runs/${runId}`, undefined, { auth: true });
