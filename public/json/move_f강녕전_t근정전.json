@@ -1,8 +1,8 @@
 {
-    "imageKey": "move",
+    "imageKey": "move_f강녕전_t근정전",
     "text": "근정전으로 이동해 주세요...",
     "moveCancel": false,
     "nextScene": "ProblemScene",
-    "nextParam": "problem_11",
+    "nextParam": "problem11",
     "tips": "근정전툴팁"
 }

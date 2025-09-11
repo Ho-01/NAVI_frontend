@@ -1,0 +1,12 @@
+{
+    "background": "bg_광화문",
+    "leftChar": "player",
+    "rightChar": "",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_엔딩1",
+    "script": [
+        { "name": "{player}", "text": "????", "pos": "left" },
+        { "name": "{player}", "text": "해태... 세종대왕님...?", "pos": "left" },
+        { "name": "{player}", "text": "감쪽같이 사라졌다...", "pos": "left" }
+    ]
+}

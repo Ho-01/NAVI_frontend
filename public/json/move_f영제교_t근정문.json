@@ -1,5 +1,5 @@
 {
-    "imageKey": "move",
+    "imageKey": "move_f영제교_t근정문",
     "text": "근정문 앞으로 이동해 주세요...",
     "moveCancel": false,
     "nextScene": "DialogScene",

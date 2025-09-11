@@ -1,0 +1,6 @@
+{
+    "effect": "섬광",
+    "imageKey": "cutscene_엔딩1",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_엔딩2"
+}

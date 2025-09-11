@@ -1,5 +1,5 @@
 {
-    "imageKey": "move",
+    "imageKey": "move_f생물방_t소주방",
     "text": "소주방으로 이동해 주세요...",
     "moveCancel": "생물방",
     "nextScene": "DialogScene",
