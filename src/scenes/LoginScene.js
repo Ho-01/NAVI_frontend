@@ -16,7 +16,7 @@ export default class LoginScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor("#fffaee");
 
     this.loading = this.add.text(W*0.5, H*0.5, "로그인 중...", {
-    fontSize: Math.round(H*0.04), color: "#333"
+    fontSize: Math.round(H*0.02), color: "#333"
     }).setOrigin(0.5);
 
     // 버튼 컨테이너 (처음엔 숨김)
@@ -45,18 +45,18 @@ export default class LoginScene extends Phaser.Scene {
   async tryAutoFlow() {
     this.showLoading(true); // 일단 로딩중 띄움
     const hasRefresh = !!localStorage.getItem("refreshToken");
-    console.log("자동 로그인 시도, 리프레시 토큰:", hasRefresh);
+    console.log("[LoginScene] 자동 로그인 시도, 리프레시 토큰:", hasRefresh);
     // 1. 리프레시 있다면? => 재발급 시도
     if (hasRefresh) {
       const result = await appClient.ensureRefreshed();
-      console.log("리프레시 결과:", result);
+      console.log("[LoginScene] 리프레시 결과:", result);
       if (result) return this.scene.start("ScenarioSelectScene");
       return this.showLoading(false);
     }
     // 2. 리프레시 없다면? => 게스트로 시작
     const {data, error} = await AuthService.startAsGuest();
     if (error || !data){
-        console.error("게스트 로그인 실패:", error);
+        console.error("[LoginScene] 게스트 로그인 실패:", error);
     } else {
         return this.scene.start("ScenarioSelectScene");
     }
@@ -68,7 +68,7 @@ export default class LoginScene extends Phaser.Scene {
     this.showLoading(true);
     const {data, error} = await AuthService.startAsGuest();
     if (error || !data){
-        console.error("게스트 로그인 실패:", error);
+        console.error("[LoginScene] 게스트 로그인 실패:", error);
         this.showLoading(false);
     } else {
         return this.scene.start("ScenarioSelectScene");

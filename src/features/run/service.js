@@ -17,6 +17,7 @@ const RunService = {
     STORAGES[scenario].setStatus(res?.data.status);
     STORAGES[scenario].setHintCount(res?.data.hintCount);
     STORAGES[scenario].setStartedAt(res?.data.startedAt);
+    STORAGES[scenario].setCheckpoint(res?.data.checkpoint);
     return res;
   },
 
@@ -37,6 +38,7 @@ const RunService = {
         STORAGES[scenario].setStatus(filteredRun.status);
         STORAGES[scenario].setHintCount(filteredRun.hintCount);
         STORAGES[scenario].setStartedAt(filteredRun.startedAt);
+        STORAGES[scenario].setCheckpoint(filteredRun.checkpoint);
         return filteredRun.startedAt;
     }
   },

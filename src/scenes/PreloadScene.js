@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { createInventoryStore } from "../features/inventory/store";
-import RunService from "../features/run/service";
+import RunStorage from "../core/runStorage_GYEONGBOKGUNG";
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -9,10 +9,12 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     const { width, height } = this.scale;
+    
+    this.cameras.main.setBackgroundColor("#fffaee");
     // 로딩중 텍스트
     this.로딩중텍스트 = this.add.text(width / 2, height / 2, "로딩 중.. 잠시만 기다려주세요", {
-      fontSize: "32px",
-      color: "#ffffffff"
+      fontSize: Math.round(height * 0.02),
+      color: "#000000ff"
     }).setOrigin(0.5);
 
     //팝업 띄우기위한 세팅
@@ -207,7 +209,15 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    this.scene.start("수정전_지도획득후");
-    // this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
+    // this.scene.start("수정전_지도획득후");
+    // 오프닝, 서십자각터, 광화문, 흥례문, 영제교, 근정문, 수정전, 수정전_지도획득후, 경회루, 아미산, 근정전, 클리어
+    if (RunStorage.getCheckpoint() == "오프닝") {
+      console.log("[PreloadScene] 새 게임 시작");
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
+    }
+    else {
+      console.log("[PreloadScene] 이어하기: ", RunStorage.getCheckpoint());
+      this.scene.start(RunStorage.getCheckpoint());
+    }
   }
 }

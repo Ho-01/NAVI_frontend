@@ -47,36 +47,34 @@ export default class ScenarioSelectScene extends Phaser.Scene {
 
     RunService.getMyGame("GYEONGBOKGUNG").then(res => {
       if(res==false){
-        console.log("시나리오 기록 없음, 새 게임 시작");
+        console.log("[ScenarioSelectScene] 시나리오1 기록 없음, 새 게임 시작");
         c1.add(this.add.text(cardW/2, cardH*0.90, `새 게임 시작`, {fontSize:f(0.05), color:"#ab0c0cff"}).setOrigin(0.5,0));
-        c1.add(hit1_새게임시작);
+        c1.add(hit1_새게임시작); hit1_새게임시작.setAlpha(1);
       } else {
-        console.log("시나리오 기록 있음, 이어하기");
+        console.log("[ScenarioSelectScene] 시나리오1 기록 있음, 이어하기");
         c1.add(this.add.text(cardW/2, cardH*0.90, `이어하기`, {fontSize:f(0.05), color:"#0c7a0cff"}).setOrigin(0.5,0));
-        c1.add(hit1_이어하기);
+        c1.add(hit1_이어하기); hit1_이어하기.setAlpha(1);
       }
     }).catch(err => {
-      console.error("시나리오 기록 조회 실패:", err);
+      console.error("[ScenarioSelectScene] 시나리오1 기록 조회 실패:", err);
       c1.add(this.add.text(cardW/2, cardH*0.90, `ERROR`, {fontSize:f(0.05), color:"#ab0c0cff"}).setOrigin(0.5,0));
     });
 
     const hit1_새게임시작 = this.add.rectangle(cardW/2, cardH/2, cardW, cardH, 0x000000, 0)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        console.log("새 게임 시작");
         RunService.startNewGame("GYEONGBOKGUNG").then(res => {
           this.scene.start("PreloadScene");
         }).catch(err => {
-          console.error("새 게임 시작 실패:", err);
+          console.error("[ScenarioSelectScene] 새 게임 시작 실패:", err);
           this.scene.start("TitleScene");
-        });
-      });
+        })
+      }).setAlpha(0);
     const hit1_이어하기 = this.add.rectangle(cardW/2, cardH/2, cardW, cardH, 0x000000, 0)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        console.log("이어하기");
         this.scene.start("PreloadScene");
-      });
+      }).setAlpha(0);
 
     // ───────── 2번 카드 (락) ─────────
     const c2 = this.add.container(left + cardW + gapX, top);

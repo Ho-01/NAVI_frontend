@@ -2,6 +2,7 @@ const RunStorage = {
     _runId: null,
     _scenario: null, // GYEONGBOKGUNG
     _status: null, // IN_PROGRESS, CLEARED
+    _checkpoint: null, // 현재 위치 (씬 키)
     _hintCount: 0,
     _startedAt: null,
 
@@ -11,6 +12,7 @@ const RunStorage = {
         this._status = sessionStorage.getItem("status") || null;
         this._hintCount = sessionStorage.getItem("hintCount") || 0;
         this._startedAt = sessionStorage.getItem("startedAt") || null;
+        this._checkpoint = sessionStorage.getItem("checkpoint") || null;
     },
 
     getRunId(){
@@ -27,6 +29,11 @@ const RunStorage = {
         if (this._status == null) this._status = sessionStorage.getItem("status") || null;
         console.log("[RunStorage] getStatus:", this._status);
         return this._status;
+    },
+    getCheckpoint(){
+        if (this._checkpoint == null) this._checkpoint = sessionStorage.getItem("checkpoint") || null;
+        console.log("[RunStorage] getCheckpoint:", this._checkpoint);
+        return this._checkpoint;
     },
     getHintCount(){
         if (this._hintCount == null) this._hintCount = sessionStorage.getItem("hintCount") || 0;
@@ -57,6 +64,12 @@ const RunStorage = {
         else sessionStorage.removeItem("status");
         console.log("[RunStorage] setStatus:", status);
     },
+    setCheckpoint(checkpoint){
+        this._checkpoint = checkpoint || null;
+        if(checkpoint)sessionStorage.setItem("checkpoint", checkpoint);
+        else sessionStorage.removeItem("checkpoint");
+        console.log("[RunStorage] setCheckpoint:", checkpoint);
+    },
     setHintCount(count){
         this._hintCount = count || 0;
         sessionStorage.setItem("hintCount", this._hintCount);
@@ -75,6 +88,7 @@ const RunStorage = {
         this.setStatus(null);
         this.setHintCount(null);
         this.setStartedAt(null);
+        this.setCheckpoint(null);
     }   
 };
 
