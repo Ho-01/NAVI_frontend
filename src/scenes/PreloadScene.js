@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { createInventoryStore } from "../features/inventory/store";
+import RunService from "../features/run/service";
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -13,6 +14,7 @@ export default class PreloadScene extends Phaser.Scene {
       fontSize: "32px",
       color: "#ffffffff"
     }).setOrigin(0.5);
+
     //팝업 띄우기위한 세팅
     if (!this.game.registry.get("rewardQueue"))
       this.game.registry.set("rewardQueue", []);
