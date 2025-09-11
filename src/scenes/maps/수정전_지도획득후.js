@@ -27,7 +27,7 @@ export default class 수정전_지도획득후 extends Phaser.Scene {
 
     this.bundleOverlay = new BundleOverlay(this, {
       onGourd: () => this.gourdOverlay.show(),
-      onMap: () => this.showMapOverlay("map"),
+      onMap: () => this.showMapOverlay("map_수정전"),
       onInventory: () => this.inventoryOverlay.show(),
     });
 

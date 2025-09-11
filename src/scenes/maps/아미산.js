@@ -30,7 +30,7 @@ export default class 아미산 extends Phaser.Scene {
 
     this.bundleOverlay = new BundleOverlay(this, {
       onGourd: () => this.gourdOverlay.show(),
-      onMap: () => this.showMapOverlay("map"),
+      onMap: () => this.showMapOverlay("map_아미산"),
       onInventory: () => this.inventoryOverlay.show(),
     });
 

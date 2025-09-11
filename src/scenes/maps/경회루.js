@@ -48,7 +48,7 @@ export default class 경회루 extends Phaser.Scene {
 
     this.bundleOverlay = new BundleOverlay(this, {
       onGourd: () => this.gourdOverlay.show(),
-      onMap: () => this.showMapOverlay("map"),
+      onMap: () => this.showMapOverlay("map_경회루"),
       onInventory: () => this.inventoryOverlay.show(),
     });
 

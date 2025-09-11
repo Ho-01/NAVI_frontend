@@ -30,7 +30,7 @@ export default class 교태전 extends Phaser.Scene {
 
         this.bundleOverlay = new BundleOverlay(this, {
             onGourd: () => this.gourdOverlay.show(),
-            onMap: () => this.showMapOverlay("map"),
+            onMap: () => this.showMapOverlay("map_교태전"),
             onInventory: () => this.inventoryOverlay.show(),
         });
 

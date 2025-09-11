@@ -39,7 +39,7 @@ export default class 강녕전 extends Phaser.Scene {
 
     this.bundleOverlay = new BundleOverlay(this, {
       onGourd: () => this.gourdOverlay.show(),
-      onMap: () => this.showMapOverlay("map"),
+      onMap: () => this.showMapOverlay("map_강녕전"),
       onInventory: () => this.inventoryOverlay.show(),
     });
 

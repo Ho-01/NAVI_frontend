@@ -31,7 +31,7 @@ export default class 소주방 extends Phaser.Scene {
 
     this.bundleOverlay = new BundleOverlay(this, {
       onGourd: () => this.gourdOverlay.show(),
-      onMap: () => this.showMapOverlay("map"),
+      onMap: () => this.showMapOverlay("map_소주방"),
       onInventory: () => this.inventoryOverlay.show(),
     });
 

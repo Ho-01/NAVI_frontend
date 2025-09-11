@@ -156,7 +156,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("어둑시니_할아버지", "assets/char/char_어둑시니_할아버지.png");
     this.load.image("세종의 영혼", "assets/char/char_세종의 영혼.png");
     this.load.image("해태", "assets/char/char_해태.png");
-    this.load.image("어둑시니_광화문", "assets/char/char_어둑시니_광화문.png");
     this.load.image("어둑시니_근정문", "assets/char/char_어둑시니_근정문.png");
     this.load.image("어둑시니_영제교", "assets/char/char_어둑시니_영제교.png");
     this.load.image("청룡", "assets/char/char_청룡.png");
@@ -232,7 +231,7 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    this.scene.start("수정전_지도획득후");
+    this.scene.start("서십자각터");
     // 오프닝, 서십자각터, 광화문, 흥례문, 영제교, 근정문, 수정전, 수정전_지도획득후, 경회루, 아미산, 근정전, 클리어
     // if (RunStorage.getCheckpoint() == "오프닝") {
     //   console.log("[PreloadScene] 새 게임 시작");
