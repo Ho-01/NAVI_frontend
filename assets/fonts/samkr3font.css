@@ -1,0 +1,7 @@
+
+@font-face{
+  font-family: 'SamKR3Font';
+  src: local('Noto Sans CJK KR'), local('Noto Sans KR'), local('Apple SD Gothic Neo'), local('Malgun Gothic');
+  font-weight: 400; font-style: normal;
+}
+body { font-family: 'SamKR3Font','Noto Sans KR','Apple SD Gothic Neo',sans-serif; }

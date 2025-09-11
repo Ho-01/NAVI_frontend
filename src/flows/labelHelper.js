@@ -1,0 +1,1 @@
+export function makeProblemLabel(num2, place){ return `${num2} ${place}`; }
