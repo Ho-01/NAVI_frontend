@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 import GourdOverlay from "../../ui/GourdOverlay.js";
-import AutoGrant from "../../features/inventory/autoGrant";
-import InventoryOverlay from "../../ui/InventoryOverlay";
-import BundleOverlay from "../../ui/BundleOverlay";
-import RewardPopup from "../../ui/RewardPopup";
+import AutoGrant from "../../features/inventory/autoGrant.js";
+import InventoryOverlay from "../../ui/InventoryOverlay.js";
+import BundleOverlay from "../../ui/BundleOverlay.js";
+import RewardPopup from "../../ui/RewardPopup.js";
 
 export default class 아미산 extends Phaser.Scene {
   constructor() {

@@ -2,6 +2,8 @@
     "background": "bg_근정문_dark",
     "leftChar": "player",
     "rightChar": "해태",
+    "nextScene": "MoveScene",
+    "nextParam": "move_f근정문_t수정전",
     "script": [
             { "name": "해태", "text": "근정전의 봉인마저 풀려버렸어!!...", "pos": "right" },
 		    { "name": "{player}", "text": "조금만 더 빨리 막았더라면..!", "pos": "left" },

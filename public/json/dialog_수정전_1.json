@@ -2,6 +2,8 @@
     "background": "bg_수정전",
     "leftChar": "player",
     "rightChar": "해태",
+    "nextScene": "ProblemScene",
+    "nextParam": "problem6",
     "script": [
             { "name": "해태", "text": "수정전이다!", "pos": "right" },
             { "name": "해태", "text": "안에는 분명 경복궁 지도가 있을텐데..! 내가 전에 본 적이 있거든!", "pos": "right" },

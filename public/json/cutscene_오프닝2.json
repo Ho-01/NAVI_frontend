@@ -1,0 +1,6 @@
+{
+    "effect": "섬광",
+    "imageKey": "cutscene_오프닝2",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_서십자각터_1"
+}

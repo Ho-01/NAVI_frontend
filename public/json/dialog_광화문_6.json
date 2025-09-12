@@ -1,7 +1,7 @@
 {
     "background": "bg_광화문",
     "leftChar": "player",
-    "rightChar": "",
+    "rightChar": "blank",
     "nextScene": "CutScene",
     "nextParam": "cutscene_엔딩1",
     "script": [

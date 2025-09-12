@@ -58,6 +58,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("dialog_근정전_4", "json/dialog_근정전_4.json");
 
     // JSON 컷씬 파일 로드
+    this.load.json("cutscene_오프닝1", "json/cutscene_오프닝1.json");
+    this.load.json("cutscene_오프닝2", "json/cutscene_오프닝2.json");
     this.load.json("cutscene1", "json/cutscene1.json");
     this.load.json("cutscene2", "json/cutscene2.json");
     this.load.json("cutscene_광화문명명1", "json/cutscene_광화문명명1.json");
@@ -80,6 +82,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("cutscene_엔딩1", "json/cutscene_엔딩1.json");
     this.load.json("cutscene_엔딩2", "json/cutscene_엔딩2.json");
     // 컷씬 이미지
+    this.load.image("cutscene_오프닝1", "assets/cutscenes/cutscene_오프닝1.png");
+    this.load.image("cutscene_오프닝2", "assets/cutscenes/cutscene_오프닝2.png");
     this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
     this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
     this.load.image("cutscene_광화문명명1", "assets/cutscenes/cutscene_광화문명명1.png");
@@ -97,8 +101,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("cutscene_사방신등장1", "assets/cutscenes/cutscene_사방신등장1.png");
     this.load.image("cutscene_사방신등장2", "assets/cutscenes/cutscene_사방신등장2.png");
     this.load.image("cutscene_사방신등장3", "assets/cutscenes/cutscene_사방신등장3.png");
-    // this.load.image("cutscene_재봉인1", "assets/cutscenes/cutscene_재봉인1.png");
-    // this.load.image("cutscene_재봉인2", "assets/cutscenes/cutscene_재봉인2.png");
+    this.load.image("cutscene_재봉인1", "assets/cutscenes/cutscene_재봉인1.png");
+    this.load.image("cutscene_재봉인2", "assets/cutscenes/cutscene_재봉인2.png");
     this.load.image("cutscene_엔딩1", "assets/cutscenes/cutscene_엔딩1.png");
     this.load.image("cutscene_엔딩2", "assets/cutscenes/cutscene_엔딩2.png");
 
@@ -124,19 +128,22 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("move_f근정문_t수정전", "json/move_f근정문_t수정전.json");
     this.load.json("move_f수정전_t경회루", "json/move_f수정전_t경회루.json");
     this.load.json("move_f경회루_t아미산", "json/move_f경회루_t아미산.json");
+    this.load.json("move_f아미산_t교태전", "json/move_f아미산_t교태전.json");
+    this.load.json("move_f교태전_t강녕전", "json/move_f교태전_t강녕전.json");
+    this.load.json("move_f강녕전_t생물방", "json/move_f강녕전_t생물방.json");
     this.load.json("move_f생물방_t소주방", "json/move_f생물방_t소주방.json");
-    this.load.json("move_f강녕전_t근정전", "json/move_f강녕전_t근정전.json");
+    // this.load.json("move_f강녕전_t근정전", "json/move_f강녕전_t근정전.json");
     this.load.json("move_f생물방_t근정전", "json/move_f생물방_t근정전.json");
     this.load.json("move_f근정전_t광화문", "json/move_f근정전_t광화문.json");
     // JSON 튜토리얼 파일 로드
-    this.load.json("tutorial_이동", "json/tutorial_이동.json");
+    // this.load.json("tutorial_이동", "json/tutorial_이동.json");
     this.load.json("tutorial_호리병", "json/tutorial_호리병.json");
     this.load.json("tutorial_지도", "json/tutorial_지도.json");
     this.load.json("tutorial_어패함", "json/tutorial_어패함.json");
     // 튜토리얼 이미지
-    this.load.image("tutorial_이동_1", "assets/tutorials/tutorial_이동_1.png");
-    this.load.image("tutorial_이동_2", "assets/tutorials/tutorial_이동_2.png");
-    this.load.image("tutorial_이동_3", "assets/tutorials/tutorial_이동_3.png");
+    // this.load.image("tutorial_이동_1", "assets/tutorials/tutorial_이동_1.png");
+    // this.load.image("tutorial_이동_2", "assets/tutorials/tutorial_이동_2.png");
+    // this.load.image("tutorial_이동_3", "assets/tutorials/tutorial_이동_3.png");
     this.load.image("tutorial_호리병_1", "assets/tutorials/tutorial_호리병_1.png");
     this.load.image("tutorial_지도_1", "assets/tutorials/tutorial_지도_1.png");
     this.load.image("tutorial_지도_2", "assets/tutorials/tutorial_지도_2.png");
@@ -162,6 +169,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("잡귀", "assets/char/char_잡귀.png");
     this.load.image("아귀", "assets/char/char_아귀.png");
     this.load.image("어둑시니", "assets/char/char_어둑시니.png");
+    this.load.image("blank", "assets/char/char_blank.png");
 
     // 맵 이름 띄울 빈 두루마리
     this.load.image("맵_타이틀", "assets/맵_타이틀.png");
@@ -231,11 +239,12 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    this.scene.start("서십자각터");
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_오프닝1"), returnScene: "서십자각터" });
+    // this.scene.start("서십자각터");
     // 오프닝, 서십자각터, 광화문, 흥례문, 영제교, 근정문, 수정전, 수정전_지도획득후, 경회루, 아미산, 근정전, 클리어
     // if (RunStorage.getCheckpoint() == "오프닝") {
     //   console.log("[PreloadScene] 새 게임 시작");
-    //   this.scene.start("DialogScene", { json: this.cache.json.get("dialog_서십자각터_1"), returnScene: "서십자각터" });
+      // this.scene.start("Cutscene", { json: this.cache.json.get("cutscene_오프닝1"), returnScene: "서십자각터" });
     // }
     // else {
     //   console.log("[PreloadScene] 이어하기: ", RunStorage.getCheckpoint());

@@ -1,7 +1,7 @@
 {
     "imageKey": "move_f생물방_t소주방",
     "text": "소주방으로 이동해 주세요...",
-    "moveCancel": "생물방",
+    "moveCancel": false,
     "nextScene": "DialogScene",
     "nextParam": "dialog_소주방_1",
     "tips": "소주방은 조선시대 임금님의 수라와 궁중의 잔치 음식을 준비하던 궁중 부엌입니다. 내소주방, 외소주방, 생물방의 3구역으로 나뉘어있습니다"

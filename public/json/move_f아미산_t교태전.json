@@ -1,0 +1,8 @@
+{
+    "imageKey": "move_f아미산_t교태전",
+    "text": "교태전으로 이동해 주세요...(필수X)",
+    "moveCancel": false,
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_교태전_1",
+    "tips": "교태전툴팁"
+}

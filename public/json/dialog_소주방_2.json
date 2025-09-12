@@ -2,6 +2,8 @@
     "background": "bg_소주방",
     "leftChar": "player",
     "rightChar": "해태",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_생물방_2",
     "script": [
 		    { "name": "해태", "text": "좋았어! 이제 조용히 생물방으로 넘어가볼까?", "pos": "right" },
             { "name": "{player}", "text": "응, 조용히 접근해서 머리 위로 부어버리자!", "pos": "left" }
