@@ -31,8 +31,10 @@ function toError(res, json) {
 
 // -------------------- 리프레시 보장 --------------------
 // (여러 요청이 동시에 와도 1번만 수행)
-async function ensureRefreshed() {
-  if (refreshPromise) return refreshPromise; // 진행 중이면 같은 약속 기다림
+export async function ensureRefreshed() {
+  if (refreshPromise) {
+    return refreshPromise; // 진행 중이면 같은 약속 기다림
+  }
 
   refreshPromise = (async () => {
     try {
@@ -60,7 +62,7 @@ async function ensureRefreshed() {
         return false;
       }
 
-      TokenStorage.setTokens({ accessToken, refreshToken: newRefresh });
+      TokenStorage.setTokens({ access: accessToken, refresh: newRefresh });
       return true;
     } catch (e) {
       // 네트워크/기타 예외도 false로 통일
@@ -118,6 +120,7 @@ async function request(path, { method = "GET", body, headers = {}, auth = true, 
 
 // 편의 메서드
 const appClient = {
+  ensureRefreshed,
   get: (path, opts) => request(path, { ...opts, method: "GET" }),
   post: (path, body, opts) => request(path, { ...opts, method: "POST", body }),
   put: (path, body, opts) => request(path, { ...opts, method: "PUT", body }),

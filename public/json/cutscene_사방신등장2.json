@@ -1,0 +1,6 @@
+{
+    "effect": "천둥",
+    "imageKey": "cutscene_사방신등장2",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_사방신등장3"
+}

@@ -1,5 +1,5 @@
 {
-    "imageKey": "move",
+    "imageKey": "move_f경회루_t아미산",
     "text": "아미산으로 이동해 주세요...",
     "moveCancel": false,
     "nextScene": "DialogScene",

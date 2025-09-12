@@ -1,0 +1,10 @@
+{
+    "background": "bg_근정전_dark",
+    "leftChar": "player",
+    "rightChar": "어둑시니",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_사방신등장1",
+    "script": [
+            { "name": "어둑시니", "text": "크아아아아아아악!!! 안돼……!!!!", "pos": "right" }
+    ]
+}

@@ -1,5 +1,5 @@
 {
-    "imageKey": "move",
+    "imageKey": "move_f서십자각터_t광화문",
     "text": "광화문으로 이동해 주세요...",
     "moveCancel": false,
     "nextScene": "DialogScene",
