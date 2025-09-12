@@ -2,6 +2,8 @@
     "background": "bg_생물방",
     "leftChar": "아귀",
     "rightChar": "해태",
+    "nextScene": "MoveScene",
+    "nextParam": "move_f생물방_t근정전",
     "script": [
 		    { "name": "해태", "text": "얌전히 들어가라 아귀!", "pos": "right" },
             { "name": "아귀", "text": "크아아아아아악!!!", "pos": "left" },

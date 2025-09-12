@@ -1,0 +1,8 @@
+{
+    "imageKey": "move_f교태전_t강녕전",
+    "text": "강녕전으로 이동해 주세요...(필수X)",
+    "moveCancel": false,
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_강녕전_1",
+    "tips": "강녕전툴팁"
+}

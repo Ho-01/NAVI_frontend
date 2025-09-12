@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 import GourdOverlay from "../../ui/GourdOverlay.js";
-import AutoGrant from "../../features/inventory/autoGrant";
-import InventoryOverlay from "../../ui/InventoryOverlay";
-import BundleOverlay from "../../ui/BundleOverlay";
-import RewardPopup from "../../ui/RewardPopup";
+import AutoGrant from "../../features/inventory/autoGrant.js";
+import InventoryOverlay from "../../ui/InventoryOverlay.js";
+import BundleOverlay from "../../ui/BundleOverlay.js";
+import RewardPopup from "../../ui/RewardPopup.js";
 
 export default class 생물방 extends Phaser.Scene {
     constructor() {
@@ -38,7 +38,7 @@ export default class 생물방 extends Phaser.Scene {
 
         this.bundleOverlay = new BundleOverlay(this, {
             onGourd: () => this.gourdOverlay.show(),
-            onMap: () => this.showMapOverlay("map"),
+            onMap: () => this.showMapOverlay("map_생물방"),
             onInventory: () => this.inventoryOverlay.show(),
         });
 

@@ -3,5 +3,7 @@
     "script": [
         { "name": "해태", "text": "청룡님께 받은 어패와 어패함은 내가 잘 챙겼어!", "pos": "left", "image": "tutorial_어패함_1" },
         { "name": "해태", "text": "어패를 모을 때마다 내가 조심히 넣어둘테니까 언제든 눌러서 확인해보도록 해!", "pos": "left", "image": "tutorial_어패함_1" }
-    ]
+    ],
+    "nextScene": "MoveScene",
+    "nextParam": "move_f경회루_t아미산"
 }

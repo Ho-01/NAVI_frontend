@@ -2,8 +2,8 @@
     "background": "bg_서십자각터_dark",
     "leftChar": "세종의 영혼",
     "rightChar": "player",
-    "nextScene": "TutorialScene",
-    "nextParam": "tutorial_이동",
+    "nextScene": "MoveScene",
+    "nextParam": "move_f서십자각터_t광화문",
     "script": [
         { "name": "{player}", "text": "?!!!", "pos": "right" },
         { "name": "세종의 영혼", "text": "물러서거라!!!", "pos": "left" },

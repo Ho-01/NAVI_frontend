@@ -1,5 +1,5 @@
 {
-    "imageKey": "move",
+    "imageKey": "move_f흥례문_t영제교",
     "text": "영제교로 이동해 주세요...",
     "moveCancel": false,
     "nextScene": "DialogScene",

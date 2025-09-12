@@ -7,12 +7,14 @@ const TokenStorage = {
         this._access = sessionStorage.getItem("accessToken") || null;
         this._refresh = localStorage.getItem("refreshToken") || null;
     },
-    
+
     getAccess(){
+        if (this._access == null) this._access = sessionStorage.getItem("accessToken") || null;
         return this._access;
     },
     getRefresh(){
-        return this._refresh;       
+        if (this._refresh == null) this._refresh = localStorage.getItem("refreshToken") || null;
+        return this._refresh;
     },
 
     setAccess(token){

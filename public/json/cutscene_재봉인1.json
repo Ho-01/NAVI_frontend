@@ -1,0 +1,6 @@
+{
+    "effect": "천둥",
+    "imageKey": "cutscene_재봉인1",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_재봉인2"
+}

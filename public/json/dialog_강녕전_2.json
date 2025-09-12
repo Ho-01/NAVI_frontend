@@ -2,6 +2,8 @@
     "background": "bg_강녕전",
     "leftChar": "잡귀",
     "rightChar": "해태",
+    "nextScene": "MoveScene",
+    "nextParam": "move_f강녕전_t생물방",
     "script": [
         { "name": "해태", "text": "얌전히 호리병 속으로 들어와라 잡귀녀석들!!", "pos": "right" },
         { "name": "잡귀", "text": "끼아아아아아악", "pos": "left" },

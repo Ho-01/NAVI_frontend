@@ -4,5 +4,7 @@
         { "name": "해태", "text": "이게 호리병이야! 예로부터 봉인을 복구하거나 악귀를 잡을때 사용하던 물건이지!", "pos": "left", "image": "tutorial_호리병_1" },
         { "name": "해태", "text": "악귀들이 약해졌을 때나 방심했을 때 호리병을 내밀면 빨려들어갈거야", "pos": "left", "image": "tutorial_호리병_1" },
         { "name": "해태", "text": "경복궁 안에서 마주치는 악귀들을 모두 이 안에 잡은 다음 세종대왕님께 돌아가자!", "pos": "left", "image": "tutorial_호리병_1" }
-    ]
+    ],
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_광화문_3"
 }
