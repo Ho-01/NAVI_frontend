@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import TouchEffect from "../ui/TouchEffect";
 
 export default class TutorialScene extends Phaser.Scene {
   constructor() {
@@ -28,6 +29,8 @@ export default class TutorialScene extends Phaser.Scene {
     console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);
     const { width, height } = this.scale;
     this.W = width; this.H = height;
+
+    TouchEffect.init(this); // 터치 이펙트  
 
     this.cameras.main.setBackgroundColor("#f0e8cf");
     this.bg = this.add.image(width/2, height/2, "__WHITE").setAlpha(0); // 초기 placeholder

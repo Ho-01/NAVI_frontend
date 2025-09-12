@@ -1,6 +1,7 @@
 // CutScene.js
 import Phaser from "phaser";
 import autoGrant from "/src/features/inventory/autoGrant.js";
+import TouchEffect from "../ui/TouchEffect";
 
 export default class CutScene extends Phaser.Scene {
   constructor() {
@@ -30,6 +31,8 @@ export default class CutScene extends Phaser.Scene {
   create() {
     console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);
     const { width: W, height: H } = this.scale;
+
+    TouchEffect.init(this); // 터치 이펙트
 
     this.cameras.main.setBackgroundColor("#000000");
 

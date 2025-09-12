@@ -157,6 +157,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("name_tag", "assets/name_tag.jpg");
     // 말걸기 전 느낌표
     this.load.image("interaction", "assets/interaction.png");
+    // 나비아이콘 full
+    // this.load.image("navi_full", "assets/navi_full.png");
 
     // 캐릭터 이미지
     this.load.image("player", "assets/char/char_player.png");
@@ -205,7 +207,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("icon_오른쪽이동", "assets/icons/icon_오른쪽이동.png");
     this.load.image("icon_선택", "assets/icons/icon_선택.png");
     this.load.image("icon_인벤토리", "assets/icons/icon_인벤토리.png");
-
     // 지도
     this.load.image("map", "assets/maps/map.png");
 

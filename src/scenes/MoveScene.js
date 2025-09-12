@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import TouchEffect from "../ui/TouchEffect";
 
 export default class MoveScene extends Phaser.Scene {
   constructor() {
@@ -31,6 +32,8 @@ export default class MoveScene extends Phaser.Scene {
     const { width: W, height: H } = this.scale;
 
     this.cameras.main.setBackgroundColor("#000000");
+    
+    TouchEffect.init(this); // 터치 이펙트
 
     this.bg = this.add.image(W*0.5, H*0.5, "scroll").setOrigin(0.5).setDepth(-1);
     // 배경 이미지를 화면 비율 유지하면서 꽉 채우기

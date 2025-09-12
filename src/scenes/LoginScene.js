@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import AuthService from "../features/auth/service";
 import appClient from "../core/appClient";
+import TouchEffect from "../ui/TouchEffect";
 
 export default class LoginScene extends Phaser.Scene {
   constructor() {
@@ -8,34 +9,40 @@ export default class LoginScene extends Phaser.Scene {
   }
 
   preload() {
-    // 로딩할 자산을 여기에 추가
+    this.load.image("logo", "assets/logo.png");
+    this.load.image("게스트버튼", "assets/게스트버튼.png");
+    this.load.image("카카오버튼", "assets/카카오버튼.png");
+    this.load.image("구글버튼", "assets/구글버튼.png");
   }
 
   create() {
     const { width: W, height: H } = this.scale;
+
+    TouchEffect.init(this); // 터치 이펙트  
+    this.cameras.main.fadeIn(30, 0, 0, 0); // 진입시 페이드인
     this.cameras.main.setBackgroundColor("#fffaee");
+
+    // 이미지 (로고용, 임시 사각형)
+    const logo = this.add.image(W * 0.5, H*0.2, "logo");
+    logo.setDisplaySize(W*0.4, W*0.4);
+    logo.setOrigin(0.5);
 
     this.loading = this.add.text(W*0.5, H*0.5, "로그인 중...", {
     fontSize: Math.round(H*0.02), color: "#333"
     }).setOrigin(0.5);
 
     // 버튼 컨테이너 (처음엔 숨김)
-    this.btns = this.add.container(W*0.5, H*0.6).setVisible(false);
+    this.btns = this.add.container().setVisible(false);
 
-    // 버튼 3종(텍스트만, 심플)
-    const mkBtn = (label, onClick, yOffset) => {
-    const t = this.add.text(0, yOffset, label, {
-    fontSize: Math.round(H*0.032), color: "#fff", backgroundColor: "#333",
-    padding: { x: 24, y: 14 }
-    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
-    t.on("pointerdown", async () => { await onClick(); });
-    return t;
-    };
-
-    const guestBtn = mkBtn("게스트로 진행", () => this.handleGuest(), 0);
-    const kakaoBtn = mkBtn("카카오 로그인", () => this.handleKakao(), Math.round(H*0.07));
-    const googleBtn = mkBtn("구글 로그인", () => this.handleGoogle(), Math.round(H*0.14));
-    this.btns.add([guestBtn, kakaoBtn, googleBtn]);
+    const guestBtn = this.add.image(W*0.5, H*0.5, "게스트버튼").setScale(2).setOrigin(0.5).setInteractive({useHandCursor : true})
+    .on("pointerdown", async () => {await this.handleGuest();});
+    const orBar = this.add.text(W*0.5, H*0.72, "============= 또는 =============", {fontSize: Math.round(H*0.015), color: "#333"}).setOrigin(0.5);
+    const kakaoBtn = this.add.image(W*0.5, H*0.8, "카카오버튼").setScale(2).setOrigin(0.5).setInteractive({useHandCursor : true})
+    .on("pointerdown", async () => {await this.handleKakao();});
+    const googleBtn = this.add.image(W*0.5, H*0.9, "구글버튼").setScale(2).setOrigin(0.5).setInteractive({useHandCursor : true})
+    .on("pointerdown", async () => {await this.handleGoogle();});
+    
+    this.btns.add([guestBtn, orBar, kakaoBtn, googleBtn]);
 
     // 자동 흐름 시작
     this.tryAutoFlow();

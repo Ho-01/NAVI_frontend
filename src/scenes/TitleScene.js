@@ -1,5 +1,6 @@
 // TitleScene.js
 import Phaser from "phaser";
+import TouchEffect from "../ui/TouchEffect";
 
 export default class TitleScene extends Phaser.Scene {
   constructor() {
@@ -9,10 +10,16 @@ export default class TitleScene extends Phaser.Scene {
   preload() {
     // 로고나 이미지 미리 로드
     this.load.image("logo", "assets/logo.png");
+    this.load.image("navi_full", "assets/navi_full.png");
+    this.load.image("navi_full_touch", "assets/navi_full_touch.png");
   }
 
   create() {
     const { width, height } = this.scale;
+
+    TouchEffect.init(this); // 터치 이펙트
+
+    this.cameras.main.fadeIn(30, 0, 0, 0); // 진입시 페이드인
 
     // 배경색
     this.cameras.main.setBackgroundColor("#fffaee");
@@ -32,7 +39,7 @@ export default class TitleScene extends Phaser.Scene {
     // 입력 이벤트: 아무곳이나 클릭/터치하면 다음 씬으로 이동
     this.input.once("pointerdown", () => {
       // this.scene.start("LoginScene");
-      this.scene.start("LoginScene");
+      this.scene.start("PreloadScene");
     });
   }
 }

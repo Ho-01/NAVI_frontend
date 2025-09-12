@@ -2,6 +2,7 @@
 import Phaser from "phaser";
 import RunService from "../features/run/service.js";
 import { fetchIntro, checkOpenToday } from "../features/korApi/tourapi.js";
+import TouchEffect from "../ui/TouchEffect.js";
 
 /* ===== 유틸: 월별 줄 선택 + 시간범위 파싱 + 상태 계산 ===== */
 const _toMin = (h, m = 0) => (+h) * 60 + (+m || 0);
@@ -81,6 +82,8 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     const px = (p) => p * W, py = (p) => p * H, f = (p) => Math.round(W * p);
 
     this.cameras.main.setBackgroundColor("#fffaee");
+
+    TouchEffect.init(this); // 터치 이펙트
 
     // 타이틀
     this.add.text(px(0.5), py(0.055), "모험할 장소를 선택하세요", {
