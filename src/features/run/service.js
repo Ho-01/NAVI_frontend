@@ -24,7 +24,7 @@ const setSafeCheckpoint = (store, cp) => {
 
 const RunService = {
   async startNewGame(scenario) {
-    const res = await RunAPI.startNewGame(scenario); // { data: { id, scenario, status, hintCount, startedAt, checkpoint? } }
+    const res = await RunAPI.startNewGame(scenario); // { data: { id, scenario, status, checkpoint, hintCount, startedAt, checkpoint? } }
     const d = res?.data || {};
     const store = getStore(scenario);
 
@@ -62,6 +62,21 @@ const RunService = {
 
     // 기존 반환값 유지 + checkpoint도 함께 반환
     return { startedAt: r.startedAt, checkpoint: cp };
+  },
+
+  async updateCheckpoint(runId, checkpoint){
+    const res = await RunAPI.updateCheckpoint(runId, checkpoint); // { data: { id, scenario, status, checkpoint, hintCount, startedAt, checkpoint? } }
+    const d = res?.data || {};
+    const store = getStore(d.scenario);
+    
+    store.setRunId(d.id ?? null);
+    store.setScenario(d.scenario ?? scenario);
+    store.setStatus(d.status ?? "IN_PROGRESS");
+    store.setHintCount(d.hintCount ?? 0);
+    store.setStartedAt(d.startedAt ?? new Date().toISOString());
+    const cp = setSafeCheckpoint(store, d.checkpoint);
+
+    return { ...res, data: { ...d, checkpoint: cp } };
   },
 
   async gameClear(runId) { // { id, scenario, status, userName, startedAt, endedAt, TotalPlayMsText, hintCount }

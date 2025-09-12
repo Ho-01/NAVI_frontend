@@ -2,6 +2,8 @@
 import Phaser from "phaser";
 import autoGrant from "/src/features/inventory/autoGrant.js";
 import TouchEffect from "../ui/TouchEffect";
+import RunService from "../features/run/service";
+import RunStorage from "../core/runStorage_GYEONGBOKGUNG";
 
 export default class CutScene extends Phaser.Scene {
   constructor() {
@@ -26,6 +28,9 @@ export default class CutScene extends Phaser.Scene {
     if(json.nextParam){
       this.nextParam = json.nextParam;
     }else{this.nextParam=null;}
+    if(json.checkpoint){
+      this.checkpoint = json.checkpoint;
+    }else{this.checkpoint=null;}
   }
 
   create() {
@@ -35,6 +40,11 @@ export default class CutScene extends Phaser.Scene {
     TouchEffect.init(this); // 터치 이펙트
 
     this.cameras.main.setBackgroundColor("#000000");
+
+    // 체크포인트 저장
+    if(this.checkpoint!= null){
+      RunService.updateCheckpoint(RunStorage.getRunId(), this.checkpoint);
+    }
 
     const img = this.add.image(W * 0.5, H * 0.5, this.imageKey).setOrigin(0.5);
     // 비율 유지 스케일링

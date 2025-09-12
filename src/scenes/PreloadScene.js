@@ -241,16 +241,21 @@ export default class PreloadScene extends Phaser.Scene {
       this.game.registry.set("gourd", createInventoryStore());
     }
 
-      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_오프닝1"), returnScene: "서십자각터" });
     // this.scene.start("서십자각터");
-    // 오프닝, 서십자각터, 광화문, 흥례문, 영제교, 근정문, 수정전, 수정전_지도획득후, 경회루, 아미산, 근정전, 클리어
-    // if (RunStorage.getCheckpoint() == "오프닝") {
-    //   console.log("[PreloadScene] 새 게임 시작");
-      // this.scene.start("Cutscene", { json: this.cache.json.get("cutscene_오프닝1"), returnScene: "서십자각터" });
-    // }
-    // else {
-    //   console.log("[PreloadScene] 이어하기: ", RunStorage.getCheckpoint());
-    //   this.scene.start(RunStorage.getCheckpoint());
-    // }
+    // opening, problem1~13, ending
+    const checkpoint = RunStorage.getCheckpoint();
+    if (checkpoint == "opening") {
+      console.log("[PreloadScene] 새 게임 시작");
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_오프닝1")});
+    } 
+    else if (checkpoint == "problem1"){
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene1")} )
+    }
+    else if (checkpoint == "problem2"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_광화문_4")} )
+    }
+    else {
+      console.log("[PreloadScene] 이어하기: ", RunStorage.getCheckpoint());
+    }
   }
 }

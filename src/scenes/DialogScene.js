@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 import TouchEffect from "../ui/TouchEffect";
+import RunService from "../features/run/service";
+import RunStorage from "../core/runStorage_GYEONGBOKGUNG";
 
 export default class DialogScene extends Phaser.Scene {
   constructor() {
@@ -24,6 +26,9 @@ export default class DialogScene extends Phaser.Scene {
     if(json.nextParam){
       this.nextParam = json.nextParam;
     }else{this.nextParam=null;}
+    if(json.checkpoint){
+      this.checkpoint = json.checkpoint;
+    }else{this.checkpoint=null;}
   }
 
   create() {
@@ -31,9 +36,13 @@ export default class DialogScene extends Phaser.Scene {
     const { width, height } = this.scale;
 
     TouchEffect.init(this); // 터치 이펙트
+    
+    // 체크포인트 저장
+    if(this.checkpoint!= null){
+      RunService.updateCheckpoint(RunStorage.getRunId(), this.checkpoint);
+    }
 
     this.index = 0;
-    
     this.bg = this.add.image(width*0.5, height*0.5, this.background)
     .setOrigin(0.5)
     .setDepth(-1);
