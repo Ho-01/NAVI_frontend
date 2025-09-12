@@ -1,8 +1,6 @@
 // src/scenes/ScenarioSelectScene.js
 import Phaser from "phaser";
 import RunService from "../features/run/service.js";
-<<<<<<< HEAD
-=======
 import { fetchIntro, checkOpenToday } from "../features/korApi/tourapi.js";
 
 /* ===== 유틸: 월별 줄 선택 + 시간범위 파싱 + 상태 계산 ===== */
@@ -67,7 +65,6 @@ const FALLBACK_HOURS = `[1월~2월] 09:00~17:00 (입장마감 16:00)
 [9월~10월] 09:00~18:00 (입장마감 17:00)
 [11월~12월] 09:00~17:00 (입장마감 16:00)`;
 const FALLBACK_REST  = `매주 화요일`;
->>>>>>> feature/cherry
 
 export default class ScenarioSelectScene extends Phaser.Scene {
   constructor() {
