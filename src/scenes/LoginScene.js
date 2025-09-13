@@ -22,13 +22,13 @@ export default class LoginScene extends Phaser.Scene {
     this.cameras.main.fadeIn(30, 0, 0, 0); // 진입시 페이드인
     this.cameras.main.setBackgroundColor("#fffaee");
 
-    // 이미지 (로고용, 임시 사각형)
+    // 로고 이미지
     const logo = this.add.image(W * 0.5, H*0.2, "logo");
     logo.setDisplaySize(W*0.4, W*0.4);
     logo.setOrigin(0.5);
 
     this.loading = this.add.text(W*0.5, H*0.5, "로그인 중...", {
-    fontSize: Math.round(H*0.02), color: "#333"
+    fontFamily: "SkyblessingInje", fontSize: Math.round(H*0.04), color: "#333"
     }).setOrigin(0.5);
 
     // 버튼 컨테이너 (처음엔 숨김)
