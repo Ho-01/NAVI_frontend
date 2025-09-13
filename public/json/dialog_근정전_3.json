@@ -6,5 +6,6 @@
     "nextParam": "cutscene_사방신등장1",
     "script": [
             { "name": "어둑시니", "text": "크아아아아아아악!!! 안돼……!!!!", "pos": "right" }
-    ]
+    ],
+    "checkpoint": "problem13"
 }

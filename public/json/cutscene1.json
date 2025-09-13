@@ -2,5 +2,6 @@
     "effect": "섬광",
     "imageKey": "cutscene1",
     "nextScene": "CutScene",
-    "nextParam": "cutscene2"
+    "nextParam": "cutscene2",
+    "checkpoint": "problem1"
 }

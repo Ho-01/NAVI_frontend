@@ -8,5 +8,6 @@
     		{ "name": "{player}", "text": "해태, 석상에서 어둑시니가 튀어나왔어!!", "pos": "left" },
 		    { "name": "어둑시니", "text": "크하하! 멍청한 인간과 똥개녀석!! 용케도 알아냈구나", "pos": "right" },
             { "name": "{player}", "text": "거기 서!!", "pos": "left" }
-    ]
+    ],
+    "checkpoint": "problem4"
 }

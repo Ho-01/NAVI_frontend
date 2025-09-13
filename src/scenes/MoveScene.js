@@ -2,8 +2,7 @@
 import Phaser from "phaser";
 import { getPOI } from "../kakao/mappoint";
 import GourdOverlay from "../ui/GourdOverlay";
-
-
+import TouchEffect from "../ui/TouchEffect";
 
 // ───────── Kakao SDK 동적 로더 ─────────
 function loadKakaoSdk(cb) {
@@ -134,9 +133,8 @@ export default class MoveScene extends Phaser.Scene {
   create() {
     console.log("다음 : " + this.nextScene, this.nextParam + " return : " + this.returnScene);
     this.cameras.main.setBackgroundColor("#ffe9c8");
+    TouchEffect.init(this); // 터치 이펙트
     const { width: W, height: H } = this.scale;
-
-
 
     // 호리병 오버레이 인스턴스 
     if (!this.gourdOverlay) this.gourdOverlay = new GourdOverlay(this);
@@ -196,7 +194,6 @@ export default class MoveScene extends Phaser.Scene {
           this.scene.start(this.returnScene);
         }
       });
-
 
     this.cameras.main.fadeIn(80, 0, 0, 0);
 

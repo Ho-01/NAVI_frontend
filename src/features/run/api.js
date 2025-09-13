@@ -11,6 +11,12 @@ const getLeaderboard = (scenario) =>
 const getMyGames = () =>
     appClient.get("/runs/in_progress", { auth: true });
 
+const getMyClearedGames = () =>
+    appClient.get("/runs/cleared", { auth: true });
+
+const updateCheckpoint = (runId, checkpoint) =>
+    appClient.put(`/runs/${runId}/checkpoint`, { checkpoint }, { auth: true });
+
 const gameClear = (runId) =>
     appClient.put(`/runs/${runId}`, undefined, { auth: true });
 
@@ -19,5 +25,7 @@ export default {
   startNewGame,
   getLeaderboard,
   getMyGames,
+  getMyClearedGames,
+  updateCheckpoint,
   gameClear,
 };

@@ -7,5 +7,6 @@
     "script": [
             { "name": "해태", "text": "잠시 틈이 생겼다!! 지금이야!!! 어패함을 줄 테니 어서 석상에 어패의 힘을…!!", "pos": "right" },
 		    { "name": "{player}", "text": "알겠어 해태!!", "pos": "left" }
-    ]
+    ],
+    "checkpoint": "problem12"
 }
