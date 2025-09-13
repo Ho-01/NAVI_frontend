@@ -75,6 +75,7 @@ export default class ScenarioSelectScene extends Phaser.Scene {
   preload() {
     this.load.image("scenario1", "assets/scenario1.png");
     this.load.image("lock", "assets/lock.png");
+    this.load.image("완료스탬프", "assets/완료스탬프.png");
   }
 
   create() {
@@ -85,15 +86,20 @@ export default class ScenarioSelectScene extends Phaser.Scene {
 
     TouchEffect.init(this); // 터치 이펙트
 
+    // 로고 이미지
+    const logo = this.add.image(W * 0.5, H*0.1, "logo");
+    logo.setDisplaySize(W*0.3, W*0.3);
+    logo.setOrigin(0.5);
+
     // 타이틀
-    this.add.text(px(0.5), py(0.055), "모험할 장소를 선택하세요", {
-      fontSize: f(0.06), color: "#333"
+    this.add.text(px(0.5), py(0.20), "시나리오를 선택해주세요", {
+      fontFamily: "SkyblessingInje", fontSize: f(0.07), color: "#333"
     }).setOrigin(0.5);
 
     // 카드 레이아웃
     const cardW = px(0.42), cardH = cardW * 1.45;
     const gapX = px(0.06), gapY = py(0.06);
-    const left = (W - (cardW * 2 + gapX)) / 2, top = py(0.12);
+    const left = (W - (cardW * 2 + gapX)) / 2, top = py(0.3);
     const corner = Math.max(16, W * 0.02);
 
     // ───────── 1번 카드 : 경복궁 시나리오 GYEONBOKGUNG ─────────
@@ -114,7 +120,7 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     const lamp = this.add.circle(cardW - 18, 18, 10, 0x999999).setStrokeStyle(2, 0x000000, 0.15);
     c1.add(lamp);
 
-    const statusText = this.add.text(cardW / 2, cardH * 0.84, "정보없음", {
+    const statusText = this.add.text(cardW / 2, cardH * 0.74, "정보없음", {
       fontSize: f(0.04), color: "#9ca3af", fontStyle: "bold"
     }).setOrigin(0.5, 0);
     c1.add(statusText);
@@ -130,7 +136,7 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     let meta = this.game.registry.get("palaceOpen") || null;
     applyStatus(meta);
 
-    // 이어하기/새게임 표시 및 클릭
+    // =========== 이어하기/새게임 표시 및 클릭 ==========
     const hit1_새게임시작 = this.add.rectangle(cardW / 2, cardH / 2, cardW, cardH, 0x000000, 0)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
@@ -152,10 +158,10 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     RunService.getMyGame("GYEONGBOKGUNG")
       .then(res => {
         if (res === false) {
-          c1.add(this.add.text(cardW / 2, cardH * 0.90, "새 게임 시작", { fontSize: f(0.05), color: "#ab0c0cff" }).setOrigin(0.5, 0));
+          c1.add(this.add.text(cardW / 2, cardH * 0.80, "새 게임 시작", { fontFamily: "SkyblessingInje", fontSize: f(0.08), color: "#4543dbff" }).setOrigin(0.5, 0));
           c1.add(hit1_새게임시작); hit1_새게임시작.setAlpha(1);
         } else {
-          c1.add(this.add.text(cardW / 2, cardH * 0.90, "이어하기", { fontSize: f(0.05), color: "#0c7a0cff" }).setOrigin(0.5, 0));
+          c1.add(this.add.text(cardW / 2, cardH * 0.80, "이어하기", { fontFamily: "SkyblessingInje", fontSize: f(0.08), color: "#3c7a0cff" }).setOrigin(0.5, 0));
           c1.add(hit1_이어하기); hit1_이어하기.setAlpha(1);
         }
       })
@@ -163,6 +169,23 @@ export default class ScenarioSelectScene extends Phaser.Scene {
         console.error("[ScenarioSelectScene] 시나리오1 기록 조회 실패:", err);
         c1.add(this.add.text(cardW / 2, cardH * 0.90, "ERROR", { fontSize: f(0.05), color: "#ab0c0cff" }).setOrigin(0.5, 0));
       });
+    
+    // ========== 클리어도장 ==========
+    const clearStamp1 = this.add.image(0, -cardH*0.3, "완료스탬프").setOrigin(0.5).setScale(0.6).setAlpha(0);
+    const clearDate1 = this.add.text(0, 0, "", { fontSize: f(0.06), color: "#d50012", fontStyle: "bold" }).setOrigin(0.5).setAlpha(0);
+    const clearGroup1 = this.add.container(cardW*0.55, cardH/2, [clearStamp1, clearDate1]);
+    clearGroup1.setAngle(-15); // -15도 기울이기
+
+    RunService.getMyClearedGame("GYEONGBOKGUNG")
+    .then(res => {
+      if(res!=false){
+        c1.add(clearGroup1);
+        clearStamp1.setAlpha(1);
+        clearDate1.setAlpha(1).setText(res);
+      }
+    }).catch(err => {
+      console.error("[ScenarioSelectScene] 시나리오1 완료 기록 조회 실패:", err);
+    })
 
     // API 호출 → 메타 갱신
     fetchIntro(126508, 12)
@@ -186,7 +209,7 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     const lock2 = this.add.image(cardW / 2, cardH * 0.33, "lock");
     lock2.setScale(Math.min((cardW * 0.42) / lock2.width, (cardH * 0.22) / lock2.height));
     c2.add(lock2);
-    c2.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
+    c2.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontFamily: "SkyblessingInje", fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
 
     const c3 = this.add.container(left, top + cardH + gapY);
     const bg3 = this.add.graphics().fillStyle(0xe9dfc7, 1).fillRoundedRect(0, 0, cardW, cardH, corner);
@@ -194,7 +217,7 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     const lock3 = this.add.image(cardW / 2, cardH * 0.33, "lock");
     lock3.setScale(Math.min((cardW * 0.42) / lock3.width, (cardH * 0.22) / lock3.height));
     c3.add(lock3);
-    c3.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
+    c3.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontFamily: "SkyblessingInje", fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
 
     const c4 = this.add.container(left + cardW + gapX, top + cardH + gapY);
     const bg4 = this.add.graphics().fillStyle(0xe9dfc7, 1).fillRoundedRect(0, 0, cardW, cardH, corner);
@@ -202,6 +225,6 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     const lock4 = this.add.image(cardW / 2, cardH * 0.33, "lock");
     lock4.setScale(Math.min((cardW * 0.42) / lock4.width, (cardH * 0.22) / lock4.height));
     c4.add(lock4);
-    c4.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
+    c4.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontFamily: "SkyblessingInje", fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
   }
 }

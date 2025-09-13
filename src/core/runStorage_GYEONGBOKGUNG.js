@@ -5,14 +5,16 @@ const RunStorage = {
     _checkpoint: null, // 현재 위치 (씬 키)
     _hintCount: 0,
     _startedAt: null,
+    _endedAt: null,
 
     load(){
         this._runId = sessionStorage.getItem("runId") || null;
         this._scenario = sessionStorage.getItem("scenario") || null;
         this._status = sessionStorage.getItem("status") || null;
+        this._checkpoint = sessionStorage.getItem("checkpoint") || null;
         this._hintCount = sessionStorage.getItem("hintCount") || 0;
         this._startedAt = sessionStorage.getItem("startedAt") || null;
-        this._checkpoint = sessionStorage.getItem("checkpoint") || null;
+        this._endedAt = sessionStorage.getItem("endedAt") || null;
     },
 
     getRunId(){
@@ -44,6 +46,11 @@ const RunStorage = {
         if (this._startedAt == null) this._startedAt = sessionStorage.getItem("startedAt") || null;
         console.log("[RunStorage] getStartedAt:", this._startedAt);
         return this._startedAt;
+    },
+    getEndedAt(){
+        if (this._endedAt == null) this._endedAt = sessionStorage.getItem("endedAt") || null;
+        console.log("[RunStorage] getendedAt:", this._endedAt);
+        return this._endedAt;
     },
 
     setRunId(id){
@@ -81,14 +88,21 @@ const RunStorage = {
         else sessionStorage.removeItem("startedAt");
         console.log("[RunStorage] setStartedAt:", time);
     },
+    setEndedAt(time){
+        this._endedAt = time || null;
+        if(time)sessionStorage.setItem("endedAt", time);
+        else sessionStorage.removeItem("endedAt");
+        console.log("[RunStorage] setEndedAt:", time);
+    },
 
     clear(){
         this.setRunId(null);
         this.setScenario(null);
         this.setStatus(null);
+        this.setCheckpoint(null);
         this.setHintCount(null);
         this.setStartedAt(null);
-        this.setCheckpoint(null);
+        this.setEndedAt(null);
     }   
 };
 

@@ -8,6 +8,8 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   preload() {
+    // 폰트 로드
+    document.fonts.load("16px SkyblessingInje");
     // 로고나 이미지 미리 로드
     this.load.image("logo", "assets/logo.png");
     this.load.image("navi_full", "assets/navi_full.png");

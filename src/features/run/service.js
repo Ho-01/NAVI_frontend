@@ -17,7 +17,7 @@ const getStore = (scenario) => {
 };
 
 const setSafeCheckpoint = (store, cp) => {
-  const key = (typeof cp === "string" && cp.trim()) ? cp.trim() : "오프닝";
+  const key = (typeof cp === "string" && cp.trim()) ? cp.trim() : "opening";
   store.setCheckpoint(key);
   return key;
 };
@@ -33,6 +33,7 @@ const RunService = {
     store.setStatus(d.status ?? "IN_PROGRESS");
     store.setHintCount(d.hintCount ?? 0);
     store.setStartedAt(d.startedAt ?? new Date().toISOString());
+    store.setEndedAt(d.endedAt ?? null);
     const cp = setSafeCheckpoint(store, d.checkpoint);
 
     return { ...res, data: { ...d, checkpoint: cp } };
@@ -43,8 +44,8 @@ const RunService = {
   },
 
   async getMyGame(scenario) {
-    const res = await RunAPI.getMyGames(); // { data: { runs: [...] } }
-    const runs = res?.data?.runs || [];
+    const res = await RunAPI.getMyGames(); // { data: [...] }
+    const runs = res?.data || [];
     const r = runs.find(x => x.scenario === scenario);
 
     const store = getStore(scenario);
@@ -58,10 +59,23 @@ const RunService = {
     store.setStatus(r.status ?? "IN_PROGRESS");
     store.setHintCount(r.hintCount ?? 0);
     store.setStartedAt(r.startedAt ?? new Date().toISOString());
+    store.setEndedAt(r.endedAt ?? null);
     const cp = setSafeCheckpoint(store, r.checkpoint);
 
     // 기존 반환값 유지 + checkpoint도 함께 반환
     return { startedAt: r.startedAt, checkpoint: cp };
+  },
+
+  async getMyClearedGame(scenario){
+    const res = await RunAPI.getMyClearedGames(); // { data: [...] }
+    const runs = res?.data || [];
+    const r = runs.find(x => x.scenario === scenario);
+
+    if (!r) {
+      return false;
+    }
+
+    return r.endedAt.split("T")[0];
   },
 
   async updateCheckpoint(runId, checkpoint){
@@ -74,13 +88,26 @@ const RunService = {
     store.setStatus(d.status ?? "IN_PROGRESS");
     store.setHintCount(d.hintCount ?? 0);
     store.setStartedAt(d.startedAt ?? new Date().toISOString());
+    store.setEndedAt(d.endedAt ?? null);
     const cp = setSafeCheckpoint(store, d.checkpoint);
 
     return { ...res, data: { ...d, checkpoint: cp } };
   },
 
   async gameClear(runId) { // { id, scenario, status, userName, startedAt, endedAt, TotalPlayMsText, hintCount }
-    return await RunAPI.gameClear(runId);
+    const res = await RunAPI.gameClear(runId); // { data: { id, scenario, status, checkpoint, hintCount, startedAt, checkpoint? } }
+    const d = res?.data || {};
+    const store = getStore(d.scenario);
+    
+    store.setRunId(d.id ?? null);
+    store.setScenario(d.scenario ?? scenario);
+    store.setStatus(d.status ?? "IN_PROGRESS");
+    store.setHintCount(d.hintCount ?? 0);
+    store.setStartedAt(d.startedAt ?? new Date().toISOString());
+    store.setEndedAt(d.endedAt ?? null);
+    const cp = setSafeCheckpoint(store, d.checkpoint);
+    
+    return d.endedAt;
   },
 };
 
