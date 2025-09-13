@@ -11,7 +11,7 @@ export default class InventoryOverlay {
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => this.hide());
 
-    const panel = scene.add.image(W / 2, H / 2, "overlay_inventory").setOrigin(0.5);
+    const panel = scene.add.image(W / 2, H*2/3, "overlay_inventory").setOrigin(0.5);
     const tex = scene.textures.get("overlay_inventory")?.getSourceImage?.();
     if (tex) panel.setScale(Math.min((W * 0.85) / tex.width, (H * 0.75) / tex.height));
 
@@ -23,7 +23,7 @@ export default class InventoryOverlay {
 
     const inv = scene.game.registry.get("inventory");
     const onGranted = (k) => {
-      if (!this.container || this.container.destroyed) return; // null/파괴 가드 
+      if (!this.root || this.root.destroyed) return; // null/파괴 가드
       // 자동 오픈 원치 않으면 visible 건드리지 말고 목록만 갱신 
       this.refresh && this.refresh();
     };

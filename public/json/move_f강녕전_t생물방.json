@@ -1,6 +1,9 @@
 {
+    "name": "생물방",
     "imageKey": "move_f강녕전_t생물방",
     "text": "생물방으로 이동해 주세요...",
+    "showHUD": true,
+    "showInventoryBtn": true,
     "moveCancel": false,
     "nextScene": "CutScene",
     "nextParam": "cutscene_아귀등장",
