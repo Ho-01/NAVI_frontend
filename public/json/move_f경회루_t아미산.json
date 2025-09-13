@@ -1,6 +1,9 @@
 {
+     "name": "아미산",
     "imageKey": "move_f경회루_t아미산",
     "text": "아미산으로 이동해 주세요...",
+    "showHUD": true,
+    "showInventoryBtn": true,
     "moveCancel": false,
     "nextScene": "DialogScene",
     "nextParam": "dialog_아미산_1",

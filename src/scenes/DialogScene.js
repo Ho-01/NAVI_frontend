@@ -1,4 +1,7 @@
 import Phaser from "phaser";
+import TouchEffect from "../ui/TouchEffect";
+import RunService from "../features/run/service";
+import RunStorage from "../core/runStorage_GYEONGBOKGUNG";
 
 export default class DialogScene extends Phaser.Scene {
   constructor() {
@@ -23,13 +26,23 @@ export default class DialogScene extends Phaser.Scene {
     if(json.nextParam){
       this.nextParam = json.nextParam;
     }else{this.nextParam=null;}
+    if(json.checkpoint){
+      this.checkpoint = json.checkpoint;
+    }else{this.checkpoint=null;}
   }
 
   create() {
     console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);
     const { width, height } = this.scale;
-    this.index = 0;
+
+    TouchEffect.init(this); // 터치 이펙트
     
+    // 체크포인트 저장
+    if(this.checkpoint!= null){
+      RunService.updateCheckpoint(RunStorage.getRunId(), this.checkpoint);
+    }
+
+    this.index = 0;
     this.bg = this.add.image(width*0.5, height*0.5, this.background)
     .setOrigin(0.5)
     .setDepth(-1);
@@ -77,6 +90,10 @@ export default class DialogScene extends Phaser.Scene {
       }
     };
 
+    const touchIcon = this.add.image(width*0.87, height*0.95, "navi_full").setOrigin(0.5).setScale(0.1);
+    this.touchTween = this.tweens.add({ targets: touchIcon, alpha: { from: 1, to: 0.4 }, duration: 700, yoyo: true, repeat: -1, hold: 50, repeatDelay: 50, ease: "Quad.easeInOut" });
+
+
     this.cameras.main.fadeIn(50, 0, 0, 0);
 
     // 첫 줄 보여주기
@@ -89,6 +106,7 @@ export default class DialogScene extends Phaser.Scene {
         this.finishTyping();
         return;
       }
+      this.touchTween.restart();
       this.index++;
       if (this.index < this.script.length) {
         this.showLine(this.script[this.index]);
@@ -129,7 +147,7 @@ export default class DialogScene extends Phaser.Scene {
     this.currentFullText = fullText;
 
     this.typingEvent = this.time.addEvent({
-      delay: 8, // 한 글자 출력 간격(ms)
+      delay: 3, // 한 글자 출력 간격(ms)
       repeat: fullText.length - 1,
       callback: () => {
         const len = bubble.text.text.length;

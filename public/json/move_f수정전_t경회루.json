@@ -1,6 +1,8 @@
 {
+    "name": "경회루",
     "imageKey": "move_f수정전_t경회루",
     "text": "경회루로 이동해 주세요...",
+    "showHUD": true,
     "moveCancel": false,
     "nextScene": "CutScene",
     "nextParam": "cutscene_청룡등장",

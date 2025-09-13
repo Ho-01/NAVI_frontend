@@ -1,6 +1,8 @@
 {
+    "name": "수정전",
     "imageKey": "move_f근정문_t수정전",
     "text": "수정전 앞으로 이동해 주세요...",
+    "showHUD": true,
     "moveCancel": false,
     "nextScene": "DialogScene",
     "nextParam": "dialog_수정전_1",

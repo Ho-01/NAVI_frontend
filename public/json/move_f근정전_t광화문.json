@@ -1,6 +1,9 @@
 {
+    "name": "광화문",
     "imageKey": "move_f근정전_t광화문",
     "text": "광화문으로 이동해 주세요...(필수X)",
+    "showHUD": true,
+    "showInventoryBtn": true,
     "moveCancel": false,
     "nextScene": "DialogScene",
     "nextParam": "dialog_광화문_5",

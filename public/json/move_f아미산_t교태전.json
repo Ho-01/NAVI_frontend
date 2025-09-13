@@ -1,6 +1,9 @@
 {
+    "name": "교태전",
     "imageKey": "move_f아미산_t교태전",
     "text": "교태전으로 이동해 주세요...(필수X)",
+    "showHUD": true,
+    "showInventoryBtn": true,
     "moveCancel": false,
     "nextScene": "DialogScene",
     "nextParam": "dialog_교태전_1",

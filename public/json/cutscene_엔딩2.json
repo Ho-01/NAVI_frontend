@@ -1,5 +1,6 @@
 {
     "effect": "없음",
     "imageKey": "cutscene_엔딩2",
-    "nextScene": "TitleScene"
+    "nextScene": "TitleScene",
+    "checkpoint": "cleared"
 }

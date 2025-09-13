@@ -7,5 +7,6 @@
     "script": [
 		    { "name": "{player}", "text": "지도야!", "pos": "left" },
             { "name": "해태", "text": "분명 있을 줄 알았어!", "pos": "right" }
-    ]
+    ],
+    "checkpoint": "problem6"
 }
