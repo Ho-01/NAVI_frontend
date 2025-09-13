@@ -1,6 +1,8 @@
 {
+    "name": "영제교",
     "imageKey": "move_f흥례문_t영제교",
     "text": "영제교로 이동해 주세요...",
+    "showHUD": true,
     "moveCancel": false,
     "nextScene": "DialogScene",
     "nextParam": "dialog_영제교_1",
