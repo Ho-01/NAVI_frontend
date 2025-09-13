@@ -242,9 +242,13 @@ export default class PreloadScene extends Phaser.Scene {
     }
 
     // this.scene.start("서십자각터");
-    // opening, problem1~13, ending
+    // opening, problem1~13, cleared
     const checkpoint = RunStorage.getCheckpoint();
     if (checkpoint == "opening") {
+      console.log("[PreloadScene] 새 게임 시작");
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_오프닝1")});
+    } 
+    else if (checkpoint == "ending") {
       console.log("[PreloadScene] 새 게임 시작");
       this.scene.start("CutScene", { json: this.cache.json.get("cutscene_오프닝1")});
     } 
@@ -254,8 +258,42 @@ export default class PreloadScene extends Phaser.Scene {
     else if (checkpoint == "problem2"){
       this.scene.start("DialogScene", { json: this.cache.json.get("dialog_광화문_4")} )
     }
+    else if (checkpoint == "problem3"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_흥례문_2")} )
+    }
+    else if (checkpoint == "problem4"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_영제교_2")} )
+    }
+    else if (checkpoint == "problem5"){
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_근정문파괴")} )
+    }
+    else if (checkpoint == "problem6"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_수정전_2")} )
+    }
+    else if (checkpoint == "problem7"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_경회루_2")} )
+    }
+    else if (checkpoint == "problem8"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_아미산_2")} )
+    }
+    else if (checkpoint == "problem9"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_강녕전_2")} )
+    }
+    else if (checkpoint == "problem10"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_소주방_2")} )
+    }
+    else if (checkpoint == "problem11"){
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_어둑시니등장")} )
+    }
+    else if (checkpoint == "problem12"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_근정전_2")} )
+    }
+    else if (checkpoint == "problem13"){
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_근정전_3")} )
+    }
     else {
-      console.log("[PreloadScene] 이어하기: ", RunStorage.getCheckpoint());
+      console.log("[PreloadScene] 이어하기 실패, checkpoint : ", RunStorage.getCheckpoint());
+      this.scene.start("TitleScene");
     }
   }
 }
