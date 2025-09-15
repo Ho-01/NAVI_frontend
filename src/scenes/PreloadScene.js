@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { createInventoryStore } from "../features/inventory/store";
 import RunStorage from "../core/runStorage_GYEONGBOKGUNG";
+import InventoryService from "../features/inventory/service.js";
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -9,12 +10,12 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     const { width, height } = this.scale;
-    
+
     this.cameras.main.setBackgroundColor("#fffaee");
 
     // 로딩중 로고
-    const logo = this.add.image(width * 0.5, height*0.1, "logo");
-    logo.setDisplaySize(width*0.3, width*0.3);
+    const logo = this.add.image(width * 0.5, height * 0.1, "logo");
+    logo.setDisplaySize(width * 0.3, width * 0.3);
     logo.setOrigin(0.5);
     // 로딩중 텍스트
     this.로딩중텍스트 = this.add.text(width / 2, height / 2, "로딩 중.. 잠시만 기다려주세요", {
@@ -227,12 +228,10 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("overlay_bundle", "assets/overlay/overlay_bundle.png");
   }
 
-  create() {
-    // 시작 → 맵으로 이동
 
-    const inventoryStore = window.inventoryStore; // 전역 스토어 접근 (만들어둔 store.js 기준)
-
-    if (!this.game.registry.get("inventory")) {
+  async create() {
+    // 서버 인벤토리 → 클라 스토어 동기화 (runId 우선, in_progress 폴백)
+     if (!this.game.registry.get("inventory")) {
       this.game.registry.set("inventory", createInventoryStore());
     }
 
@@ -240,6 +239,15 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
+    await InventoryService.hydrate(this,{replace: true });
+    const inventoryStore = window.inventoryStore; // 전역 스토어 접근 (만들어둔 store.js 기준)
+
+    const r = await InventoryService.hydrate(this);
+    console.log("[hydrate]", r);
+    const store = this.game.registry.get("inventory");
+    console.log("[store items]", store?.items?.(), "counts:", store && store.items().map(k => [k, store.getCount(k)]));
+
+   
 
     // this.scene.start("서십자각터");
     // opening, problem1~13, cleared
@@ -247,40 +255,40 @@ export default class PreloadScene extends Phaser.Scene {
     if (checkpoint == "opening") {
       console.log("[PreloadScene] 새 게임 시작");
       this.scene.start("UsernameInputScene");
-    } 
+    }
     else if (checkpoint == "ending") {
       console.log("[PreloadScene] 새 게임 시작");
       this.scene.start("UsernameInputScene");
-    } 
-    else if (checkpoint == "problem1"){
-      this.scene.start("CutScene", { json: this.cache.json.get("cutscene1")} )
     }
-    else if (checkpoint == "problem2"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_광화문_5")} )
+    else if (checkpoint == "problem1") {
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene1") })
     }
-    else if (checkpoint == "problem3"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_흥례문_2")} )
+    else if (checkpoint == "problem2") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_광화문_5") })
     }
-    else if (checkpoint == "problem4"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_영제교_2")} )
+    else if (checkpoint == "problem3") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_흥례문_2") })
     }
-    else if (checkpoint == "problem5"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_수정전_3")} )
+    else if (checkpoint == "problem4") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_영제교_2") })
     }
-    else if (checkpoint == "problem6"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_경회루_2")} )
+    else if (checkpoint == "problem5") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_수정전_3") })
     }
-    else if (checkpoint == "problem7"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_아미산_1")} )
+    else if (checkpoint == "problem6") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_경회루_2") })
     }
-    else if (checkpoint == "problem8"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_생물방소주방_3")} )
+    else if (checkpoint == "problem7") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_아미산_1") })
     }
-    else if (checkpoint == "problem9"){
-      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_어둑시니등장")} )
+    else if (checkpoint == "problem8") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_생물방소주방_3") })
     }
-    else if (checkpoint == "problem10"){
-      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_근정전_3")} )
+    else if (checkpoint == "problem9") {
+      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_어둑시니등장") })
+    }
+    else if (checkpoint == "problem10") {
+      this.scene.start("DialogScene", { json: this.cache.json.get("dialog_근정전_3") })
     }
     else {
       console.log("[PreloadScene] 이어하기 실패, checkpoint : ", RunStorage.getCheckpoint());
