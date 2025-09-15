@@ -1,6 +1,6 @@
 {
     "effect": "천둥",
     "imageKey": "cutscene_광화문명명7",
-    "nextScene": "DialogScene",
-    "nextParam": "dialog_광화문_2"
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_광화문명명8"
 }

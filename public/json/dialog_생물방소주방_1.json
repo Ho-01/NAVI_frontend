@@ -1,0 +1,14 @@
+{
+    "background": "bg_생물방",
+    "leftChar": "player",
+    "rightChar": "궁녀",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_궁녀들",
+    "script": [
+		    { "name": "{player}", "text": "해태?!?", "pos": "left" },
+            { "name": "{player}", "text": "해태!!! 어디로 사라진거야?", "pos": "left" },
+            { "name": "궁녀", "text": "여기서 뭐하고 있니? 잔치 준비해야지!", "pos": "right" },
+            { "name": "{player}", "text": "네..? 저는 그게 아니라….", "pos": "left" },
+            { "name": "궁녀", "text": "무슨 소리니? 어서 따라와!!", "pos": "right" }
+    ]
+}

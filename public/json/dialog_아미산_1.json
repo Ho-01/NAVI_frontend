@@ -2,11 +2,13 @@
     "background": "bg_아미산",
     "leftChar": "player",
     "rightChar": "해태",
-    "nextScene": "ProblemScene",
-    "nextParam": "problem8",
+    "nextScene": "MoveScene",
+    "nextParam": "move_f아미산_t생물방소주방",
     "script": [
-            { "name": "{player}", "text": "분명 청룡님이 표시해준대로라면 이 근처에 어패가 있어야 하는데...", "pos": "left" },
-            { "name": "해태", "text": "굴뚝이 너무 많아서 어느 것이 어패를 숨기고 있는지 모르겠어...", "pos": "right" },
-		    { "name": "{player}", "text": "어...? 이것 좀 봐 해태. 굴뚝 무늬가 조금씩 달라!", "pos": "left" }
-    ]
+            { "name": "{player}", "text": "찾았다! 이 굴뚝이야!", "pos": "left" },
+            { "name": "해태", "text": "정말이야, 아래쪽에 어패가 있어!", "pos": "right" },
+            { "name": "해태", "text": "이건…! [주작 어패]다! 어패함에 잘 넣어둘게!", "pos": "right" },
+            { "name": "해태", "text": "다음은 이쪽이야! 마지막 어패를 찾으러 가자!", "pos": "right" }
+    ],
+    "checkpoint": "problem7"
 }

@@ -1,0 +1,6 @@
+{
+    "effect": "진동",
+    "imageKey": "cutscene_궁녀들",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_생물방소주방_2"
+}

@@ -1,0 +1,12 @@
+{
+    "background": "bg_소주방",
+    "leftChar": "player",
+    "rightChar": "어둑시니",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_생물방소주방_4",
+    "script": [
+        { "name": "어둑시니", "text": "여기까지 쫓아오다니… 너희는 절대 날 잡을 수 없어!!", "pos": "right" },
+        { "name": "{player}", "text": "거기 서!!!!", "pos": "left" }
+    ],
+    "checkpoint": "problem8"
+}

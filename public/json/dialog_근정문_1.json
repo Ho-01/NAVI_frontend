@@ -2,8 +2,8 @@
     "background": "bg_근정문",
     "leftChar": "어둑시니_근정문",
     "rightChar": "해태",
-    "nextScene": "ProblemScene",
-    "nextParam": "problem5",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_근정문파괴",
     "script": [
             { "name": "해태", "text": "이 못된 악귀녀석아!! 근정전만은 건드리면 안돼!!", "pos": "right" },
     		{ "name": "어둑시니", "text": "으하하하! 이미 늦었다!!", "pos": "left" },

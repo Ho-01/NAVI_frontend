@@ -2,10 +2,9 @@
     "background": "bg_근정전_dark",
     "leftChar": "player",
     "rightChar": "어둑시니",
-    "nextScene": "ProblemScene",
-    "nextParam": "problem12",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_불타는근정전",
     "script": [
-            { "name": "어둑시니", "text": "크하하하하!! 잘도 기어들어왔구나…", "pos": "right" },
 		    { "name": "{player}", "text": "얌전히 봉인되어라 어둑시니!!", "pos": "left" },
             { "name": "어둑시니", "text": "멍청하구나… 봉인되는 것은 너희들이다…", "pos": "right" },
             { "name": "{player}", "text": "!!!!!", "pos": "left" }

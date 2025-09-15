@@ -1,11 +1,12 @@
 {
-    "background": "bg_근정전_dark",
+    "background": "bg_근정전_fire",
     "leftChar": "player",
     "rightChar": "어둑시니",
     "nextScene": "CutScene",
     "nextParam": "cutscene_사방신등장1",
     "script": [
-            { "name": "어둑시니", "text": "크아아아아아아악!!! 안돼……!!!!", "pos": "right" }
+            { "name": "어둑시니", "text": "이럴 수가! 나의 어둠이... 나의 어둠이 사라지고 있어!", "pos": "right" },
+            { "name": "어둑시니", "text": "크아아아아아아악!!! 안돼……!!!!!", "pos": "right" }
     ],
-    "checkpoint": "problem13"
+    "checkpoint": "problem10"
 }

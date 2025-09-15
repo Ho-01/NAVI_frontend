@@ -1,11 +1,13 @@
 {
     "background": "bg_교태전",
-    "leftChar": "player",
-    "rightChar": "해태",
-    "nextScene": "MoveScene",
-    "nextParam": "move_f교태전_t강녕전",
+    "leftChar": "blank",
+    "rightChar": "주작",
+    "nextScene": "ProblemScene",
+    "nextParam": "problem7",
     "script": [
-		    { "name": "해태", "text": "강녕전 쪽에서 음산한 악귀의 기운이 느껴져…", "pos": "right" },
-		    { "name": "해태", "text": "조금만 더 가보자..", "pos": "right" }
+		    { "name": "주작", "text": "네가 나의 어패를 얻고자 하거든", "pos": "right" },
+            { "name": "주작", "text": "백악의 정기를 침전까지 이어주는 곳으로 가", "pos": "right" },
+            { "name": "주작", "text": "장수(壽)와 부귀(富貴)의 소망이 모두 깃든 것을 밝혀내거라", "pos": "right" },
+		    { "name": "주작", "text": "그곳에 어패가 있으니", "pos": "right" }
     ]
 }

@@ -1,0 +1,6 @@
+{
+    "effect": "진동",
+    "imageKey": "cutscene_어질러진수정전",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_수정전_2"
+}

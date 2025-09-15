@@ -86,43 +86,35 @@ export default class ScenarioSelectScene extends Phaser.Scene {
 
     TouchEffect.init(this); // 터치 이펙트
 
-    // 로고 이미지
-    const logo = this.add.image(W * 0.5, H*0.1, "logo");
-    logo.setDisplaySize(W*0.3, W*0.3);
-    logo.setOrigin(0.5);
-
     // 타이틀
-    this.add.text(px(0.5), py(0.20), "시나리오를 선택해주세요", {
-      fontFamily: "SkyblessingInje", fontSize: f(0.07), color: "#333"
+    this.add.text(px(0.5), py(0.1), "시나리오 선택", {
+      fontFamily: "Pretendard", fontStyle: "bold", fontSize: f(0.08), color: "#333"
     }).setOrigin(0.5);
 
     // 카드 레이아웃
-    const cardW = px(0.42), cardH = cardW * 1.45;
-    const gapX = px(0.06), gapY = py(0.06);
-    const left = (W - (cardW * 2 + gapX)) / 2, top = py(0.3);
-    const corner = Math.max(16, W * 0.02);
+    const cardW = px(0.9), cardH = cardW * 0.4;
+    const corner = Math.max(16, W * 0.04);
 
     // ───────── 1번 카드 : 경복궁 시나리오 GYEONBOKGUNG ─────────
-    const c1 = this.add.container(left, top);
+    const c1 = this.add.container(W*0.05, H*0.25);
 
-    const bg1 = this.add.graphics().fillStyle(0xe9dfc7, 1).fillRoundedRect(0, 0, cardW, cardH, corner);
+    const bg1 = this.add.graphics().fillStyle(0xfffaeb, 1).fillRoundedRect(0, 0, cardW, cardH, corner).lineStyle(2,0xe9dfc7,1).strokeRoundedRect(0, 0, cardW, cardH, corner);
     c1.add(bg1);
 
-    const img1 = this.add.image(cardW / 2, cardH * 0.48, "scenario1").setOrigin(0.5, 1);
-    img1.setScale(Math.min((cardW * 0.82) / img1.width, (cardH * 0.42) / img1.height));
+    const img1 = this.add.image(cardW *0.95, cardH * 0.2, "scenario1").setOrigin(1, 0);
+    img1.setScale(Math.min((cardW) / img1.width, (cardH*0.4) / img1.height));
     c1.add(img1);
 
-    c1.add(this.add.text(cardW / 2, cardH * 0.50, "시나리오 1", { fontSize: f(0.06), color: "#333" }).setOrigin(0.5, 0));
-    c1.add(this.add.text(cardW / 2, cardH * 0.60, "경복궁",     { fontSize: f(0.042), color: "#333" }).setOrigin(0.5, 0));
-    c1.add(this.add.text(cardW / 2, cardH * 0.68, "사라진 빛의 비밀", { fontSize: f(0.04), color: "#333" }).setOrigin(0.5, 0));
+    c1.add(this.add.text(cardW *0.05, cardH * 0.10, "[시나리오 1]", { fontFamily: "Pretendard", fontSize: f(0.04), color: "#565656ff" }).setOrigin(0, 0));
+    c1.add(this.add.text(cardW *0.05, cardH * 0.30, "경복궁 : 사라진 빛의 비밀", { fontFamily: "Pretendard", fontStyle: "bold", fontSize: f(0.06), color: "#333" }).setOrigin(0, 0));
 
     // 상태 램프 + 상태 텍스트(이어하기 위)
     const lamp = this.add.circle(cardW - 18, 18, 10, 0x999999).setStrokeStyle(2, 0x000000, 0.15);
     c1.add(lamp);
 
-    const statusText = this.add.text(cardW / 2, cardH * 0.74, "정보없음", {
-      fontSize: f(0.04), color: "#9ca3af", fontStyle: "bold"
-    }).setOrigin(0.5, 0);
+    const statusText = this.add.text(cardW*0.05, cardH * 0.6, "정보없음", {
+      fontFamily: "Pretendard", fontSize: f(0.04), color: "#9ca3af", fontStyle: "bold"
+    }).setOrigin(0, 0);
     c1.add(statusText);
 
     // 최초: registry의 메타 적용
@@ -158,10 +150,10 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     RunService.getMyGame("GYEONGBOKGUNG")
       .then(res => {
         if (res === false) {
-          c1.add(this.add.text(cardW / 2, cardH * 0.80, "새 게임 시작", { fontFamily: "SkyblessingInje", fontSize: f(0.08), color: "#4543dbff" }).setOrigin(0.5, 0));
+          c1.add(this.add.text(cardW *0.95, cardH * 0.95, "새 게임 시작 >", { fontFamily: "SkyblessingInje", fontSize: f(0.05), color: "#4543dbff" }).setOrigin(1, 1));
           c1.add(hit1_새게임시작); hit1_새게임시작.setAlpha(1);
         } else {
-          c1.add(this.add.text(cardW / 2, cardH * 0.80, "이어하기", { fontFamily: "SkyblessingInje", fontSize: f(0.08), color: "#3c7a0cff" }).setOrigin(0.5, 0));
+          c1.add(this.add.text(cardW *0.95, cardH * 0.95, "이어하기 >", { fontFamily: "SkyblessingInje", fontSize: f(0.05), color: "#3c7a0cff" }).setOrigin(1, 1));
           c1.add(hit1_이어하기); hit1_이어하기.setAlpha(1);
         }
       })
@@ -171,9 +163,9 @@ export default class ScenarioSelectScene extends Phaser.Scene {
       });
     
     // ========== 클리어도장 ==========
-    const clearStamp1 = this.add.image(0, -cardH*0.3, "완료스탬프").setOrigin(0.5).setScale(0.6).setAlpha(0);
-    const clearDate1 = this.add.text(0, 0, "", { fontSize: f(0.06), color: "#d50012", fontStyle: "bold" }).setOrigin(0.5).setAlpha(0);
-    const clearGroup1 = this.add.container(cardW*0.55, cardH/2, [clearStamp1, clearDate1]);
+    const clearStamp1 = this.add.image(0, 0, "완료스탬프").setOrigin(0.5).setScale(0.6).setAlpha(0);
+    const clearDate1 = this.add.text(0, cardH*0.3, "", { fontSize: f(0.06), color: "#d50012", fontStyle: "bold" }).setOrigin(0.5).setAlpha(0);
+    const clearGroup1 = this.add.container(cardW*0.45, cardH/2, [clearStamp1, clearDate1]);
     clearGroup1.setAngle(-15); // -15도 기울이기
 
     RunService.getMyClearedGame("GYEONGBOKGUNG")
@@ -203,28 +195,20 @@ export default class ScenarioSelectScene extends Phaser.Scene {
       });
 
     // ── 2~4번 카드(락) ──
-    const c2 = this.add.container(left + cardW + gapX, top);
-    const bg2 = this.add.graphics().fillStyle(0xe9dfc7, 1).fillRoundedRect(0, 0, cardW, cardH, corner);
+    const c2 = this.add.container(W*0.05, H*0.45);
+    const bg2 = this.add.graphics().fillStyle(0xfffaeb, 1).fillRoundedRect(0, 0, cardW, cardH, corner).lineStyle(2,0xe9dfc7,1).strokeRoundedRect(0, 0, cardW, cardH, corner);
     c2.add(bg2);
-    const lock2 = this.add.image(cardW / 2, cardH * 0.33, "lock");
-    lock2.setScale(Math.min((cardW * 0.42) / lock2.width, (cardH * 0.22) / lock2.height));
+    const lock2 = this.add.image(cardW *0.9, cardH * 0.5, "lock").setOrigin(1, 0.5);
+    lock2.setScale(Math.min((cardW) / lock2.width, (cardH*0.4) / lock2.height));
     c2.add(lock2);
-    c2.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontFamily: "SkyblessingInje", fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
+    c2.add(this.add.text(cardW *0.1, cardH * 0.50, "Coming Soon...", { fontFamily: "Pretendard", fontStyle: "bold", fontSize: f(0.06), color: "#767676ff" }).setOrigin(0, 0.5));
 
-    const c3 = this.add.container(left, top + cardH + gapY);
-    const bg3 = this.add.graphics().fillStyle(0xe9dfc7, 1).fillRoundedRect(0, 0, cardW, cardH, corner);
+    const c3 = this.add.container(W*0.05, H*0.65);
+    const bg3 = this.add.graphics().fillStyle(0xfffaeb, 1).fillRoundedRect(0, 0, cardW, cardH, corner).lineStyle(2,0xe9dfc7,1).strokeRoundedRect(0, 0, cardW, cardH, corner);
     c3.add(bg3);
-    const lock3 = this.add.image(cardW / 2, cardH * 0.33, "lock");
-    lock3.setScale(Math.min((cardW * 0.42) / lock3.width, (cardH * 0.22) / lock3.height));
+    const lock3 = this.add.image(cardW *0.9, cardH * 0.5, "lock").setOrigin(1, 0.5);
+    lock3.setScale(Math.min((cardW) / lock3.width, (cardH*0.4) / lock3.height));
     c3.add(lock3);
-    c3.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontFamily: "SkyblessingInje", fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
-
-    const c4 = this.add.container(left + cardW + gapX, top + cardH + gapY);
-    const bg4 = this.add.graphics().fillStyle(0xe9dfc7, 1).fillRoundedRect(0, 0, cardW, cardH, corner);
-    c4.add(bg4);
-    const lock4 = this.add.image(cardW / 2, cardH * 0.33, "lock");
-    lock4.setScale(Math.min((cardW * 0.42) / lock4.width, (cardH * 0.22) / lock4.height));
-    c4.add(lock4);
-    c4.add(this.add.text(cardW / 2, cardH * 0.58, "COMING\nSOON", { fontFamily: "SkyblessingInje", fontSize: f(0.075), color: "#4A4036", align: "center" }).setOrigin(0.5, 0));
+    c3.add(this.add.text(cardW *0.1, cardH * 0.50, "Coming Soon...", { fontFamily: "Pretendard", fontStyle: "bold", fontSize: f(0.06), color: "#767676ff" }).setOrigin(0, 0.5));
   }
 }
