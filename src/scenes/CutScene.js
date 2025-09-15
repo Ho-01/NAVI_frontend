@@ -43,9 +43,10 @@ export default class CutScene extends Phaser.Scene {
 
     // 체크포인트 저장
     if(this.checkpoint!= null){
-      RunService.updateCheckpoint(RunStorage.getRunId(), this.checkpoint);
       if(this.checkpoint=="cleared"){
         RunService.gameClear(RunStorage.getRunId());
+      }else{
+        RunService.updateCheckpoint(RunStorage.getRunId(), this.checkpoint);
       }
     }
 

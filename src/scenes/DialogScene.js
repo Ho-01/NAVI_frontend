@@ -55,6 +55,12 @@ export default class DialogScene extends Phaser.Scene {
     const scale = Math.min(scaleX, scaleY);
     this.bg.setScale(scale);
 
+    // 맵 타이틀
+    const mapTitle = this.add.image(width * 0.3, height * 0.06, "맵_타이틀").setOrigin(0.5).setScale(0.6).setAlpha(0);
+    this.tweens.add({ targets: mapTitle, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
+    const mapTitleText = this.add.text(width * 0.3, height * 0.055, this.background.split("_")[1], { fontFamily: "Pretendard", fontSize: width * 0.04, fontStyle: "bold", color: "#333" }).setOrigin(0.5).setAlpha(0);
+    this.tweens.add({ targets: mapTitleText, alpha: 1.0, duration: 800, ease: "Quad.easeOut" });
+
     // 좌/우 캐릭터
     // 화면의 40% x 40% 박스에 맞춰 비율 유지
     const maxW = width  * 0.4;
@@ -74,7 +80,7 @@ export default class DialogScene extends Phaser.Scene {
     // 말풍선+텍스트+이름 묶음
     this.bubbles = {
       left: {
-        box: this.add.image(width * 0.5, height * 0.9, "speech_left").setDisplaySize(width*0.9, height*0.15).setVisible(false),
+        box: this.add.image(width * 0.5, height * 0.9, "speech_left").setDisplaySize(width*0.95, height*0.15).setVisible(false),
         name: this.add.text(width * 0.10, height * 0.88, "", {
           fontFamily: "Pretendard", fontSize: width*0.03, fontStyle: "bold", color: "#000", align: "left"
         }).setOrigin(0, 0).setVisible(false),
@@ -83,7 +89,7 @@ export default class DialogScene extends Phaser.Scene {
         }).setOrigin(0, 0).setVisible(false)
       },
       right: {
-        box: this.add.image(width * 0.5, height * 0.9, "speech_right").setDisplaySize(width*0.9, height*0.15).setVisible(false),
+        box: this.add.image(width * 0.5, height * 0.9, "speech_right").setDisplaySize(width*0.95, height*0.15).setVisible(false),
         name: this.add.text(width * 0.10, height * 0.88, "", {
           fontFamily: "Pretendard", fontSize: width*0.03, fontStyle: "bold", color: "#000", align: "left"
         }).setOrigin(0, 0).setVisible(false),
