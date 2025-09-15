@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -8,21 +9,30 @@
   <link rel="preconnect" href="https://dapi.kakao.com">
   <link rel="preconnect" href="https://t1.daumcdn.net">
   <style>
-      @font-face {
-        font-family: "SkyblessingInje";
-        src: url("assets/fonts/SkyblessingInjeFontTTF.ttf") format("truetype");
-      }
-      @font-face {
-        font-family: "Pretendard";
-        src: url("assets/fonts/Pretendard-Regular.ttf") format("truetype");
-      }
-    </style>
+    @font-face {
+      font-family: "SkyblessingInje";
+      src: url("assets/fonts/SkyblessingInjeFontTTF.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-Regular.ttf") format("truetype");
+    }
+
+    /* ✅ 전체 배경 색상 적용 */
+    body {
+margin:0; 
+      background-color: #d7c3a5;
+    }
+  </style>
 </head>
+
 <body>
   <div id="mapWrap" style="
+   margin: 100; 
     position:fixed; left:20px; right:20px; top:30px; height:42vh;
     display:none; z-index:10001;          /* ↑ 수정 */
-    background:#ffffff; border-radius:14px;
+    background:#d7c3a5; border-radius:14px;
     pointer-events:auto; box-sizing:border-box;
     box-shadow:0 4px 12px rgba(253, 253, 253, 0.25);
   ">
@@ -35,4 +45,5 @@
   <!-- ✅ 꼭 필요: Vite 엔트리 -->
   <script type="module" src="/src/main.js"></script>
 </body>
+
 </html>

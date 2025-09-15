@@ -5,7 +5,7 @@ export default class InventoryOverlay {
     this.scene = scene;
     const { width: W, height: H } = scene.scale;
 
-    this.root = scene.add.container(0, 0).setDepth(9999).setScrollFactor(0).setVisible(false);
+    this.root = scene.add.container(0, 0).setDepth(99999).setScrollFactor(0).setVisible(false);
 
     const dim = scene.add.rectangle(W / 2, H / 2, W, H, 0x000000, 0.65)
       .setInteractive({ useHandCursor: true })
