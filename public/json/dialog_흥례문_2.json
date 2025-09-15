@@ -5,9 +5,8 @@
     "nextScene": "MoveScene",
     "nextParam": "move_f흥례문_t영제교",
     "script": [
-		    { "name": "해태", "text": "잘했어, 이게 바로 궁궐의 삼도(三道)야!", "pos": "right" },
             { "name": "해태", "text": "'흥례문'은 예를 널리 펼친다는 의미야. 건축물 하나하나 다 뜻이 담긴거라구!", "pos": "right" },
-            { "name": "해태", "text": "이제 얼른 쫓아가자!!", "pos": "right" }
+            { "name": "해태", "text": "궁궐의 삼도(三道)를 이용해 길을 막아서다니...! 이제 얼른 쫓아가자!!", "pos": "right" }
     ],
     "checkpoint": "problem3"
 }

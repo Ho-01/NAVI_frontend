@@ -8,7 +8,8 @@ const UserService = {
   },
   async updateMyName(name) {
     const res = await UserAPI.updateMyName(name);
-    return res;
+    const d = res?.data || {};
+    return d.name;
   },
   async deleteMyAccount() {
     const res = await UserAPI.deleteMyAccount();

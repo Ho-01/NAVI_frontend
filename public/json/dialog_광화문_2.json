@@ -2,12 +2,12 @@
     "background": "bg_광화문",
     "leftChar": "player",
     "rightChar": "해태",
-    "nextScene": "TutorialScene",
-    "nextParam": "tutorial_호리병",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_광화문으로향하는어둑시니",
     "script": [
-        { "name": "{player}", "text": "세종대왕님... 이제 어쩌면 좋지? 봉인을 되돌릴 방법은 없는거야?", "pos": "left" },
-        { "name": "해태", "text": "있어! 우선은 이 호리병에 탈출한 악귀들을 잡아야 해", "pos": "right" },
-        { "name": "{player}", "text": "응..! 해본 적은 없지만.. 최선을 다해볼게!", "pos": "left" },
-        { "name": "해태", "text": "좋아! 봉인의 중심인 근정전으로 들어가자, 시간이 없으니 서두르자!!", "pos": "right" }
+        { "name": "{player}", "text": "이제 어쩌면 좋지?", "pos": "left" },
+        { "name": "해태", "text": "우선 도망친 어둑시니 녀석을 쫓아가보자!!", "pos": "right" },
+        { "name": "해태", "text": "어둑시니는 사람의 어두운 마음을 이용하고, 그 마음으로 강해지는 녀석이야!", "pos": "right" },
+        { "name": "해태", "text": "놓치면 우리나라가 큰 위험에 빠질지도 몰라…", "pos": "right" }
     ]
 }

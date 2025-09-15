@@ -1,0 +1,6 @@
+{
+    "effect": "없음",
+    "imageKey": "cutscene_광화문명명10",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_광화문_2"
+}

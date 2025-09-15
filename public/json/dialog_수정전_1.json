@@ -2,11 +2,9 @@
     "background": "bg_수정전",
     "leftChar": "player",
     "rightChar": "해태",
-    "nextScene": "ProblemScene",
-    "nextParam": "problem6",
+    "nextScene": "CutScene",
+    "nextParam": "cutscene_어질러진수정전",
     "script": [
-            { "name": "해태", "text": "수정전이다!", "pos": "right" },
-            { "name": "해태", "text": "안에는 분명 경복궁 지도가 있을텐데..! 내가 전에 본 적이 있거든!", "pos": "right" },
-            { "name": "해태", "text": "들어가서 찾아보자! 챙겨가면 도움이 될 거야", "pos": "right" }
+            { "name": "해태", "text": "이곳이 수정전이야!", "pos": "right" }
     ]
 }

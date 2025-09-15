@@ -59,10 +59,10 @@ export default class TutorialScene extends Phaser.Scene {
       left: {
         box: this.add.image(width * 0.5, height * 0.9, "speech_left").setDisplaySize(width*0.9, height*0.15).setVisible(false),
         name: this.add.text(width * 0.10, height * 0.88, "", {
-          fontSize: width*0.03, fontStyle: "bold", color: "#000", align: "left"
+          fontFamily: "Pretendard", fontSize: width*0.03, fontStyle: "bold", color: "#000", align: "left"
         }).setOrigin(0, 0).setVisible(false),
         text: this.add.text(width * 0.15, height * 0.9, "", {
-          fontSize: width*0.04, color: "#000", wordWrap: { width: width * 0.8 }, align: "left"
+          fontFamily: "Pretendard", fontSize: width*0.04, color: "#000", wordWrap: { width: width * 0.8 }, align: "left"
         }).setOrigin(0, 0).setVisible(false)
       }
     };

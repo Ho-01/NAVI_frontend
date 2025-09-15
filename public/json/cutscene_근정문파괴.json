@@ -2,6 +2,5 @@
     "effect": "섬광",
     "imageKey": "cutscene_근정문파괴",
     "nextScene": "DialogScene",
-    "nextParam": "dialog_근정문_2",
-    "checkpoint": "problem5"
+    "nextParam": "dialog_근정문_2"
 }

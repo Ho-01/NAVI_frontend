@@ -1,0 +1,6 @@
+{
+    "effect": "진동",
+    "imageKey": "cutscene_불타는근정전",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_근정전_2"
+}

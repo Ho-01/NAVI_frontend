@@ -2,11 +2,12 @@
     "background": "bg_광화문",
     "leftChar": "player",
     "rightChar": "해태",
-    "nextScene": "MoveScene",
-    "nextParam": "move_f광화문_t흥례문",
+    "nextScene": "ProblemScene",
+    "nextParam": "problem2",
     "script": [
-		    { "name": "해태", "text": "광화문이 열렸어! 해냈구나!!", "pos": "right" },
-		    { "name": "{player}", "text": "응, 어서 안쪽으로 들어가자!", "pos": "left" }
-    ],
-    "checkpoint": "problem2"
+	    { "name": "{player}", "text": "광화문이 잠겨서 앞으로 갈 수가 없어!!", "pos": "left" },
+        { "name": "해태", "text": "악귀 녀석이 친 장난질 때문이야!!", "pos": "right" },
+        { "name": "해태", "text": "이렇게 지체할 시간이 없는데...", "pos": "right" },
+        { "name": "{player}", "text": "해태! 자물쇠에 이상한 문양이 그려져 있는데? 잘하면 풀어낼 수 있을지도 몰라", "pos": "left" }
+    ]
 }
