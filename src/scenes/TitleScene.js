@@ -42,7 +42,7 @@ export default class TitleScene extends Phaser.Scene {
     // 입력 이벤트: 아무곳이나 클릭/터치하면 다음 씬으로 이동
     this.input.once("pointerdown", () => {
       // this.scene.start("LoginScene");
-      this.scene.start("ScenarioSelectScene");
+      this.scene.start("PreloadScene");
     });
   }
 }
