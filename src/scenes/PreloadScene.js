@@ -203,7 +203,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("bg_근정전_fire", "assets/bg/bg_근정전_fire.png");
     this.load.image("bg_근정전", "assets/bg/bg_근정전.png");
     this.load.image("scroll", "assets/scroll.png");
-
     // 아이콘
     this.load.image("icon_해태", "assets/icons/icon_해태.png");
     this.load.image("icon_짚신", "assets/icons/icon_짚신.png");
@@ -233,12 +232,24 @@ export default class PreloadScene extends Phaser.Scene {
     //오버레이 이미지
     this.load.image("overlay_inventory", "assets/overlay/overlay_inventory.png");
     this.load.image("overlay_bundle", "assets/overlay/overlay_bundle.png");
+
+    this.load.image("move_map_서십자각터_광화문", "assets/move_map/move_map_서십자각터_광화문.png");
+    this.load.image("move_map_광화문_흥례문", "assets/move_map/move_map_광화문_흥례문.png");
+    this.load.image("move_map_흥례문_영제교", "assets/move_map/move_map_흥례문_영제교.png");
+    this.load.image("move_map_영제교_근정문", "assets/move_map/move_map_영제교_근정문.png");
+    this.load.image("move_map_근정문_수정전", "assets/move_map/move_map_근정문_수정전.png");
+    this.load.image("move_map_수정전_경회루", "assets/move_map/move_map_수정전_경회루.png");
+    this.load.image("move_map_경회루_아미산", "assets/move_map/move_map_경회루_아미산.png");
+    this.load.image("move_map_아미산_생물방소주방", "assets/move_map/move_map_아미산_생물방소주방.png");
+    this.load.image("move_map_소주방_근정전", "assets/move_map/move_map_소주방_근정전.png");
+    this.load.image("move_map_근정전_광화문", "assets/move_map/move_map_근정전_광화문.png");
+
   }
 
 
   async create() {
     // 서버 인벤토리 → 클라 스토어 동기화 (runId 우선, in_progress 폴백)
-     if (!this.game.registry.get("inventory")) {
+    if (!this.game.registry.get("inventory")) {
       this.game.registry.set("inventory", createInventoryStore());
     }
 
@@ -246,7 +257,7 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    await InventoryService.hydrate(this,{replace: true });
+    await InventoryService.hydrate(this, { replace: true });
     const inventoryStore = window.inventoryStore; // 전역 스토어 접근 (만들어둔 store.js 기준)
 
     const r = await InventoryService.hydrate(this);
@@ -254,7 +265,7 @@ export default class PreloadScene extends Phaser.Scene {
     const store = this.game.registry.get("inventory");
     console.log("[store items]", store?.items?.(), "counts:", store && store.items().map(k => [k, store.getCount(k)]));
 
-   
+
 
     // this.scene.start("서십자각터");
     // opening, problem1~13, cleared
