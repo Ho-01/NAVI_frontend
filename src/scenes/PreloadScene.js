@@ -19,9 +19,14 @@ export default class PreloadScene extends Phaser.Scene {
     logo.setOrigin(0.5);
     // 로딩중 텍스트
     this.로딩중텍스트 = this.add.text(width / 2, height / 2, "로딩 중.. 잠시만 기다려주세요", {
-      fontFamily: "SkyblessingInje", fontSize: Math.round(height * 0.03),
+      fontFamily: "Pretendard", fontSize: Math.round(height * 0.03),
       color: "#000000ff"
     }).setOrigin(0.5);
+    // === 로더 이벤트 : 0~1 사이 진행률 ===
+    this.load.on("progress", (value) => {
+      const pct = Math.round(value * 100);
+      this.로딩중텍스트.setText(`로딩 중.. ${pct}%`);
+    });
 
     //팝업 띄우기위한 세팅
     if (!this.game.registry.get("rewardQueue"))
@@ -63,6 +68,7 @@ export default class PreloadScene extends Phaser.Scene {
     // JSON 컷씬 파일 로드
     this.load.json("cutscene_오프닝1", "json/cutscene_오프닝1.json");
     this.load.json("cutscene_오프닝2", "json/cutscene_오프닝2.json");
+    this.load.json("cutscene_오프닝3", "json/cutscene_오프닝3.json");
     this.load.json("cutscene1", "json/cutscene1.json");
     this.load.json("cutscene2", "json/cutscene2.json");
     this.load.json("cutscene_광화문명명1", "json/cutscene_광화문명명1.json");
@@ -92,6 +98,7 @@ export default class PreloadScene extends Phaser.Scene {
     // 컷씬 이미지
     this.load.image("cutscene_오프닝1", "assets/cutscenes/cutscene_오프닝1.png");
     this.load.image("cutscene_오프닝2", "assets/cutscenes/cutscene_오프닝2.png");
+    this.load.image("cutscene_오프닝3", "assets/cutscenes/cutscene_오프닝3.png");
     this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
     this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
     this.load.image("cutscene_광화문명명1", "assets/cutscenes/cutscene_광화문명명1.png");

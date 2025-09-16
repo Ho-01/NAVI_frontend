@@ -81,7 +81,7 @@ export default class UsernameInputScene extends Phaser.Scene {
       g.destroy();
     }
     const btnBg = this.add.image(0, 0, btnKey).setOrigin(0.5);
-    const btnText = this.add.text(0, 0, "결정", {
+    const btnText = this.add.text(0, 0, "확인", {
       fontFamily: "Pretendard", fontSize: Math.round(W*0.04), color: "#000000ff"
     }).setOrigin(0.5);
 

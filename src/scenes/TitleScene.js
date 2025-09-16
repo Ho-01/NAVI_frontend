@@ -33,11 +33,11 @@ export default class TitleScene extends Phaser.Scene {
     logo.setOrigin(0.5);
 
     // 시작 안내 텍스트 (하단)
-    this.add.text(width*0.5, height*0.85, "touch to start", {
-      fontSize: "9vw",
-      fontStyle: "bold",
-      color: "#000",
+    const touchToStart = this.add.text(width*0.5, height*0.85, "touch to start", {
+      fontFamily: "Pretendard", fontSize: "10vw", fontStyle: "bold", color: "#000",
     }).setOrigin(0.5);
+    this.tweens.add({ targets: touchToStart, alpha: { from: 1, to: 0.2 }, duration: 500, yoyo: true, repeat: -1, hold: 50, repeatDelay: 50, ease: "Quad.easeInOut" });
+
 
     // 입력 이벤트: 아무곳이나 클릭/터치하면 다음 씬으로 이동
     this.input.once("pointerdown", () => {
