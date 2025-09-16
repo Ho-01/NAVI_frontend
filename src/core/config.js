@@ -1,1 +1,1 @@
-export const SERVER_URL = (import.meta?.env?.VITE_SERVER_URL ?? "http:/3.39.124.72/:8080").replace(/\/+$/, "") ;
+export const SERVER_URL = (import.meta?.env?.VITE_SERVER_URL ?? "http:/3.39.124.72:8080").replace(/\/+$/, "") ;
