@@ -9,56 +9,23 @@ const BTN_W = 400;      // px
 const BTN_H = 150;      // px
 const BTN_FONT = 55;    // px
 const BTN_GAP_X = 20;   // px
+const COLOR_ACCENT = 0xBE8928; // 상/하 띠 색상
 
-/* Kakao SDK */
-function loadKakaoSdk(cb) {
-  if (window.kakao?.maps) return cb();
-  const ex = document.getElementById("kakao-sdk");
-  if (ex) { ex.addEventListener("load", () => kakao.maps.load(cb), { once: true }); return; }
-  const s = document.createElement("script");
-  s.id = "kakao-sdk"; s.async = true;
-  s.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=680eaa32e342a35d38784a63cf126f8f&libraries=services&autoload=false";
-  s.onload = () => kakao.maps.load(cb);
-  document.head.appendChild(s);
+function tintButton(btn, txt, { base, over, down, text = "#ffffff" }) {
+  btn.setTint(base);
+  txt.setColor(text);
+
+  btn.on("pointerover", () => btn.setTint(over));
+  btn.on("pointerout", () => btn.setTint(base));
+  btn.on("pointerdown", () => btn.setTint(down));
+  btn.on("pointerup", () => btn.setTint(over));
 }
 
-/* Kakao Map Overlay (DOM) */
-function showKakaoMapOverlay(lat, lng, level = 3) {
-  loadKakaoSdk(() => {
-    const wrap = document.getElementById("mapWrap"); if (!wrap) return;
-    wrap.style.display = "block";
+/* 유틸 */
+const toKey = (s) => (s ?? "").toString().replace(/\s+/g, "").replace(/[^\w가-힣_-]/g, "");
+const pickFirstTexture = (scene, keys) => keys.find(k => k && scene.textures.exists(k));
 
-    const W = window.innerWidth, H = window.innerHeight;
-    const mvw = Math.min(W * 0.92, 360);
-    const mvh = Math.min(Math.round(mvw * 1.05), Math.round(H * 0.26));
-    Object.assign(wrap.style, {
-      position: "fixed",
-      left: "50%",
-      top: "12px",
-      transform: "translateX(-50%)",
-      width: `${mvw}px`,
-      height: `${mvh}px`,
-      borderRadius: "14px",
-      overflow: "hidden",
-      boxShadow: "0 10px 24px rgba(0,0,0,.28)",
-      pointerEvents: "none",
-      zIndex: "1000"
-    });
-
-    const mapEl = document.getElementById("kmap");
-    if (mapEl) {
-      Object.assign(mapEl.style, { width: "100%", height: "100%", pointerEvents: "auto" });
-      const map = new kakao.maps.Map(mapEl, { center: new kakao.maps.LatLng(lat, lng), level });
-      new kakao.maps.Marker({ position: map.getCenter() }).setMap(map);
-    }
-
-    const closer = document.getElementById("closeMap");
-    if (closer) { closer.style.pointerEvents = "auto"; closer.onclick = () => { wrap.style.display = "none"; }; }
-  });
-}
-function hideKakaoMapOverlay() { const wrap = document.getElementById("mapWrap"); if (wrap) wrap.style.display = "none"; }
-
-/* Inventory HUD */
+/* Inventory HUD (아이콘 DOM – 필요시만) */
 function ensureInventoryHUD() {
   let el = document.getElementById("inventoryHUD");
   if (!el) {
@@ -79,12 +46,10 @@ function ensureInventoryHUD() {
 }
 function showInventoryHUD(show = true) { ensureInventoryHUD().style.display = show ? "block" : "none"; }
 
-/* 외부 앱 열기 */
+/* 외부 앱 열기: 카카오맵 앱으로 길찾기 (목적지 핀 포함) */
 function openKakaoMapApp(lat, lng, name = "목적지") {
-  const scheme = `kakaomap://route?ep=${lat},${lng}&by=FOOT`;
-  const web = `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`;
-  const t = Date.now(); window.location.href = scheme;
-  setTimeout(() => { if (Date.now() - t < 1200) window.location.href = web; }, 1000);
+  const scheme = `kakaomap://route?ep=${lat},${lng}&by=FOOT&apn=${encodeURIComponent(name)}`;
+  window.location.href = scheme;
 }
 
 /* 위치 읽어오기 */
@@ -94,29 +59,21 @@ function parseFromPlace(imageKey) {
   return m ? m[1] : null;
 }
 
-function addBackgroundByPlace(scene, fromPlace, mapHeight = 0) {
+/* 배경 */
+function addBackgroundByPlace(scene, fromPlace) {
   if (!fromPlace) return;
-
-  // 우선순위: bg_<장소> → bg_<장소>_dark → bg_<장소>_fire
   const candidates = [
     `bg_${fromPlace}`,
     `bg_${fromPlace}_dark`,
     `bg_${fromPlace}_fire`
   ].filter(k => scene.textures.exists(k));
-
   if (candidates.length === 0) return;
 
   const key = candidates[0];
   const { width: W, height: H } = scene.scale;
-  const targetH = Math.max(0, H - mapHeight);
-
-  // 배경 스프라이트
-  const bg = scene.add.image(W / 2, mapHeight + targetH / 2, key).setDepth(0);
-
-  // 원본 크기 얻어서 비율 유지 스케일
+  const bg = scene.add.image(W / 2, H / 2, key).setDepth(0);
   const tex = scene.textures.get(key).getSourceImage();
-  const bw = tex.width, bh = tex.height;
-  const s = Math.max(W / bw, targetH / bh);
+  const s = Math.max(W / tex.width, H / tex.height);
   bg.setScale(s).setScrollFactor(0);
 }
 
@@ -147,8 +104,8 @@ function addJoseonButton(scene, x, y, w, h, label, onClick, fontPx = 24) {
   makeJoseonButton(scene, "__jbtn", w, h);
   const btn = scene.add.image(x, y, "__jbtn_base").setDisplaySize(w, h).setInteractive({ useHandCursor: true });
   const txt = scene.add.text(x, y, label, {
-    fontFamily: "SkyblessingInje",
-    fontSize: fontPx,        // 고정 폰트
+    fontFamily: "Pretendard-Regular",
+    fontSize: fontPx,
     color: "#2b2b2b"
   }).setOrigin(0.5);
   btn.on("pointerover", () => btn.setTexture("__jbtn_over"));
@@ -167,7 +124,7 @@ export default class MoveScene extends Phaser.Scene {
     this.returnScene = data.returnScene;
     this.text = json.text ?? null;
     this.tips = json.tips ?? null;
-    this.imageKey = json.imageKey ?? null;
+    this.imageKey = json.imageKey ?? null;     // ex) move_f흥례문_t근정문
     this.showInventoryBtn = !!json.showInventoryBtn;
 
     this.lat = json.lat; this.lng = json.lng; this.level = json.level ?? 3;
@@ -177,6 +134,9 @@ export default class MoveScene extends Phaser.Scene {
 
     const poi = this.name ? getPOI(this.name.replace(" ", "")) : null;
     if (poi) { this.lat = poi.lat; this.lng = poi.lng; this.level = poi.level; }
+
+    // 목적지 텍스처 키(공백 제거)
+    this.destKey = json.destKey ?? toKey(this.name);
   }
 
   create() {
@@ -184,22 +144,11 @@ export default class MoveScene extends Phaser.Scene {
     TouchEffect.init(this);
     const { width: W, height: H } = this.scale;
 
-    // 1) 지도 높이 + 여백 먼저 계산
-    let mapHeight = 0;
-    {
-      const wrap = document.getElementById("mapWrap");
-      if (wrap) {
-        const rect = wrap.getBoundingClientRect();
-        const GAP = Math.round(H * 0.10);
-        mapHeight = (rect.height || Math.round(H * 0.26)) + GAP;
-      }
-    }
+    // 배경
+    const fromPlace = parseFromPlace(this.imageKey);
+    addBackgroundByPlace(this, fromPlace, 0);
 
-    // 2) 현재 위치(from) 추출 → 배경 깔기
-    const fromPlace = parseFromPlace(this.imageKey);   // ex) "영제교"
-    addBackgroundByPlace(this, fromPlace, mapHeight);
-
-    // 3) 인벤토리 HUD (MoveScene에서는 DOM HUD 사용 안 함)
+    // 인벤토리 HUD 비활성
     if (this.showInventoryBtn) {
       if (!this.inventoryOverlay) this.inventoryOverlay = new InventoryOverlay(this);
       showInventoryHUD(false);
@@ -207,85 +156,114 @@ export default class MoveScene extends Phaser.Scene {
       showInventoryHUD(false);
     }
 
-    // 4) UI 컨테이너(배경 위로)
-    const root = this.add.container(0, mapHeight).setDepth(10001);
+    // UI 컨테이너
+    const root = this.add.container(0, 0).setDepth(10001);
 
-    // 패널 크기/카드
-    const panelW = Math.min(W * 0.72, 720);
-    const panelH = Math.min(Math.max(320, Math.round(H * 0.48)), 1360);
+    // 패널 크기
+    const panelW = Math.min(W, 900);
+    const panelH = Math.min(H, 2000);
     const cardKey = makeHanjiCard(this, "__hanji", panelW, panelH);
+    const cardY = H / 2;
 
-    const cardY = panelH / 2 + Math.round(H * 0.02);
-    const card = this.add.image(W / 2, cardY, cardKey).setAlpha(0);
-    root.add(card);
-
-    // dim (카드 뒤)
+    // dim
     const dimPad = 24;
     const dim = this.add.rectangle(
       W / 2, cardY, panelW + dimPad * 2, panelH + dimPad * 2, 0x000000, 0.16
     ).setAlpha(0).setInteractive();
     root.addAt(dim, 0);
 
-    // 제목
-    const title = this.add.text(
-      W / 2,
-      card.y - panelH / 2 + 100,
-      this.text || `${this.name}로 이동해 주세요`,
-      {
-        fontFamily: "SkyblessingInje",
-        fontSize: Math.round(panelW * 0.08),
-        color: "#2b2b2b",
-        align: "center",
-        wordWrap: { width: panelW * 0.86 }
-      }
-    ).setOrigin(0.5).setAlpha(0);
-    root.add(title);
+    // 카드
+    const card = this.add.image(W / 2, cardY, cardKey).setAlpha(0);
+    root.add(card);
 
+    // 상/하 띠
+    const headerH = 230;
+    const footerH = Math.max(96, Math.round(BTN_H * 1.4));
+    const header = this.add.rectangle(W / 2, cardY - panelH / 2 + headerH / 2, panelW - 6, headerH, COLOR_ACCENT).setAlpha(0);
+    const footer = this.add.rectangle(W / 2, cardY + panelH / 2 - footerH / 2, panelW - 6, footerH, COLOR_ACCENT).setAlpha(0);
+    root.addAt(header, root.getIndex(card) + 1);
+    root.addAt(footer, root.getIndex(card) + 1);
 
+    // ───────── 제목 (이름만 #4C0012, 뒤 문구는 흰색, 줄바꿈 없음) ─────────
+    const titleY = card.y - panelH / 2 + 100;
+    const titleFont = Math.round(panelW * 0.08);
+    const titleGroup = this.add.container(0, 0).setAlpha(0);
+
+    const nameText = this.add.text(0, 0, this.name, {
+      fontFamily: "Pretendard-Regular",
+      fontSize: titleFont,
+      color: "#4C0012",
+      align: "center"
+    }).setOrigin(0, 0.5);
+
+    const tailText = this.add.text(0, 0, "로 이동해 주세요", {
+      fontFamily: "Pretendard-Regular",
+      fontSize: titleFont,
+      color: "#ffffff",
+      align: "center"
+    }).setOrigin(0, 0.5);
+
+    tailText.x = nameText.displayWidth;
+    titleGroup.add([nameText, tailText]);
+
+    const totalW = nameText.displayWidth + tailText.displayWidth;
+    titleGroup.x = (W / 2) - (totalW / 2);
+    titleGroup.y = titleY;
+    root.add(titleGroup);
+
+    /* === 지도(또는 맵 이미지) 선택/표시 === */
+    const fromKey = toKey(fromPlace);
+    const destKey = this.destKey;
+
+    const mapKey = pickFirstTexture(this, [
+      `move_map_${fromKey}_${destKey}`,
+      `move_map_${destKey}`,
+      `move_map_${fromKey}`
+    ]);
+
+    const mapMax = 700;
+    const mapW = Math.min(mapMax, Math.round(panelW * 0.78));
+    const mapH = mapW;
+    const mapY = (cardY - panelH / 2) + headerH + 24 + mapH / 2;
+
+    const mapBg = this.add.rectangle(W / 2, mapY, mapW + 16, mapH + 16, 0xffffff, 1)
+      .setStrokeStyle(2, 0x2b2b2b, 0.6)
+      .setAlpha(0);
+    root.add(mapBg);
+
+    let mapImg;
+    if (mapKey) {
+      mapImg = this.add.image(W / 2, mapY, mapKey).setDisplaySize(mapW, mapH).setAlpha(0);
+      root.add(mapImg);
+    }
+
+    // tip (줄바꿈 허용, 검은색)
     let tip;
     if (this.tips) {
-      tip = this.add.text(
-        W / 2,
-        title.y + Math.round(panelH * 0.12),   // 제목 바로 아래 여백
-        this.tips,
-        {
-          fontFamily: "SkyblessingInje",
-          fontSize: Math.max(14, Math.round(panelW * 0.07)), // 작은 글씨
-          color: "#4a4a4a",
-          align: "center",
-          wordWrap: { width: panelW * 0.86 },
-          lineSpacing: 4
-        }
-      ).setOrigin(0.5, 0).setAlpha(0);
+      tip = this.add.text(W / 2, mapY + mapH / 2 + 20, this.tips, {
+        fontFamily: "Pretendard-Regular",
+        fontSize: Math.max(16, Math.round(panelW * 0.045)),
+        color: "#000000",
+        align: "center",
+        wordWrap: { width: Math.round(panelW * 0.82) },
+        lineSpacing: 6
+      }).setOrigin(0.5, 0).setAlpha(0);
       root.add(tip);
     }
-    // === 패널 중앙 인벤토리 버튼 ===
+
+    // 인벤토리 버튼 (옵션)
     if (this.showInventoryBtn) {
-      const centerX = W / 2;
-      const centerY = cardY;
-
       const invSize = Math.min(72, Math.round(panelH * 0.16));
-
-
-      const invBtn = this.add.image(centerX, centerY + 100, "icon_인벤토리")
+      const invBtn = this.add.image(W / 2, cardY + 100, "icon_인벤토리")
         .setDisplaySize(invSize, invSize)
         .setInteractive({ useHandCursor: true })
-        .setAlpha(0)
-        .setScale(0.5);
-
-      // ✅ setDisplaySize 이후 실제 스케일 저장
-      const baseScaleX = invBtn.scaleX;
-      const baseScaleY = invBtn.scaleY;
-
+        .setAlpha(0).setScale(0.5);
+      const baseScaleX = invBtn.scaleX, baseScaleY = invBtn.scaleY;
       invBtn.on("pointerdown", () => invBtn.setScale(baseScaleX * 0.96, baseScaleY * 0.96));
       invBtn.on("pointerout", () => invBtn.setScale(baseScaleX, baseScaleY));
-      invBtn.on("pointerup", () => {
-        invBtn.setScale(baseScaleX, baseScaleY);
-        this.inventoryOverlay?.show();
-      });
-
-      root.add([invBtn]);
-      this.tweens.add({ targets: [invBtn], alpha: 1, duration: 240, delay: 180 });
+      invBtn.on("pointerup", () => { invBtn.setScale(baseScaleX, baseScaleY); this.inventoryOverlay?.show(); });
+      root.add(invBtn);
+      this.tweens.add({ targets: invBtn, alpha: 1, duration: 240, delay: 180 });
     }
 
     // 버튼
@@ -297,7 +275,7 @@ export default class MoveScene extends Phaser.Scene {
     const [btnRoute, txtRoute] = addJoseonButton(
       this,
       W / 2 - (btnW / 2 + gapX), btnY, btnW, btnH,
-      "카카오맵 길찾기",
+      "길찾기",
       () => openKakaoMapApp(this.lat, this.lng, this.name),
       Math.min(BTN_FONT, Math.round(btnH * 0.36))
     );
@@ -307,7 +285,6 @@ export default class MoveScene extends Phaser.Scene {
       W / 2 + (btnW / 2 + gapX), btnY, btnW, btnH,
       "도착",
       () => {
-        hideKakaoMapOverlay();
         if (this.nextScene) {
           this.scene.start(this.nextScene, { json: this.cache.json.get(this.nextParam), returnScene: this.returnScene });
         } else {
@@ -317,13 +294,18 @@ export default class MoveScene extends Phaser.Scene {
       Math.min(BTN_FONT, Math.round(btnH * 0.36))
     );
 
+    // 색상/호버
+    tintButton(btnRoute, txtRoute, { base: 0x603D00, over: 0x72470A, down: 0x4A2C00, text: "#ffffff" });
+    tintButton(btnArrived, txtArrived, { base: 0xFF006A, over: 0xE0005E, down: 0xB8004B, text: "#ffffff" });
+
     // 트윈
     this.tweens.add({ targets: dim, alpha: 0.18, duration: 140, ease: "Quad.easeOut" });
     [btnRoute, txtRoute, btnArrived, txtArrived].forEach(n => { n.setAlpha(0); root.add(n); });
 
     this.tweens.add({ targets: card, alpha: 1, duration: 200, delay: 60 });
-    this.tweens.add({ targets: title, alpha: 1, duration: 220, delay: 120 });
-    this.tweens.add({ targets: title, alpha: 1, duration: 220, delay: 120 });
+    this.tweens.add({ targets: [header, footer], alpha: 1, duration: 220, delay: 80 });
+    this.tweens.add({ targets: titleGroup, alpha: 1, duration: 220, delay: 120 });
+    this.tweens.add({ targets: [mapBg, mapImg].filter(Boolean), alpha: 1, duration: 220, delay: 100 });
     if (tip) this.tweens.add({ targets: tip, alpha: 1, duration: 220, delay: 160 });
     this.tweens.add({ targets: [btnRoute, txtRoute], alpha: 1, duration: 240, delay: 180 });
     this.tweens.add({ targets: [btnArrived, txtArrived], alpha: 1, duration: 240, delay: 220 });
@@ -332,7 +314,6 @@ export default class MoveScene extends Phaser.Scene {
 
     // 정리
     const cleanup = () => {
-      hideKakaoMapOverlay();
       const invHud = document.getElementById("inventoryHUD");
       if (invHud?._onClick) invHud.removeEventListener("click", invHud._onClick);
       showInventoryHUD(false);
@@ -340,5 +321,12 @@ export default class MoveScene extends Phaser.Scene {
     };
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, cleanup);
     this.events.once(Phaser.Scenes.Events.DESTROY, cleanup);
+
+    // 카카오맵 갔다 돌아왔을 때(앱 전환) – 필요시 재개 처리
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        if (this.scene.isPaused("MoveScene")) this.scene.resume("MoveScene");
+      }
+    }, { once: true });
   }
 }
