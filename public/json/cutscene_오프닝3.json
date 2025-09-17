@@ -1,0 +1,6 @@
+{
+    "effect": "진동",
+    "imageKey": "cutscene_오프닝3",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_서십자각터_1"
+}

@@ -19,9 +19,14 @@ export default class PreloadScene extends Phaser.Scene {
     logo.setOrigin(0.5);
     // 로딩중 텍스트
     this.로딩중텍스트 = this.add.text(width / 2, height / 2, "로딩 중.. 잠시만 기다려주세요", {
-      fontFamily: "SkyblessingInje", fontSize: Math.round(height * 0.03),
+      fontFamily: "Pretendard", fontSize: Math.round(height * 0.03),
       color: "#000000ff"
     }).setOrigin(0.5);
+    // === 로더 이벤트 : 0~1 사이 진행률 ===
+    this.load.on("progress", (value) => {
+      const pct = Math.round(value * 100);
+      this.로딩중텍스트.setText(`로딩 중.. ${pct}%`);
+    });
 
     //팝업 띄우기위한 세팅
     if (!this.game.registry.get("rewardQueue"))
@@ -63,6 +68,7 @@ export default class PreloadScene extends Phaser.Scene {
     // JSON 컷씬 파일 로드
     this.load.json("cutscene_오프닝1", "json/cutscene_오프닝1.json");
     this.load.json("cutscene_오프닝2", "json/cutscene_오프닝2.json");
+    this.load.json("cutscene_오프닝3", "json/cutscene_오프닝3.json");
     this.load.json("cutscene1", "json/cutscene1.json");
     this.load.json("cutscene2", "json/cutscene2.json");
     this.load.json("cutscene_광화문명명1", "json/cutscene_광화문명명1.json");
@@ -92,6 +98,7 @@ export default class PreloadScene extends Phaser.Scene {
     // 컷씬 이미지
     this.load.image("cutscene_오프닝1", "assets/cutscenes/cutscene_오프닝1.png");
     this.load.image("cutscene_오프닝2", "assets/cutscenes/cutscene_오프닝2.png");
+    this.load.image("cutscene_오프닝3", "assets/cutscenes/cutscene_오프닝3.png");
     this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
     this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
     this.load.image("cutscene_광화문명명1", "assets/cutscenes/cutscene_광화문명명1.png");
@@ -156,8 +163,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("name_tag", "assets/name_tag.jpg");
     // 말걸기 전 느낌표
     this.load.image("interaction", "assets/interaction.png");
-    // 나비아이콘 full
-    // this.load.image("navi_full", "assets/navi_full.png");
+    // 해태테두리 & 히트박스용
+    this.load.image("해태테두리", "assets/해태테두리.png");
+    this.load.image("해태_hit", "assets/해태_hit.png");
 
     // 캐릭터 이미지
     this.load.image("player", "assets/char/char_player.png");
@@ -196,7 +204,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("bg_근정전_fire", "assets/bg/bg_근정전_fire.png");
     this.load.image("bg_근정전", "assets/bg/bg_근정전.png");
     this.load.image("scroll", "assets/scroll.png");
-
     // 아이콘
     this.load.image("icon_해태", "assets/icons/icon_해태.png");
     this.load.image("icon_짚신", "assets/icons/icon_짚신.png");
@@ -226,12 +233,24 @@ export default class PreloadScene extends Phaser.Scene {
     //오버레이 이미지
     this.load.image("overlay_inventory", "assets/overlay/overlay_inventory.png");
     this.load.image("overlay_bundle", "assets/overlay/overlay_bundle.png");
+
+    this.load.image("move_map_서십자각터_광화문", "assets/move_map/move_map_서십자각터_광화문.png");
+    this.load.image("move_map_광화문_흥례문", "assets/move_map/move_map_광화문_흥례문.png");
+    this.load.image("move_map_흥례문_영제교", "assets/move_map/move_map_흥례문_영제교.png");
+    this.load.image("move_map_영제교_근정문", "assets/move_map/move_map_영제교_근정문.png");
+    this.load.image("move_map_근정문_수정전", "assets/move_map/move_map_근정문_수정전.png");
+    this.load.image("move_map_수정전_경회루", "assets/move_map/move_map_수정전_경회루.png");
+    this.load.image("move_map_경회루_아미산", "assets/move_map/move_map_경회루_아미산.png");
+    this.load.image("move_map_아미산_생물방소주방", "assets/move_map/move_map_아미산_생물방소주방.png");
+    this.load.image("move_map_소주방_근정전", "assets/move_map/move_map_소주방_근정전.png");
+    this.load.image("move_map_근정전_광화문", "assets/move_map/move_map_근정전_광화문.png");
+
   }
 
 
   async create() {
     // 서버 인벤토리 → 클라 스토어 동기화 (runId 우선, in_progress 폴백)
-     if (!this.game.registry.get("inventory")) {
+    if (!this.game.registry.get("inventory")) {
       this.game.registry.set("inventory", createInventoryStore());
     }
 
@@ -239,7 +258,7 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("gourd")) {
       this.game.registry.set("gourd", createInventoryStore());
     }
-    await InventoryService.hydrate(this,{replace: true });
+    await InventoryService.hydrate(this, { replace: true });
     const inventoryStore = window.inventoryStore; // 전역 스토어 접근 (만들어둔 store.js 기준)
 
     const r = await InventoryService.hydrate(this);
@@ -247,7 +266,7 @@ export default class PreloadScene extends Phaser.Scene {
     const store = this.game.registry.get("inventory");
     console.log("[store items]", store?.items?.(), "counts:", store && store.items().map(k => [k, store.getCount(k)]));
 
-   
+
 
     // this.scene.start("서십자각터");
     // opening, problem1~13, cleared

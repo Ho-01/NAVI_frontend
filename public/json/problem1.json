@@ -1,9 +1,18 @@
 {
-    "title": "문제1 - 서십자각터 봉인해제",
-    "problem": "빈칸에 들어갈 것으로 알맞은 것은? >> 열개 한자(開)를 확대후 일부분만 보이게 편집해서, 그 편집한 사진에서 일부분을 뚫고 해당 부분에 들어갈 퍼즐 조각이 뭔지 맞추게 함. 가장 첫문제 이기 때문에 간단하고, 직관적이게 낼 예정",
-    "hint1": false,
-    "hint2": false,
-    "answer": "알맞게 퍼즐 맞추기",
+    "num": "01",
+    "title": "01 서십자각터",
+    "background": "bg_서십자각터",
+    "question": "빈칸에 들어갈 것으로 알맞은 것은?",
+    "mainImg": {"key":"main", "path": "assets/q01/q01_main.png"},
+    "choices":[
+      {"id":"A","text":"가","sideImgKey":"optA","sideImgPath":"assets/q01/optA.png"},
+      {"id":"B","text":"나","sideImgKey":"optB","sideImgPath":"assets/q01/optB.png"},
+      {"id":"C","text":"다","sideImgKey":"optC","sideImgPath":"assets/q01/optC.png"},
+      {"id":"D","text":"라","sideImgKey":"optD","sideImgPath":"assets/q01/optD.png"}
+    ],
+    "answer": "C",
+    "info": "광화문 서쪽, 지금은 사라진 서십자각터. 철도 공사로 자취를 감췄지만, 원래는 궁을 지키는 봉인의 한 축이었다",
+    "info_wrong": "퍼즐 조각의 획 방향과 구조를 다시 관찰해 보자. 확대된 형태의 일부만 보이는 점이 핵심이다",
     "nextScene": "CutScene",
     "nextParam": "cutscene1"
 }
