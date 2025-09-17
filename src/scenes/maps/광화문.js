@@ -15,7 +15,7 @@ export default class 광화문 extends Phaser.Scene {
         stage.add(bg);
 
         const 해태테두리 = this.add.image(0, 0, "해태테두리").setOrigin(0.5).setDepth(1);
-        const HAE = { cx: 0.255, cy: 0.610, wRatio: 480 / 1024, hRatio: 720 / 1820 };
+        const HAE = { cx: 0.250, cy: 0.613, wRatio: 490 / 1024, hRatio: 720 / 1820 };
         해태테두리.x = (HAE.cx - 0.5) * bg.width;
         해태테두리.y = (HAE.cy - 0.5) * bg.height;
         해태테두리.displayWidth  = HAE.wRatio * bg.width;
