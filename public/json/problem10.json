@@ -1,9 +1,5 @@
 {
-    "title": "문제10 - 근정전 문제",
-    "problem": "?",
-    "hint1": "?",
-    "hint2": "?",
-    "answer": "?",
+    "num": "10",
     "nextScene": "DialogScene",
     "nextParam": "dialog_근정전_3"
 }

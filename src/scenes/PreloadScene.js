@@ -32,6 +32,12 @@ export default class PreloadScene extends Phaser.Scene {
     if (!this.game.registry.get("rewardQueue"))
       this.game.registry.set("rewardQueue", []);
 
+    // 문제씬 용 플러그인
+    this.load.plugin(
+      'rexninepatchplugin',
+      'https://cdn.jsdelivr.net/npm/phaser3-rex-plugins@1.80.16/dist/rexninepatchplugin.min.js'
+    );
+
     // JSON 대사 파일 로드
     this.load.json("dialog_서십자각터_1", "json/dialog_서십자각터_1.json");
     this.load.json("dialog_서십자각터_2", "json/dialog_서십자각터_2.json");
@@ -245,6 +251,12 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("move_map_소주방_근정전", "assets/move_map/move_map_소주방_근정전.png");
     this.load.image("move_map_근정전_광화문", "assets/move_map/move_map_근정전_광화문.png");
 
+    this.load.image("frame_plain_9", "assets/ui/frame_plain_9.png");
+    this.load.image("btn_primary_9", "assets/ui/btn_primary_9.png");
+    this.load.image("btn_secondary_9", "assets/ui/btn_secondary_9.png");
+    this.load.image("modal_plain_9", "assets/ui/modal_plain_9.png");
+    this.load.image("stamp_correct_temp", "assets/fx/stamp_correct_temp.png");
+    this.load.image("stamp_wrong_temp", "assets/fx/stamp_wrong_temp.png");
   }
 
 

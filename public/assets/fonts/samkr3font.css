@@ -1,0 +1,9 @@
+
+@font-face{
+  font-family:'SamKR3Font';
+  src: local('Noto Sans KR'), local('Pretendard'), local('NanumSquare');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+body { font-family: 'SamKR3Font', system-ui, -apple-system, 'Noto Sans KR', sans-serif; }

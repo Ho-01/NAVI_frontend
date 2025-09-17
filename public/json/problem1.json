@@ -1,18 +1,3 @@
 {
-    "num": "01",
-    "title": "01 서십자각터",
-    "background": "bg_서십자각터",
-    "question": "빈칸에 들어갈 것으로 알맞은 것은?",
-    "mainImg": {"key":"main", "path": "assets/q01/q01_main.png"},
-    "choices":[
-      {"id":"A","text":"가","sideImgKey":"optA","sideImgPath":"assets/q01/optA.png"},
-      {"id":"B","text":"나","sideImgKey":"optB","sideImgPath":"assets/q01/optB.png"},
-      {"id":"C","text":"다","sideImgKey":"optC","sideImgPath":"assets/q01/optC.png"},
-      {"id":"D","text":"라","sideImgKey":"optD","sideImgPath":"assets/q01/optD.png"}
-    ],
-    "answer": "C",
-    "info": "광화문 서쪽, 지금은 사라진 서십자각터. 철도 공사로 자취를 감췄지만, 원래는 궁을 지키는 봉인의 한 축이었다",
-    "info_wrong": "퍼즐 조각의 획 방향과 구조를 다시 관찰해 보자. 확대된 형태의 일부만 보이는 점이 핵심이다",
-    "nextScene": "CutScene",
-    "nextParam": "cutscene1"
+    "num": "01"
 }
