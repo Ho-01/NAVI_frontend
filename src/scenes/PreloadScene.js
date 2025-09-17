@@ -163,8 +163,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("name_tag", "assets/name_tag.jpg");
     // 말걸기 전 느낌표
     this.load.image("interaction", "assets/interaction.png");
-    // 나비아이콘 full
-    // this.load.image("navi_full", "assets/navi_full.png");
+    // 해태테두리 & 히트박스용
+    this.load.image("해태테두리", "assets/해태테두리.png");
+    this.load.image("해태_hit", "assets/해태_hit.png");
 
     // 캐릭터 이미지
     this.load.image("player", "assets/char/char_player.png");
