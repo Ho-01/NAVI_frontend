@@ -4,6 +4,7 @@ import LoginScene from "./scenes/LoginScene";
 import ScenarioSelectScene from "./scenes/ScenarioSelectScene";
 import PreloadScene from "./scenes/PreloadScene";
 import ProblemScene from "./scenes/problems/ProblemScene";
+import TypeMCQScene from "./scenes/problems/TypeMCQScene";
 import DialogScene from "./scenes/DialogScene";
 import CutScene from "./scenes/CutScene";
 import TutorialScene from "./scenes/TutorialScene";
@@ -23,6 +24,7 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
+    TypeMCQScene,
     // 서십자각터, 광화문, 흥례문, 영제교, 근정문, 수정전, 수정전_지도획득후, 경회루, 아미산, 교태전, 강녕전, 생물방, 소주방, 근정전_dark,
     PreloadScene, ProblemScene, MoveScene, DialogScene, CutScene, TutorialScene]
 };

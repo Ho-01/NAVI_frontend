@@ -6,17 +6,18 @@ export default class ProblemScene extends Phaser.Scene {
   }
 
   init(data) {
-    const json = data.json;
-    if (!json) {
+    this.json = data.json;
+    if (!this.json) {
       console.error("json undefined!", data);
       return;
     }
-    this.num = json.num;
+    this.num = this.json.num;
   }
 
   create() {    
     if(this.num=="01"||"04"||"07"||"08"||"09"){
-      console.log("TypeMCQScene");
+      console.log("[ProblemScene]: TypeMCQScene "+this.num);
+      this.scene.start("TypeMCQScene", {json: this.json});
     } else if(this.num=="02"||"03"||"05"){
       console.log("TypeDragScene");
     } else if(this.num=="06"){
