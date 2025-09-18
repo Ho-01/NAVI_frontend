@@ -6,6 +6,5 @@
     "showInventoryBtn": true,
     "moveCancel": false,
     "nextScene": "DialogScene",
-    "nextParam": "dialog_광화문_6",
-    "tips": "광화문툴팁"
+    "nextParam": "dialog_광화문_6"
 }
