@@ -12,7 +12,9 @@ export async function fetchIntro(contentId, contentTypeId, opts = {}) {
     contentTypeId: String(contentTypeId),
   });
 
-  const url = `/api/tour/detailIntro2?${qs.toString()}`;
+  // const url = `/api/tour/detailIntro2?${qs.toString()}`;
+  const base = "https://apis.data.go.kr/B551011/KorService2";
+  const url = `${base}/detailIntro2?${qs.toString()}`;
   const res = await fetch(url, { signal: opts.signal });
   const ct = res.headers.get("content-type") || "";
   const raw = await res.text();

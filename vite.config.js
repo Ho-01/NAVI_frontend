@@ -7,7 +7,14 @@ export default defineConfig({
         target: "https://apis.data.go.kr/B551011/KorService2",
         changeOrigin: true,
         rewrite: p => p.replace(/^\/api\/tour/, ""),
-      }
+      },
+      "/api": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        ws: true,
+        secure: false,
+        rewrite: p => p.replace(/^\/api/, ""), // /api/auth/... → /auth/...
+      },
     }
   }
 });

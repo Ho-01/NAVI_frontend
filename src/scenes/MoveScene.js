@@ -60,7 +60,7 @@ function showInventoryHUD(show = true) {
   ensureInventoryHUD().style.display = show ? "block" : "none";
 }
 
-/* 외부 앱 열기 */
+/* 외부 앱 열기: 카카오맵 앱으로 길찾기 (목적지 핀 포함) */
 function openKakaoMapApp(lat, lng, name = "목적지") {
   const scheme = `kakaomap://route?ep=${lat},${lng}&by=FOOT&apn=${encodeURIComponent(name)}`;
   window.location.href = scheme;
@@ -247,7 +247,6 @@ export default class MoveScene extends Phaser.Scene {
 
     panel.add([header, footer]);
 
-    // 제목
     const titleFont = Math.round(panelW * 0.08);
     const titleGroup = this.add.container(0, 0).setAlpha(1);
 
@@ -414,7 +413,7 @@ export default class MoveScene extends Phaser.Scene {
     };
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, cleanup);
     this.events.once(Phaser.Scenes.Events.DESTROY, cleanup);
-
+    
     // 앱 전환 복귀 처리
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {

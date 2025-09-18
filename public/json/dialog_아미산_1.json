@@ -10,5 +10,6 @@
             { "name": "해태", "text": "이건…! [주작 어패]다! 어패함에 잘 넣어둘게!", "pos": "right" },
             { "name": "해태", "text": "다음은 이쪽이야! 마지막 어패를 찾으러 가자!", "pos": "right" }
     ],
+    "rewardItem": "item_주작",
     "checkpoint": "problem7"
 }

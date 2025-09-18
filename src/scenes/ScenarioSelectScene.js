@@ -150,10 +150,10 @@ export default class ScenarioSelectScene extends Phaser.Scene {
     RunService.getMyGame("GYEONGBOKGUNG")
       .then(res => {
         if (res === false) {
-          c1.add(this.add.text(cardW *0.95, cardH * 0.95, "새 게임 시작 >", { fontFamily: "SkyblessingInje", fontSize: f(0.05), color: "#4543dbff" }).setOrigin(1, 1));
+          c1.add(this.add.text(cardW *0.95, cardH * 0.95, "새 게임 시작 >", { fontFamily: "Pretendard", fontSize: f(0.05), color: "#4543dbff" }).setOrigin(1, 1));
           c1.add(hit1_새게임시작); hit1_새게임시작.setAlpha(1);
         } else {
-          c1.add(this.add.text(cardW *0.95, cardH * 0.95, "이어하기 >", { fontFamily: "SkyblessingInje", fontSize: f(0.05), color: "#3c7a0cff" }).setOrigin(1, 1));
+          c1.add(this.add.text(cardW *0.95, cardH * 0.95, "이어하기 >", { fontFamily: "Pretendard", fontSize: f(0.05), color: "#3c7a0cff" }).setOrigin(1, 1));
           c1.add(hit1_이어하기); hit1_이어하기.setAlpha(1);
         }
       })
