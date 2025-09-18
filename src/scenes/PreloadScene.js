@@ -282,9 +282,7 @@ export default class PreloadScene extends Phaser.Scene {
     const store = this.game.registry.get("inventory");
     console.log("[store items]", store?.items?.(), "counts:", store && store.items().map(k => [k, store.getCount(k)]));
 
-
-
-    // this.scene.start("서십자각터");
+    this.scene.start("LoginScene");
     // opening, problem1~13, cleared
     const checkpoint = RunStorage.getCheckpoint();
     if (checkpoint == "opening") {
