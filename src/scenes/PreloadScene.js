@@ -77,6 +77,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("cutscene_오프닝3", "json/cutscene_오프닝3.json");
     this.load.json("cutscene1", "json/cutscene1.json");
     this.load.json("cutscene2", "json/cutscene2.json");
+    this.load.json("cutscene3", "json/cutscene3.json");
     this.load.json("cutscene_광화문명명1", "json/cutscene_광화문명명1.json");
     this.load.json("cutscene_광화문명명2", "json/cutscene_광화문명명2.json");
     this.load.json("cutscene_광화문명명3", "json/cutscene_광화문명명3.json");
@@ -107,6 +108,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("cutscene_오프닝3", "assets/cutscenes/cutscene_오프닝3.png");
     this.load.image("cutscene1", "assets/cutscenes/cutscene1.png");
     this.load.image("cutscene2", "assets/cutscenes/cutscene2.png");
+    this.load.image("cutscene3", "assets/cutscenes/cutscene3.png");
     this.load.image("cutscene_광화문명명1", "assets/cutscenes/cutscene_광화문명명1.png");
     this.load.image("cutscene_광화문명명2", "assets/cutscenes/cutscene_광화문명명2.png");
     this.load.image("cutscene_광화문명명3", "assets/cutscenes/cutscene_광화문명명3.png");
@@ -142,7 +144,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.json("problem7", "json/problem7.json");
     this.load.json("problem8", "json/problem8.json");
     this.load.json("problem9", "json/problem9.json");
-    this.load.json("problem10", "json/problem10.json");
 
     // JSON 맵 이동 파일 로드
     this.load.json("move_f서십자각터_t광화문", "json/move_f서십자각터_t광화문.json");
@@ -251,16 +252,19 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("move_map_소주방_근정전", "assets/move_map/move_map_소주방_근정전.png");
     this.load.image("move_map_근정전_광화문", "assets/move_map/move_map_근정전_광화문.png");
 
-    this.load.image("frame_plain_9", "assets/ui/frame_plain_9.png");
-    this.load.image("btn_primary_9", "assets/ui/btn_primary_9.png");
-    this.load.image("btn_secondary_9", "assets/ui/btn_secondary_9.png");
-    this.load.image("modal_plain_9", "assets/ui/modal_plain_9.png");
-    this.load.image("stamp_correct_temp", "assets/fx/stamp_correct_temp.png");
-    this.load.image("stamp_wrong_temp", "assets/fx/stamp_wrong_temp.png");
+    this.load.image("frame_plain_9", "/assets/ui/frame_plain_9.png");
+    this.load.image("btn_primary_9", "/assets/ui/btn_primary_9.png");
+    this.load.image("btn_secondary_9", "/assets/ui/btn_secondary_9.png");
+    this.load.image("modal_plain_9", "/assets/ui/modal_plain_9.png");
+    this.load.image("stamp_correct_temp", "/assets/fx/stamp_correct_temp.png");
+    this.load.image("stamp_wrong_temp", "/assets/fx/stamp_wrong_temp.png");
   }
 
 
   async create() {
+    ['frame_plain_9','btn_primary_9','btn_secondary_9','modal_plain_9'].forEach(k=>{
+      if (!this.textures.exists(k)) console.warn('[MISSING TEX]', k);
+    });
     // 서버 인벤토리 → 클라 스토어 동기화 (runId 우선, in_progress 폴백)
     if (!this.game.registry.get("inventory")) {
       this.game.registry.set("inventory", createInventoryStore());
@@ -316,9 +320,6 @@ export default class PreloadScene extends Phaser.Scene {
       this.scene.start("DialogScene", { json: this.cache.json.get("dialog_생물방소주방_3") })
     }
     else if (checkpoint == "problem9") {
-      this.scene.start("CutScene", { json: this.cache.json.get("cutscene_어둑시니등장") })
-    }
-    else if (checkpoint == "problem10") {
       this.scene.start("DialogScene", { json: this.cache.json.get("dialog_근정전_3") })
     }
     else {

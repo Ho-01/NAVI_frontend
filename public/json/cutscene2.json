@@ -1,6 +1,6 @@
 {
     "effect": "천둥",
     "imageKey": "cutscene2",
-    "nextScene": "DialogScene",
-    "nextParam": "dialog_서십자각터_2"
+    "nextScene": "CutScene",
+    "nextParam": "cutscene3"
 }

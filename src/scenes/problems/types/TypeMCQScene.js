@@ -39,18 +39,18 @@ export default class TypeMCQScene extends Phaser.Scene {
   create(){
     const {
       num2, place, bgKey,
-      question, problemImgKey,
+      question, problemImgKey, hint1, hint2,
       choiceLayout = 'grid',
       choices = [],
       correctId,
+      correctExplain,
+      wrongExplain,
       nextScene,
       nextParam
     } = this.cfg;
     console.log("[TypeMCQScene]: nextScene > "+nextScene+" nextParam > "+nextParam);
 
     const label = buildLabel(num2, place);
-    const T = window.TEXTS?.[this.scene.key] || {};
-    const wrongExplain = T.wrong_explain || '';
 
     // 배경 + 30% 딤
     this.add.image(this.scale.width/2, this.scale.height/2, bgKey)
@@ -60,7 +60,7 @@ export default class TypeMCQScene extends Phaser.Scene {
     // 공통 UI
     makeHeader(this, label);
     const qbox = makeQuestionBubble(this);
-    qbox.setText(T.instruction || question || '');
+    qbox.setText(question || '');
     const bottom = makeBottomPanel(this);
 
     // 선택 상태
@@ -92,7 +92,7 @@ export default class TypeMCQScene extends Phaser.Scene {
       this.scene.launch("RESULT", {
         isCorrect,
         label,
-        wrongExplain,
+        correctExplain, wrongExplain,
         prevKey: this.scene.key,
         prevCfg: this.cfg,
         nextScene,
@@ -112,7 +112,7 @@ export default class TypeMCQScene extends Phaser.Scene {
 
     // 힌트
     this.events.on('help', ()=>{
-      showHintConfirmModal(this, ()=> showHintLayer(this, { hint1: T.hint1, hint2: T.hint2 }));
+      showHintConfirmModal(this, ()=> showHintLayer(this, { hint1, hint2 }));
       if (window.onHintOpen) window.onHintOpen(1);
     });
   }

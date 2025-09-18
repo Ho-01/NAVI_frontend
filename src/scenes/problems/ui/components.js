@@ -48,7 +48,7 @@ export function makeQuestionBubble(scene){
   const availH  = h - safeT - headerH - bottomPanelH - safeB;
   const centerY = safeT + headerH + availH / 2;
 
-  const boxW   = w * 0.78;
+  const boxW   = w * 0.95;
   const maxH   = u(900, scene);
   const padX   = u(40, scene);
   const padY   = u(30, scene);
@@ -65,7 +65,7 @@ export function makeQuestionBubble(scene){
 
   // 텍스트 (중앙 기준)
   const text = scene.add.text(0,0,'', {
-    fontFamily: "SamKR3Font, system-ui, -apple-system, 'Noto Sans KR', sans-serif",
+    fontFamily: "Pretendard",
     fontSize: Math.floor(u(50,scene)),
     color: "#111111",
     align: "center",
@@ -197,7 +197,7 @@ export function makeQuestionBubble(scene){
 }
 
 /* ---------------- Bottom Panel (half screen, with anchors) ---------------- */
-export function makeBottomPanel(scene){
+export function makeBottomPanel(scene, imgKey){
   const w = scene.scale.width;
   const h = scene.scale.height;
   const safeB = safeBottom(scene);
@@ -205,6 +205,7 @@ export function makeBottomPanel(scene){
 
   const color = Phaser.Display.Color.HexStringToColor(COLORS.contentBg).color;
   const panel = scene.add.rectangle(w/2, panelY, w, h/2, color, 1).setDepth(Z.Content);
+  scene.add.image(w/2, h*0.5+h*0.5*1/3, imgKey).setDepth(Z.Content).setDisplaySize(w*0.9, h*0.3);
 
   // 상단 경계선
   scene.add
@@ -239,7 +240,7 @@ export function makeButton(scene, opts){
 
   const color = (variant === 'secondary') ? (COLORS.btnSecondaryText || '#111') : (COLORS.btnPrimaryText || '#111');
   const t = scene.add.text(x, y, label, {
-    fontFamily: "SamKR3Font, system-ui, -apple-system, 'Noto Sans KR', sans-serif",
+    fontFamily: "Pretendard",
     fontSize: Math.floor(u(40, scene)),
     color
   }).setOrigin(0.5).setDepth(Z.Content + 3);
@@ -295,7 +296,7 @@ export function makeBottomButtons(scene, onHelp, onDecide, options = {}){
     .setInteractive().on('pointerdown', ()=>{ onHelp && onHelp(); });
 
   const helpLabel = scene.add.text(xLeft, y, '도움', {
-    fontFamily: "SamKR3Font, system-ui, -apple-system, 'Noto Sans KR', sans-serif",
+    fontFamily: "Pretendard",
     fontSize: Math.floor(u(40, scene)), color:'#111'
   }).setOrigin(0.5).setDepth(Z.Content + 3);
 
@@ -306,7 +307,7 @@ export function makeBottomButtons(scene, onHelp, onDecide, options = {}){
     .setInteractive().on('pointerdown', ()=>{ if (!btnDecide.__disabled && onDecide) onDecide(); });
 
   const decideLabel = scene.add.text(xRight, y, '결정', {
-    fontFamily: "SamKR3Font, system-ui, -apple-system, 'Noto Sans KR', sans-serif",
+    fontFamily: "Pretendard",
     fontSize: Math.floor(u(40, scene)), color:'#111'
   }).setOrigin(0.5).setDepth(Z.Content + 3);
 
@@ -321,7 +322,7 @@ export function showHintConfirmModal(scene, onYes){
   const dim  = scene.add.rectangle(w/2, h/2, w, h, 0x000000, 0.4).setDepth(layerZ);
   const box  = scene.add.rexNinePatch(w/2, h/2, u(720,scene), u(420,scene), 'modal_plain_9', undefined, NINE.inset).setDepth(layerZ+1);
   const txt  = scene.add.text(w/2, h/2 - u(80,scene), '도움이 필요해?', {
-    fontFamily:'SamKR3Font', fontSize: Math.floor(u(46,scene)), color:'#000', align:'center'
+    fontFamily: "Pretendard", fontSize: Math.floor(u(46,scene)), color:'#000', align:'center'
   }).setOrigin(0.5).setDepth(layerZ+2);
 
   const yes = makeButton(scene, {
@@ -354,13 +355,13 @@ export function showHintLayer(scene, payload){
   const dim = scene.add.rectangle(w/2, h/2, w, h, 0x000000, 0.35).setDepth(ZL);
   const box = scene.add.rexNinePatch(w/2, h/2, u(800,scene), u(900,scene), 'modal_plain_9', undefined, NINE.inset).setDepth(ZL+1);
   const title = scene.add.text(w/2, h/2 - u(380,scene), '힌트', {
-    fontFamily:'SamKR3Font', fontSize: Math.floor(u(50,scene)), color:'#000'
+    fontFamily: "Pretendard", fontSize: Math.floor(u(50,scene)), color:'#000'
   }).setOrigin(0.5).setDepth(ZL+2);
 
   const text = scene.add.text(
     w/2 - u(360,scene), h/2 - u(300,scene),
     hint1,
-    { fontFamily:'SamKR3Font', fontSize: Math.floor(u(38,scene)), color:'#000', wordWrap:{ width: u(720,scene) } }
+    { fontFamily: "Pretendard", fontSize: Math.floor(u(38,scene)), color:'#000', wordWrap:{ width: u(720,scene) } }
   ).setOrigin(0,0).setDepth(ZL+2);
 
   let step = 1;
@@ -384,7 +385,7 @@ export function showHintLayer(scene, payload){
 
   const closeX = scene.add.text(
     w/2 + u(360,scene), h/2 - u(380,scene), '✕',
-    { fontFamily:'SamKR3Font', fontSize: Math.floor(u(50,scene)), color:'#000' }
+    { fontFamily: "Pretendard", fontSize: Math.floor(u(50,scene)), color:'#000' }
   ).setOrigin(0.5).setDepth(ZL+2)
    .setInteractive({useHandCursor:true}).on('pointerdown', cleanup);
 

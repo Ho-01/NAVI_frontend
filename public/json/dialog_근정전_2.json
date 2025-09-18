@@ -3,7 +3,7 @@
     "leftChar": "player",
     "rightChar": "해태",
     "nextScene": "ProblemScene",
-    "nextParam": "problem10",
+    "nextParam": "problem9",
     "script": [
             { "name": "해태", "text": "{player}!!! 어패함을 줄 테니 석상에 어패의 힘을…!!", "pos": "right" },
 		    { "name": "{player}", "text": "알겠어 해태!!", "pos": "left" }

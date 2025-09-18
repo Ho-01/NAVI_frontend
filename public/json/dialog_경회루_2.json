@@ -10,5 +10,6 @@
             { "name": "청룡", "text": "주작과 현무의 어패의 위치를 해태에게 일러두었으니 해태를 따라가거라", "pos": "right" },
             { "name": "{player}", "text": "감사합니다 청룡님!!", "pos": "left" }
     ],
+    "rewardItem": "item_청룡",
     "checkpoint": "problem6"
 }

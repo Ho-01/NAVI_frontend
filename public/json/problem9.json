@@ -1,3 +1,5 @@
 {
-    "num": "09"
+    "num": "09",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_근정전_3"
 }
