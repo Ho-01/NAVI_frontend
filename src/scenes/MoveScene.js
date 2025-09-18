@@ -1,64 +1,43 @@
-// src/scenes/MoveScene.js
 import Phaser from "phaser";
 import { getPOI } from "../kakao/mappoint";
 import TouchEffect from "../ui/TouchEffect";
 import InventoryOverlay from "../ui/InventoryOverlay";
+import { getTipsFor } from "../data/tips";
 
-/* ===== 버튼 고정값 ===== */
-const BTN_W = 400;      // px
-const BTN_H = 150;      // px
-const BTN_FONT = 55;    // px
-const BTN_GAP_X = 20;   // px
+/* ===== 레이아웃/스타일 ===== */
+const PAD = 24;                // 카드 내부 패딩
+const BTN_W = 400;
+const BTN_H = 150;
+const BTN_FONT = 55;
+const BTN_GAP_X = 20;
+const COLOR_ACCENT = 0xBE8928; // 상/하 띠 색상
+const PANEL_COLOR = 0xEFE6D1;
 
-/* Kakao SDK */
-function loadKakaoSdk(cb) {
-  if (window.kakao?.maps) return cb();
-  const ex = document.getElementById("kakao-sdk");
-  if (ex) { ex.addEventListener("load", () => kakao.maps.load(cb), { once: true }); return; }
-  const s = document.createElement("script");
-  s.id = "kakao-sdk"; s.async = true;
-  s.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=680eaa32e342a35d38784a63cf126f8f&libraries=services&autoload=false";
-  s.onload = () => kakao.maps.load(cb);
-  document.head.appendChild(s);
+/* ===== 라디우스 ===== */
+const PANEL_RADIUS = 40; // 카드
+const BTN_RADIUS = 18;   // 버튼
+const MAP_RADIUS = 20;   // 지도 컨테이너(패널보다 살짝 작게)
+
+/* 문자열 유틸 */
+const toKey = (s) => (s ?? "")
+  .toString()
+  .replace(/\s+/g, "")
+  .replace(/[^\w가-힣_-]/g, "");
+
+/* 텍스처 존재하는 첫 키 */
+const pickFirstTexture = (scene, keys) => keys.find(k => k && scene.textures.exists(k));
+
+/* 버튼 틴트 */
+function tintButton(btn, txt, { base, over, down, text = "#ffffff" }) {
+  btn.setTint(base);
+  txt.setColor(text);
+  btn.on("pointerover", () => btn.setTint(over));
+  btn.on("pointerout", () => btn.setTint(base));
+  btn.on("pointerdown", () => btn.setTint(down));
+  btn.on("pointerup", () => btn.setTint(over));
 }
 
-/* Kakao Map Overlay (DOM) */
-function showKakaoMapOverlay(lat, lng, level = 3) {
-  loadKakaoSdk(() => {
-    const wrap = document.getElementById("mapWrap"); if (!wrap) return;
-    wrap.style.display = "block";
-
-    const W = window.innerWidth, H = window.innerHeight;
-    const mvw = Math.min(W * 0.92, 360);
-    const mvh = Math.min(Math.round(mvw * 1.05), Math.round(H * 0.26));
-    Object.assign(wrap.style, {
-      position: "fixed",
-      left: "50%",
-      top: "12px",
-      transform: "translateX(-50%)",
-      width: `${mvw}px`,
-      height: `${mvh}px`,
-      borderRadius: "14px",
-      overflow: "hidden",
-      boxShadow: "0 10px 24px rgba(0,0,0,.28)",
-      pointerEvents: "none",
-      zIndex: "1000"
-    });
-
-    const mapEl = document.getElementById("kmap");
-    if (mapEl) {
-      Object.assign(mapEl.style, { width: "100%", height: "100%", pointerEvents: "auto" });
-      const map = new kakao.maps.Map(mapEl, { center: new kakao.maps.LatLng(lat, lng), level });
-      new kakao.maps.Marker({ position: map.getCenter() }).setMap(map);
-    }
-
-    const closer = document.getElementById("closeMap");
-    if (closer) { closer.style.pointerEvents = "auto"; closer.onclick = () => { wrap.style.display = "none"; }; }
-  });
-}
-function hideKakaoMapOverlay() { const wrap = document.getElementById("mapWrap"); if (wrap) wrap.style.display = "none"; }
-
-/* Inventory HUD */
+/* Inventory HUD (DOM) */
 function ensureInventoryHUD() {
   let el = document.getElementById("inventoryHUD");
   if (!el) {
@@ -77,78 +56,86 @@ function ensureInventoryHUD() {
   }
   return el;
 }
-function showInventoryHUD(show = true) { ensureInventoryHUD().style.display = show ? "block" : "none"; }
+function showInventoryHUD(show = true) {
+  ensureInventoryHUD().style.display = show ? "block" : "none";
+}
 
 /* 외부 앱 열기 */
 function openKakaoMapApp(lat, lng, name = "목적지") {
-  const scheme = `kakaomap://route?ep=${lat},${lng}&by=FOOT`;
-  const web = `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`;
-  const t = Date.now(); window.location.href = scheme;
-  setTimeout(() => { if (Date.now() - t < 1200) window.location.href = web; }, 1000);
+  const scheme = `kakaomap://route?ep=${lat},${lng}&by=FOOT&apn=${encodeURIComponent(name)}`;
+  window.location.href = scheme;
 }
 
-/* 위치 읽어오기 */
+/* 위치 파싱 */
 function parseFromPlace(imageKey) {
   if (!imageKey) return null;
   const m = imageKey.match(/^move_f(.+?)_t/);
   return m ? m[1] : null;
 }
+function parseToPlace(imageKey) {
+  if (!imageKey) return null;
+  const m = imageKey.match(/_t(.+?)$/);
+  return m ? m[1] : null;
+}
 
-function addBackgroundByPlace(scene, fromPlace, mapHeight = 0) {
+/* 배경 */
+function addBackgroundByPlace(scene, fromPlace) {
   if (!fromPlace) return;
-
-  // 우선순위: bg_<장소> → bg_<장소>_dark → bg_<장소>_fire
   const candidates = [
     `bg_${fromPlace}`,
     `bg_${fromPlace}_dark`,
-    `bg_${fromPlace}_fire`
+    `bg_${fromPlace}_fire`,
   ].filter(k => scene.textures.exists(k));
-
   if (candidates.length === 0) return;
 
   const key = candidates[0];
   const { width: W, height: H } = scene.scale;
-  const targetH = Math.max(0, H - mapHeight);
-
-  // 배경 스프라이트
-  const bg = scene.add.image(W / 2, mapHeight + targetH / 2, key).setDepth(0);
-
-  // 원본 크기 얻어서 비율 유지 스케일
+  const bg = scene.add.image(W / 2, H / 2, key).setDepth(0);
   const tex = scene.textures.get(key).getSourceImage();
-  const bw = tex.width, bh = tex.height;
-  const s = Math.max(W / bw, targetH / bh);
+  const s = Math.max(W / tex.width, H / tex.height);
   bg.setScale(s).setScrollFactor(0);
 }
 
-/* 텍스처 유틸 */
+/* 카드 텍스처 */
 function makeHanjiCard(scene, key, w, h) {
   if (scene.textures.exists(key)) return key;
   const g = scene.add.graphics();
-  g.fillStyle(0xefe6d1, 0.98); g.fillRoundedRect(0, 0, w, h, 18);
+  g.fillStyle(PANEL_COLOR, 0.98);
+  g.fillRoundedRect(0, 0, w, h, PANEL_RADIUS);
   g.fillStyle(0x000000, 0.05);
-  for (let i = 0; i < 160; i++) g.fillCircle(Math.random() * w, Math.random() * h, Math.random() * 1.2);
-  g.lineStyle(4, 0x2b2b2b, 1).strokeRoundedRect(2, 2, w - 4, h - 4, 16);
-  g.generateTexture(key, w, h); g.destroy(); return key;
+  for (let i = 0; i < 160; i++)
+    g.fillCircle(Math.random() * w, Math.random() * h, Math.random() * 1.2);
+  // 거의 보이지 않는 외곽선(패널색)
+  g.lineStyle(2, PANEL_COLOR, 1);
+  g.strokeRoundedRect(-0.5, -0.5, w + 1, h + 1, PANEL_RADIUS + 1);
+  g.generateTexture(key, w, h);
+  g.destroy();
+  return key;
 }
-function makeJoseonButton(scene, baseKey, w, h) {
+
+/* 버튼 텍스처 */
+function makeJoseonButton(scene, baseKey, w, h, radius = BTN_RADIUS) {
   const make = (k, fill, stroke) => {
     if (scene.textures.exists(k)) return;
     const g = scene.add.graphics();
     g.fillStyle(fill, 1).lineStyle(3, stroke, 1);
-    g.fillRoundedRect(0, 0, w, h, h / 2);
-    g.strokeRoundedRect(0, 0, w, h, h / 2);
-    g.generateTexture(k, w, h); g.destroy();
+    g.fillRoundedRect(0, 0, w, h, radius);
+    g.strokeRoundedRect(0, 0, w, h, radius);
+    g.generateTexture(k, w, h);
+    g.destroy();
   };
   make(`${baseKey}_base`, 0xe6d3b3, 0x5a3e1b);
   make(`${baseKey}_over`, 0xecdcbc, 0x5a3e1b);
   make(`${baseKey}_down`, 0xdccaa9, 0x3d2a12);
 }
-function addJoseonButton(scene, x, y, w, h, label, onClick, fontPx = 24) {
-  makeJoseonButton(scene, "__jbtn", w, h);
-  const btn = scene.add.image(x, y, "__jbtn_base").setDisplaySize(w, h).setInteractive({ useHandCursor: true });
+function addJoseonButton(scene, x, y, w, h, label, onClick, fontPx = 24, radius = BTN_RADIUS) {
+  makeJoseonButton(scene, "__jbtn", w, h, radius);
+  const btn = scene.add.image(x, y, "__jbtn_base")
+    .setDisplaySize(w, h)
+    .setInteractive({ useHandCursor: true });
   const txt = scene.add.text(x, y, label, {
-    fontFamily: "SkyblessingInje",
-    fontSize: fontPx,        // 고정 폰트
+    fontFamily: "Pretendard-Regular",
+    fontSize: fontPx,
     color: "#2b2b2b"
   }).setOrigin(0.5);
   btn.on("pointerover", () => btn.setTexture("__jbtn_over"));
@@ -158,25 +145,31 @@ function addJoseonButton(scene, x, y, w, h, label, onClick, fontPx = 24) {
   return [btn, txt];
 }
 
-/* Scene */
+/* ===== Scene ===== */
 export default class MoveScene extends Phaser.Scene {
   constructor() { super("MoveScene"); }
 
   init(data) {
     const json = data.json ?? {};
     this.returnScene = data.returnScene;
+
     this.text = json.text ?? null;
-    this.tips = json.tips ?? null;
-    this.imageKey = json.imageKey ?? null;
+    this.tips = json.tips ?? null;               // 문자열 또는 배열일 수 있음
+    this.imageKey = json.imageKey ?? null;       // ex) move_f흥례문_t근정문
     this.showInventoryBtn = !!json.showInventoryBtn;
 
-    this.lat = json.lat; this.lng = json.lng; this.level = json.level ?? 3;
+    this.lat = json.lat;
+    this.lng = json.lng;
+    this.level = json.level ?? 3;
     this.nextScene = json.nextScene ?? null;
     this.nextParam = json.nextParam ?? null;
     this.name = json.name ?? "목적지";
 
     const poi = this.name ? getPOI(this.name.replace(" ", "")) : null;
     if (poi) { this.lat = poi.lat; this.lng = poi.lng; this.level = poi.level; }
+
+    // 목적지 텍스처 키(공백 제거)
+    this.destKey = json.destKey ?? toKey(this.name);
   }
 
   create() {
@@ -184,22 +177,12 @@ export default class MoveScene extends Phaser.Scene {
     TouchEffect.init(this);
     const { width: W, height: H } = this.scale;
 
-    // 1) 지도 높이 + 여백 먼저 계산
-    let mapHeight = 0;
-    {
-      const wrap = document.getElementById("mapWrap");
-      if (wrap) {
-        const rect = wrap.getBoundingClientRect();
-        const GAP = Math.round(H * 0.10);
-        mapHeight = (rect.height || Math.round(H * 0.26)) + GAP;
-      }
-    }
+    // 배경
+    const fromPlace = parseFromPlace(this.imageKey);
+    const toPlace = parseToPlace(this.imageKey) || this.name;
+    addBackgroundByPlace(this, fromPlace, 0);
 
-    // 2) 현재 위치(from) 추출 → 배경 깔기
-    const fromPlace = parseFromPlace(this.imageKey);   // ex) "영제교"
-    addBackgroundByPlace(this, fromPlace, mapHeight);
-
-    // 3) 인벤토리 HUD (MoveScene에서는 DOM HUD 사용 안 함)
+    // 인벤토리 HUD
     if (this.showInventoryBtn) {
       if (!this.inventoryOverlay) this.inventoryOverlay = new InventoryOverlay(this);
       showInventoryHUD(false);
@@ -207,132 +190,223 @@ export default class MoveScene extends Phaser.Scene {
       showInventoryHUD(false);
     }
 
-    // 4) UI 컨테이너(배경 위로)
-    const root = this.add.container(0, mapHeight).setDepth(10001);
+    // 루트 컨테이너
+    const root = this.add.container(0, 0).setDepth(10001);
 
-    // 패널 크기/카드
-    const panelW = Math.min(W * 0.72, 720);
-    const panelH = Math.min(Math.max(320, Math.round(H * 0.48)), 1360);
+    // 카드
+    // 카드
+    const panelW = Math.min(W, 900);
+    const panelH = Math.min(H, 2000);
     const cardKey = makeHanjiCard(this, "__hanji", panelW, panelH);
+    const cardY = H / 2;
 
-    const cardY = panelH / 2 + Math.round(H * 0.02);
     const card = this.add.image(W / 2, cardY, cardKey).setAlpha(0);
     root.add(card);
 
-    // dim (카드 뒤)
-    const dimPad = 24;
+    // ── 라운드 마스크 생성 ──
+    const maskG = this.add.graphics();
+    maskG.fillStyle(0xffffff, 1);
+    maskG.fillRoundedRect(
+      (W / 2) - panelW / 2,
+      cardY - panelH / 2,
+      panelW,
+      panelH,
+      PANEL_RADIUS
+    );
+    const panelMask = maskG.createGeometryMask();
+    maskG.setVisible(false);
+
+    // panel 컨테이너에 마스크 적용
+    const panel = this.add.container(0, 0).setAlpha(0);
+    panel.setMask(panelMask);
+    root.add(panel);
+
+    /* 🔧 dim(반투명 배경) 추가 — 트윈에서 dim을 사용하므로 필수 */
     const dim = this.add.rectangle(
-      W / 2, cardY, panelW + dimPad * 2, panelH + dimPad * 2, 0x000000, 0.16
+      W / 2,
+      cardY,
+      panelW + PAD * 2,
+      panelH + PAD * 2,
+      0x000000,
+      0.16
     ).setAlpha(0).setInteractive();
-    root.addAt(dim, 0);
+    root.addAt(dim, 0); // 맨 아래로
+    // 상/하 띠
+    const headerH = 230;
+    const footerH = Math.max(96, Math.round(BTN_H * 1.4));
+    const yTop = cardY - panelH / 2;
+    const yBottom = cardY + panelH / 2;
+
+    const header = this.add.graphics();
+    header.fillStyle(COLOR_ACCENT, 1);
+    header.fillRect((W / 2) - panelW / 2, yTop, panelW, headerH);
+
+    const footer = this.add.graphics();
+    footer.fillStyle(COLOR_ACCENT, 1);
+    footer.fillRect((W / 2) - panelW / 2, yBottom - footerH, panelW, footerH);
+
+    panel.add([header, footer]);
 
     // 제목
-    const title = this.add.text(
-      W / 2,
-      card.y - panelH / 2 + 100,
-      this.text || `${this.name}로 이동해 주세요`,
-      {
-        fontFamily: "SkyblessingInje",
-        fontSize: Math.round(panelW * 0.08),
-        color: "#2b2b2b",
-        align: "center",
-        wordWrap: { width: panelW * 0.86 }
-      }
-    ).setOrigin(0.5).setAlpha(0);
-    root.add(title);
+    const titleFont = Math.round(panelW * 0.08);
+    const titleGroup = this.add.container(0, 0).setAlpha(1);
 
+    const nameText = this.add.text(0, 0, this.name, {
+      fontFamily: "Pretendard-Regular",
+      fontSize: titleFont,
+      color: "#4C0012",
+      align: "center"
+    }).setOrigin(0, 0.5);
 
-    let tip;
-    if (this.tips) {
-      tip = this.add.text(
-        W / 2,
-        title.y + Math.round(panelH * 0.12),   // 제목 바로 아래 여백
-        this.tips,
-        {
-          fontFamily: "SkyblessingInje",
-          fontSize: Math.max(14, Math.round(panelW * 0.07)), // 작은 글씨
-          color: "#4a4a4a",
-          align: "center",
-          wordWrap: { width: panelW * 0.86 },
-          lineSpacing: 4
-        }
-      ).setOrigin(0.5, 0).setAlpha(0);
-      root.add(tip);
+    const tailText = this.add.text(0, 0, "으로 이동해 주세요", {
+      fontFamily: "Pretendard-Regular",
+      fontSize: titleFont,
+      color: "#ffffff",
+      align: "center"
+    }).setOrigin(0, 0.5);
+
+    tailText.x = nameText.displayWidth;
+    const totalW = nameText.displayWidth + tailText.displayWidth;
+    titleGroup.x = (W / 2) - (totalW / 2);
+    titleGroup.y = yTop + headerH / 2; // 헤더 중앙
+    titleGroup.add([nameText, tailText]);
+    panel.add(titleGroup);
+
+    /* 지도 */
+    const fromKey = toKey(fromPlace);
+    const destKey = this.destKey;
+
+    const mapKey = pickFirstTexture(this, [
+      `move_map_${fromKey}_${destKey}`,
+      `move_map_${destKey}`,
+      `move_map_${fromKey}`
+    ]);
+
+    const mapMax = 700;
+    const mapW = Math.min(mapMax, Math.round((panelW - PAD * 2) * 0.9));
+    const mapH = mapW;
+    const mapY = (cardY - panelH / 2) + PAD + headerH + 16 + mapH / 2;
+
+    // 지도 배경(라운드)
+    const mapBg = this.add.graphics();
+    mapBg.fillStyle(0xffffff, 1);
+    mapBg.fillRoundedRect((W / 2) - mapW / 2, mapY - mapH / 2, mapW, mapH, Math.min(MAP_RADIUS, PANEL_RADIUS - 8));
+    panel.add(mapBg);
+
+    let mapImg;
+    if (mapKey) {
+      mapImg = this.add.image(W / 2, mapY, mapKey).setDisplaySize(mapW, mapH);
+      panel.add(mapImg);
+      // 지도 라운드 마스크
+      const m = this.add.graphics();
+      m.fillStyle(0xffffff, 1);
+      m.fillRoundedRect((W / 2) - mapW / 2, mapY - mapH / 2, mapW, mapH, Math.min(MAP_RADIUS, PANEL_RADIUS - 8));
+      mapImg.setMask(m.createGeometryMask());
     }
-    // === 패널 중앙 인벤토리 버튼 ===
+
+    /* 설명(Tips): 저장소 + 3초 로테이션 */
+    let tipTextObj = null;
+
+    const incomingTips =
+      Array.isArray(this.tips) ? this.tips
+        : (typeof this.tips === "string" && this.tips.trim() ? [this.tips.trim()] : null);
+
+    const tipsArr = incomingTips ?? getTipsFor({
+      from: (fromPlace ?? "").replace(/\s/g, ""),
+      to: (toPlace ?? "").replace(/\s/g, "")
+    });
+
+    let tipIndex = 0;
+    if (tipsArr && tipsArr.length > 0) {
+      tipTextObj = this.add.text(W / 2, mapY + mapH / 2 + 20, tipsArr[0], {
+        fontFamily: "Pretendard-Regular",
+        fontSize: Math.max(16, Math.round(panelW * 0.045)),
+        color: "#000000",
+        align: "center",
+        wordWrap: { width: Math.round(panelW * 0.82) },
+        lineSpacing: 6
+      }).setOrigin(0.5, 0).setAlpha(0);
+      panel.add(tipTextObj);
+
+      // 페이드 인
+      this.tweens.add({ targets: tipTextObj, alpha: 1, duration: 220, delay: 160 });
+
+      // 3초마다 로테이션
+      this.tipTimer = this.time.addEvent({
+        delay: 3000,
+        loop: true,
+        callback: () => {
+          tipIndex = (tipIndex + 1) % tipsArr.length;
+          this.tweens.add({
+            targets: tipTextObj,
+            alpha: 0,
+            duration: 140,
+            onComplete: () => {
+              tipTextObj.setText(tipsArr[tipIndex]);
+              this.tweens.add({ targets: tipTextObj, alpha: 1, duration: 140 });
+            }
+          });
+        }
+      });
+    }
+
+    /* 인벤토리 버튼(옵션) */
     if (this.showInventoryBtn) {
-      const centerX = W / 2;
-      const centerY = cardY;
-
       const invSize = Math.min(72, Math.round(panelH * 0.16));
-
-
-      const invBtn = this.add.image(centerX, centerY + 100, "icon_인벤토리")
+      const invBtn = this.add.image(W / 2, cardY + 500, "icon_인벤토리")
         .setDisplaySize(invSize, invSize)
         .setInteractive({ useHandCursor: true })
-        .setAlpha(0)
         .setScale(0.5);
-
-      // ✅ setDisplaySize 이후 실제 스케일 저장
-      const baseScaleX = invBtn.scaleX;
-      const baseScaleY = invBtn.scaleY;
-
-      invBtn.on("pointerdown", () => invBtn.setScale(baseScaleX * 0.96, baseScaleY * 0.96));
-      invBtn.on("pointerout", () => invBtn.setScale(baseScaleX, baseScaleY));
-      invBtn.on("pointerup", () => {
-        invBtn.setScale(baseScaleX, baseScaleY);
-        this.inventoryOverlay?.show();
-      });
-
-      root.add([invBtn]);
-      this.tweens.add({ targets: [invBtn], alpha: 1, duration: 240, delay: 180 });
+      const baseX = invBtn.scaleX, baseY = invBtn.scaleY;
+      invBtn.on("pointerdown", () => invBtn.setScale(baseX * 0.96, baseY * 0.96));
+      invBtn.on("pointerout", () => invBtn.setScale(baseX, baseY));
+      invBtn.on("pointerup", () => { invBtn.setScale(baseX, baseY); this.inventoryOverlay?.show(); });
+      panel.add(invBtn);
     }
 
-    // 버튼
-    const btnW = Math.min(BTN_W, Math.round(panelW * 0.45));
-    const btnH = Math.min(BTN_H, Math.round(panelH * 0.22));
-    const btnY = card.y + panelH / 2 - (btnH / 2 + 22);
-    const gapX = BTN_GAP_X;
+    /* 하단 버튼 */
+    const btnWv = Math.min(BTN_W, Math.round(panelW * 0.45));
+    const btnHv = Math.min(BTN_H, Math.round(panelH * 0.22));
+    const btnY = cardY + panelH / 2 - PAD - (btnHv / 2 + 6);
 
     const [btnRoute, txtRoute] = addJoseonButton(
       this,
-      W / 2 - (btnW / 2 + gapX), btnY, btnW, btnH,
-      "카카오맵 길찾기",
+      W / 2 - (btnWv / 2 + BTN_GAP_X), btnY, btnWv, btnHv,
+      "길찾기",
       () => openKakaoMapApp(this.lat, this.lng, this.name),
-      Math.min(BTN_FONT, Math.round(btnH * 0.36))
+      Math.min(BTN_FONT, Math.round(btnHv * 0.36))
     );
 
     const [btnArrived, txtArrived] = addJoseonButton(
       this,
-      W / 2 + (btnW / 2 + gapX), btnY, btnW, btnH,
+      W / 2 + (btnWv / 2 + BTN_GAP_X), btnY, btnWv, btnHv,
       "도착",
       () => {
-        hideKakaoMapOverlay();
         if (this.nextScene) {
-          this.scene.start(this.nextScene, { json: this.cache.json.get(this.nextParam), returnScene: this.returnScene });
+          this.scene.start(this.nextScene, {
+            json: this.cache.json.get(this.nextParam),
+            returnScene: this.returnScene
+          });
         } else {
           this.scene.start(this.returnScene);
         }
       },
-      Math.min(BTN_FONT, Math.round(btnH * 0.36))
+      Math.min(BTN_FONT, Math.round(btnHv * 0.36))
     );
 
-    // 트윈
+    tintButton(btnRoute, txtRoute, { base: 0x603D00, over: 0x72470A, down: 0x4A2C00, text: "#ffffff" });
+    tintButton(btnArrived, txtArrived, { base: 0xFF006A, over: 0xE0005E, down: 0xB8004B, text: "#ffffff" });
+    [btnRoute, txtRoute, btnArrived, txtArrived].forEach(n => panel.add(n));
+
+    /* 트윈 */
     this.tweens.add({ targets: dim, alpha: 0.18, duration: 140, ease: "Quad.easeOut" });
-    [btnRoute, txtRoute, btnArrived, txtArrived].forEach(n => { n.setAlpha(0); root.add(n); });
-
     this.tweens.add({ targets: card, alpha: 1, duration: 200, delay: 60 });
-    this.tweens.add({ targets: title, alpha: 1, duration: 220, delay: 120 });
-    this.tweens.add({ targets: title, alpha: 1, duration: 220, delay: 120 });
-    if (tip) this.tweens.add({ targets: tip, alpha: 1, duration: 220, delay: 160 });
-    this.tweens.add({ targets: [btnRoute, txtRoute], alpha: 1, duration: 240, delay: 180 });
-    this.tweens.add({ targets: [btnArrived, txtArrived], alpha: 1, duration: 240, delay: 220 });
-
+    this.tweens.add({ targets: panel, alpha: 1, duration: 220, delay: 80 });
     this.cameras.main.fadeIn(120, 0, 0, 0);
 
-    // 정리
+    /* 정리 */
     const cleanup = () => {
-      hideKakaoMapOverlay();
+      if (this.tipTimer) { this.tipTimer.remove(false); this.tipTimer = null; }
       const invHud = document.getElementById("inventoryHUD");
       if (invHud?._onClick) invHud.removeEventListener("click", invHud._onClick);
       showInventoryHUD(false);
@@ -340,5 +414,12 @@ export default class MoveScene extends Phaser.Scene {
     };
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, cleanup);
     this.events.once(Phaser.Scenes.Events.DESTROY, cleanup);
+
+    // 앱 전환 복귀 처리
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        if (this.scene.isPaused("MoveScene")) this.scene.resume("MoveScene");
+      }
+    }, { once: true });
   }
 }

@@ -21,7 +21,7 @@
 
     /* ✅ 전체 배경 색상 적용 */
     body {
-margin:0; 
+      margin: 0;
       background-color: #d7c3a5;
     }
   </style>
@@ -42,8 +42,41 @@ margin:0;
   <!-- 텍스트입력기능을 위해 부모 엘리먼트 고정 + DOM 컨테이너 확실히 만들기 -->
   <div id="game-root" style="position:relative; overflow:hidden;"></div>
   <script type="module" src="/src/main.js"></script>
-  <!-- ✅ 꼭 필요: Vite 엔트리 -->
+ 
+
+  <!-- index.html -->
   <script type="module" src="/src/main.js"></script>
+
+  <!-- 테스트할 때만 사용 -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    (async () => {
+      // GSI가 실제로 준비될 때까지 폴링
+      await new Promise((res) => {
+        const check = () => (window.google?.accounts?.id ? res() : setTimeout(check, 30));
+        check();
+      });
+
+      const CID = "137853659212-b5bngif7sh647a5q5ii9pvavq2eh58kk.apps.googleusercontent.com";
+      console.log("origin =", location.origin);
+
+      google.accounts.id.initialize({
+        client_id: CID,
+        ux_mode: "popup",
+        callback: (resp) => {
+          console.log("ID토큰 수신?", !!resp?.credential, resp);
+        },
+      });
+
+      // 사용자 클릭 없이도 원탭 가능 환경이면 뜸(안 떠도 정상)
+      google.accounts.id.prompt((n) => {
+        console.log("isDisplayed:", n.isDisplayed(),
+          "notDisplayed:", n.isNotDisplayed(), n.getNotDisplayedReason?.(),
+          "dismissed:", n.isDismissed(), n.getDismissedReason?.());
+      });
+    })();
+  </script>
+
 </body>
 
 </html>
