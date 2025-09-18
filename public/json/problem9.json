@@ -1,9 +1,5 @@
 {
-    "title": "문제9 - 근정전 진입",
-    "problem": "?",
-    "hint1": "?",
-    "hint2": "?",
-    "answer": "?",
-    "nextScene": "CutScene",
-    "nextParam": "cutscene_어둑시니등장"
+    "num": "09",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_근정전_3"
 }

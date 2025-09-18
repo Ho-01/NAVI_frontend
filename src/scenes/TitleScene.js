@@ -15,6 +15,9 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image("logo", "assets/logo.png");
     this.load.image("navi_full", "assets/navi_full.png");
     this.load.image("navi_full_touch", "assets/navi_full_touch.png");
+
+    // 테스트용 임시
+    this.load.json("problem1", "json/problem1.json");
   }
 
   create() {

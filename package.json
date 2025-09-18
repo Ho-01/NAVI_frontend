@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Ho-01/NAVI_frontend#readme",
   "description": "",
   "dependencies": {
-    "phaser": "^3.90.0"
+    "phaser": "^3.90.0",
+    "phaser3-rex-plugins": "^1.80.16"
   }
 }
