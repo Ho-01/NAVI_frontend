@@ -80,7 +80,7 @@ const CONFIG_MAP = {
       {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.75,y:0.875},displayW:120,displayH:120} // width*0.76
     ],
     answerMap:{ phoenix:'C', turtle:'L', qilin:'R' }, snapPx:36,
-    correctExplain: "광화문 세 개의 홍예 천장을 올려다보시면, 중앙에는 봉황, 동쪽에는 기린, 서쪽에는 현무가 배치되어 있습니다.\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 의미합니다.\n'홍예'는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻합니다.",
+    correctExplain: "광화문 세 홍예의 천장을 올려다보면 중앙에는 봉황, 동쪽에는 기린, 서쪽에는 현무가 배치되어 있다.\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",
     wrongExplain: "흠… 아닌가봐. 다시 한 번 해볼까?",
     nextScene: "DialogScene",
     nextParam: "dialog_광화문_5"
@@ -98,7 +98,7 @@ const CONFIG_MAP = {
       {id:'mu',  imgKey:'mu',  imgPath:'assets/q03/mu.png',  start:{x:0.75,y:0.8},displayW:180,displayH:250}
     ],
     answerMap:{ mun:'L', wang:'C', mu:'R' }, snapPx:36,
-    correctExplain: "근정전 앞 조정에는 세 갈래의 삼도(三道)가 놓였는데, 이는 왕과 신하의 위계를 드러내는 길이었다.\n중앙의 어도는 오직 왕만이 사용할 수 있었고, 신하들은 좌우 도로와 품계석 옆에 서열대로 도열하였다.\n또한 출입 규칙에 따라 동쪽 일화문은 문관, 서쪽 월화문은 무관이 드나드는 통로로 구분되었다.",
+    correctExplain: "근정전 앞 조정에는 세 갈래의 삼도(三道)가 놓였으며, 이는 왕과 신하의 위계를 드러내는 길이었다.\n중앙의 어도는 오직 왕만이 사용할 수 있었고, 신하들은 좌우 도로와 품계석 옆에 서열대로 도열하였다.\n또 출입 규칙에 따라 동쪽 일화문은 문관, 서쪽 월화문은 무관이 드나드는 통로로 구분되었다.",
     wrongExplain: "삼도도 모르는 자를 어찌 들일 수 있겠느냐! 예를 어기지 마라. 중앙은 전하의 길, 신하는 좌우다. 철저히 구분하라.",
     nextScene: "DialogScene",
     nextParam: "dialog_흥례문_2"
@@ -117,7 +117,7 @@ const CONFIG_MAP = {
       {id:'D',text:'D',sideImgKey:'bridgeD',sideImgPath:'assets/q04/optD.png'}
     ],
     correctId:'D',
-    correctExplain: "영제교의 혀 내민 천록상은 신수 도상에서 혀를 드러내는 표현이 전통적으로 존재해 이를 반영했을 가능성이 있다. 동시에, 엄숙한 궁궐에 귀여운 표정의 조각을 세워 해학을 담았다는 해석도 제기되지만, 특별한 의미가 확정된 바는 없으며 그 의도는 문헌상 분명히 확인되지 않는다.",
+    correctExplain: "영제교의 혀 내민 천록상은 전통적인 신수 도상에서 혀를 드러내는 표현을 반영했을 가능성이 있다.\n동시에 엄숙한 궁궐에 해학을 담아 친근감을 주려 했다는 해석도 있으나,\n특별한 의미가 확정된 바는 없고 의도 역시 문헌에서 명확히 확인되지 않는다.",
     wrongExplain: "응? 이 친구는 아니야",
     nextScene: "DialogScene",
     nextParam: "dialog_영제교_2"
@@ -136,7 +136,7 @@ const CONFIG_MAP = {
       {id:'book4',imgKey:'book4',imgPath:'assets/q05/book4.png',start:{x:0.875,y:0.85},displayW:60,displayH:240}
     ],
     answerMap:{ book1:'S1', book2:'S2', book3:'S3', book4:'S4' }, snapPx:36,
-    correctExplain: "correct",
+    correctExplain: "수정전은 세종 때 학문 연구 기관인 집현전(‘어진 사람을 모은 전각’)으로 시작해,\n고종의 중건 과정에서 수정전으로 불리며 왕의 정사를 보좌하는 공간이 되었다. 갑오개혁기에는 내각 청사로 활용되었고, 오늘날 복원되어 다시 수정전이라는 이름으로 전해진다.\n이러한 변화는 단순한 명칭 교체가 아니라, 건물이 맡아온 기능과 정치적 역할의 변천을 보여준다.",
     wrongExplain: "이런, 그 순서가 아닌 것 같군 .다시 한번 생각해 보게나",
     nextScene: "DialogScene",
     nextParam: "dialog_수정전_3"
@@ -148,7 +148,7 @@ const CONFIG_MAP = {
     hint1: "이 누각의 기둥은 절기를, 마루칸은 달을, 중심은 천지인을 나타내고 있느니. 겉에서부터 안으로, 그 순서대로 수를 헤아리라.", hint2: "정 어렵다면 경회루를 보며 그 수를 세어보는 것도 방법이지",
     inputMask:'__, __, _',
     acceptAnswers:['24,12,3','24 12 3','24-12-3','24·12·3'],
-    correctExplain: "correct",
+    correctExplain: "경회루 2층 마루의 3칸·12칸·24기둥을 천지인, 12달, 24절기에 대응시키는 해석은\n동아시아적 우주 질서를 건축에 투영한 전통적 설명이다.\n이는 경회루가 단순한 연회장이 아니라, 왕권과 국가를 천지자연의 질서와 연결하려 한 상징 공간이었음을 보여준다.",
     wrongExplain: "이치를 깨닫지 못했는가? 겉은 때의 질서요, 안은 달의 걸음, 중심은 만물의 근본을 담고 있거늘",
     nextScene: "DialogScene",
     nextParam: "dialog_경회루_2"
@@ -167,7 +167,7 @@ const CONFIG_MAP = {
       {id:'D',text:'기타',sideImgKey:'tile4',sideImgPath:'assets/q07/tile4.png'}
     ],
     correctId:'C',
-    correctExplain: "correct",
+    correctExplain: "아미산 굴뚝에는 학과 거북, 사슴 같은 십장생이 장수를, 봉황과 박쥐, 매화가 부귀와 길상을 상징한다.\n굴뚝은 단순한 난방 시설이 아니라 왕비의 안녕과 나라의 태평을 기원하는 상징물이었으며,\n‘장수와 부귀의 소망이 함께 깃든 곳’이라는 의미도 담고 있다.",
     wrongExplain: "네 눈이 아직 이 굴뚝에 담긴 온전한 소망을 담지 못했구나.\n장수(壽)의 기운과 부귀(富貴)의 소망이 한데 어우러진 곳을 다시 찾아보거라",
     nextScene: "DialogScene",
     nextParam: "dialog_아미산_1"
@@ -185,7 +185,7 @@ const CONFIG_MAP = {
       {id:'C',text:'병(수상한 궁녀)',sideImgKey:'charC',sideImgPath:'assets/q08/charC.png'},
     ],
     correctId:'C',
-    correctExplain: "correct",
+    correctExplain: "외소주방은 왕의 탄신일이나 큰 연회의 음식을 맡던 공간이고,\n생물방(=생과방)은 교태전 뒤쪽에서 차·다과·화채 같은 후식과 음료를 준비하는 부속 공간이었다.\n따라서 “외소주방에서 화채를 준비했다”는 말은 실제 궁중 업무 체계와 맞지 않아 수상하다.",
     wrongExplain: "다시 생각해보자",
     nextScene: "DialogScene",
     nextParam: "dialog_생물방소주방_3"
@@ -204,7 +204,7 @@ const CONFIG_MAP = {
       {id:'book4',imgKey:'book4',imgPath:'assets/q05/book4.png',start:{x:0.875,y:0.85},displayW:60,displayH:240}
     ],
     answerMap:{ book1:'S1', book2:'S2', book3:'S3', book4:'S4' }, snapPx:36,
-    correctExplain: "correct",
+    correctExplain: "사방신은 단순한 장식이 아니라, 오행·천문·자연지형이 맞물린 질서를 반영한 우주의 상징이다.\n청룡은 해돋이와 성장·생명을, 주작은 권위와 번영을, 백호는 억제와 보호를, 현무는 안정과 방어를 의미하며,\n방위에 따라 배치되어 우주의 질서를 구현한다. 근정전은 이러한 사방신 배치를 통해 왕이 정사를 펼치는 공간으로서 잡귀와 부정을 차단하고,\n왕실의 기운이 사방으로 퍼져 국가의 조화와 번영을 확장하기를 바라는 의식적 장치로 기능하였다.",
     wrongExplain: "이런! 어패의 기운이 엉뚱한 곳을 가리키고 있어!!",
     nextScene: "DialogScene",
     nextParam: "dialog_근정전_3"

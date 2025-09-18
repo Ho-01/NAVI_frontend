@@ -108,22 +108,25 @@ export default class ResultScene extends Phaser.Scene {
   showWrong({ wrongExplain, prevKey, prevCfg }){
     const w = this.scale.width, h = this.scale.height;
 
-    const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
-    this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
+    const scroll = this.add.image(w/2, h/2, "scroll").setOrigin(0.5).setAlpha(0).setDepth(14);
+    scroll.setScale(Math.max(w / scroll.width, h / scroll.height));
+    this.tweens.add({ targets:scroll, alpha:1, duration:220, ease:EASE_FADE });
+    // const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
+    // this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
 
     const maxW = Math.min(w*0.72, u(this, 720));
     const maxH = u(this, 320);
 
-    const tx = this.add.text(w/2, h/2, String(wrongExplain||""), {
+    const tx = this.add.text(w/2, h*0.25, String(wrongExplain||""), {
       fontFamily: "Pretendard", 
-      fontSize: w*0.05,
+      fontSize: w*0.04, fontStyle: "bold",
       color:"#000000", align:"center",
-      wordWrap:{ width:w*0.9 }
-    }).setOrigin(0.5,0).setDepth(15);
+      wordWrap:{ width:w*0.75 }
+    }).setOrigin(0.5,0.5).setDepth(15);
 
     // 다시하기 버튼
     const btnW=u(this, 320), btnH=u(this,112);
-    const btn = this.add.rexNinePatch(w/2, h*0.8 + u(this,200), btnW, btnH, "btn_primary_9", undefined, NINE.inset)
+    const btn = this.add.rexNinePatch(w/2, h*0.75 + u(this,200), btnW, btnH, "btn_primary_9", undefined, NINE.inset)
       .setOrigin(0.5).setDepth(15).setInteractive({useHandCursor:true})
       .on("pointerdown", ()=>{
         if (prevKey) {
@@ -148,22 +151,48 @@ export default class ResultScene extends Phaser.Scene {
   showCorrect({ correctExplain, prevKey, nextScene, nextParam }){
     const w = this.scale.width, h = this.scale.height;
 
-    const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
-    this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
+    const scroll = this.add.image(w/2, h/2, "scroll").setOrigin(0.5).setAlpha(0).setDepth(14);
+    scroll.setScale(Math.max(w / scroll.width, h / scroll.height));
+    this.tweens.add({ targets:scroll, alpha:1, duration:220, ease:EASE_FADE });
 
-    const tx = this.add.text(w/2, h/2, String(correctExplain||""), {
+    // const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
+    // this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
+
+    const tx = this.add.text(w/2, h*0.25, String(correctExplain||""), {
       fontFamily: "Pretendard", 
-      fontSize: w*0.05,
+      fontSize: w*0.04, fontStyle: "bold",
       color:"#000000", align:"center",
-      wordWrap:{ width:w*0.9 }
-    }).setOrigin(0.5,0).setDepth(15);
+      wordWrap:{ width:w*0.75 }
+    }).setOrigin(0.5,0.5).setDepth(15);
 
-    this.input.once("pointerdown", ()=>{
-      console.log("[ResultScene]: nextScene >"+nextScene+" nextParam >"+nextParam);
-      this.scene.stop(prevKey);
-      this.scene.stop("RESULT");
-      const payload = this.cache.json.get(nextParam);
-      this.scene.start(nextScene, { json: payload, jsonKey: nextParam });
-    });
+    // 다시하기 버튼
+    const btnW=u(this, 320), btnH=u(this,112);
+    const btn = this.add.rexNinePatch(w/2, h*0.75 + u(this,200), btnW, btnH, "btn_primary_9", undefined, NINE.inset)
+      .setOrigin(0.5).setDepth(15).setInteractive({useHandCursor:true})
+      .on("pointerdown", ()=>{
+        if (prevKey) {
+          console.log("[ResultScene]: nextScene >"+nextScene+" nextParam >"+nextParam);
+          this.scene.stop(prevKey);
+          this.scene.stop("RESULT");
+          const payload = this.cache.json.get(nextParam);
+          this.scene.start(nextScene, { json: payload, jsonKey: nextParam });
+        } else {
+          this.scene.stop("RESULT");
+        }
+      });
+
+    this.add.text(btn.x, btn.y, "다음으로 이동!", {
+      fontFamily: "Pretendard", 
+      fontSize: this.scale.width*0.04,
+      color:"#000000ff"
+    }).setOrigin(0.5).setDepth(16);
+
+    // this.input.once("pointerdown", ()=>{
+    //   console.log("[ResultScene]: nextScene >"+nextScene+" nextParam >"+nextParam);
+    //   this.scene.stop(prevKey);
+    //   this.scene.stop("RESULT");
+    //   const payload = this.cache.json.get(nextParam);
+    //   this.scene.start(nextScene, { json: payload, jsonKey: nextParam });
+    // });
   }
 }
