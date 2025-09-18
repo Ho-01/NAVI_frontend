@@ -1,9 +1,3 @@
 {
-    "title": "문제8 - 생물방/소주방",
-    "problem": "?",
-    "hint1": "?",
-    "hint2": "?",
-    "answer": "?",
-    "nextScene": "DialogScene",
-    "nextParam": "dialog_생물방소주방_3"
+    "num": "08"
 }

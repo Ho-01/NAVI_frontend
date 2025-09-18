@@ -15,6 +15,9 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image("logo", "assets/logo.png");
     this.load.image("navi_full", "assets/navi_full.png");
     this.load.image("navi_full_touch", "assets/navi_full_touch.png");
+
+    // 테스트용 임시
+    this.load.json("problem1", "json/problem1.json");
   }
 
   create() {
@@ -41,8 +44,8 @@ export default class TitleScene extends Phaser.Scene {
 
     // 입력 이벤트: 아무곳이나 클릭/터치하면 다음 씬으로 이동
     this.input.once("pointerdown", () => {
-      // this.scene.start("LoginScene");
-      this.scene.start("PreloadScene");
+      this.scene.start("LoginScene");
+      // this.scene.start("PreloadScene");
     });
   }
 }
