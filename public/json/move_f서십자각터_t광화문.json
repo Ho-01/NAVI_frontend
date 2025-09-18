@@ -4,7 +4,7 @@
     "text": "광화문으로 이동해 주세요...",
     "moveCancel": false,
     "showHUD": false,
-    "showInventoryBtn": true,
+    
     "nextScene": "광화문"
     
 }

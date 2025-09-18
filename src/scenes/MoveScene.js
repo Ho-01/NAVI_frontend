@@ -173,7 +173,7 @@ export default class MoveScene extends Phaser.Scene {
     if (poi) { this.lat = poi.lat; this.lng = poi.lng; this.level = poi.level; }
 
     // 목적지 텍스처 키(공백 제거)
-    this.destKey = json.destKey ?? toKey(this.name);
+    this.destKey = json.destKey ?? toKey(parseToPlace(this.imageKey) || this.name);
   }
 
   create() {
@@ -199,9 +199,12 @@ export default class MoveScene extends Phaser.Scene {
     // 루트 컨테이너
     const root = this.add.container(0, 0).setDepth(10001);
 
-    // 카드
+    // 어패함이 없을 때는 높이 줄임, 있을 때는 크게
+    const baseH = Math.min(H, 1650);   // 기본 패널 높이
+    const bigH = Math.min(H, 2000);   // 어패함 있는 경우 높이
+
     const panelW = Math.min(W, 950);
-    const panelH = Math.min(H, 2000);
+    const panelH = this.showInventoryBtn ? bigH : baseH;
     const cardKey = makeHanjiCard(this, "__hanji", panelW, panelH);
     const cardY = H / 2;
 
@@ -244,8 +247,8 @@ export default class MoveScene extends Phaser.Scene {
     });
 
     // 상/하 띠
-    const headerH = 180;
-    const footerH = Math.max(96, Math.round(BTN_H * 1.4));
+    const headerH = 200;
+    const footerH = 200;
     const yTop = cardY - panelH / 2;
     const yBottom = cardY + panelH / 2;
 
@@ -285,12 +288,15 @@ export default class MoveScene extends Phaser.Scene {
 
     /* 지도 */
     const fromKey = toKey(fromPlace);
-    const destKey = this.destKey;
+    const destKey = this.destKey;        // '소주방'
+    const toKeyFull = toKey(toPlace);    // '생물방소주방'  ← 추가
 
     const mapKey = pickFirstTexture(this, [
-      `move_map_${fromKey}_${destKey}`,
-      `move_map_${destKey}`,
-      `move_map_${fromKey}`
+      `move_map_${fromKey}_${destKey}`,   // 아미산_소주방
+      `move_map_${destKey}`,              // 소주방
+      `move_map_${fromKey}`,              // 아미산
+      `move_map_${fromKey}_${toKeyFull}`, // 아미산_생물방소주방  ← 추가
+      `move_map_${toKeyFull}`,            // 생물방소주방        ← 추가
     ]);
 
     const mapMax = 750;

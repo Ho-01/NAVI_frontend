@@ -1,7 +1,7 @@
 {
     "name": "소주방",
     "imageKey": "move_f아미산_t생물방소주방",
-    "text": "생물방/소주방으로 이동해 주세요...",
+    "text": "생물방소주방으로 이동해 주세요...",
     "showHUD": true,
     "showInventoryBtn": true,
     "moveCancel": false,
