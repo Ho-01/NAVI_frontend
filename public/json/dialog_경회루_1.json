@@ -2,8 +2,10 @@
     "background": "bg_경회루",
     "leftChar": "해태",
     "rightChar": "청룡",
-    "nextScene": "ProblemScene",
-    "nextParam": "problem6",
+    "nextScene": "DialogScene",
+    "nextParam": "dialog_경회루_2",
+    "nextScene_": "ProblemScene",
+    "nextParam_": "problem6",
     "script": [
 		    { "name": "청룡", "text": "누구냐!!", "pos": "right" },
             { "name": "해태", "text": "청룡님! 어둠의 악귀가 궁궐을 어지럽히고 있습니다", "pos": "left" },
