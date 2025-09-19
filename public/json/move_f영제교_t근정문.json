@@ -5,6 +5,5 @@
     "showHUD": true,
     "moveCancel": false,
     "nextScene": "DialogScene",
-    "nextParam": "dialog_근정문_1",
-    "tips": "근정문은 1395년(태조 4년)에 경복궁을 창건하면서 함께 세웠으나 임진왜란으로 불탔고 1867년(고종 4년) 경복궁 중건 때 다시 지어졌습니다"
+    "nextParam": "dialog_근정문_1"
 }
