@@ -189,7 +189,7 @@ export default class TypeDragScene extends Phaser.Scene {
         const prevSlot = placed[pid];
         if (prevSlot) delete slotTaken[prevSlot];
 
-        gobj.x = best.x*this.scale.width; gobj.y = best.y*this.scale.height;
+        gobj.x = bestPx.x; gobj.y = bestPx.y;
         placed[pid] = best.id;
         slotTaken[best.id] = pid;
       } else {

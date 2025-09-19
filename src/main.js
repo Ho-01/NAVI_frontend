@@ -62,7 +62,7 @@ const CONFIG_MAP = {
       {id:'D',text:'라',sideImgKey:'optD',sideImgPath:'assets/q01/optD.png'}
     ],
     correctId:'C',
-    correctExplain: "correct",
+    correctExplain: "맞는 조각을 끼워넣었다!",
     wrongExplain: "허허… 아직 멀었나? 빈 틈새를 메워야 한다니까...?",
     nextScene: 'CutScene',
     nextParam: 'cutscene1'
