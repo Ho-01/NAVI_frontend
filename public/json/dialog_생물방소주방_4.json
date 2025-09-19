@@ -7,7 +7,7 @@
     "script": [
         { "name": "해태", "text": "{player}! 빠져나왔구나!!", "pos": "right" },
 		{ "name": "{player}", "text": "응, 어둑시니는 놓쳐버렸어...", "pos": "left" },
-        { "name": "해태", "text": "괜찮아, 너가 어둑시니의 시선을 끄는 동안 안쪽에서 [현무 어패]를 찾았어!", "pos": "right" }
+        { "name": "해태", "text": "괜찮아, 너가 어둑시니의 시선을 끄는 동안\n안쪽에서 [현무 어패]를 찾았어!", "pos": "right" }
     ],
     "rewardItem": "item_현무"
 }
