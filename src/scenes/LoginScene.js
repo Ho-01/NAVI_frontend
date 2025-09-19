@@ -92,36 +92,36 @@ export default class LoginScene extends Phaser.Scene {
 
   // ── 구글 로그인 ────────────────────────────────────
   async handleGoogle() {
-    try {
-      this.showLoading(true);
-      await loadGoogleSdk();
+     this.scene.start("TitleScene");
+    // try {
+    //   this.showLoading(true);
+    //   await loadGoogleSdk();
 
-      const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-      if (!CLIENT_ID) throw new Error("VITE_GOOGLE_CLIENT_ID 누락");
+    //   const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-      window.google.accounts.id.initialize({
-        client_id: CLIENT_ID,
-        ux_mode: "popup",
-        callback: async ({ credential }) => {
-          try {
-            if (!credential) throw new Error("ID 토큰 없음");
-            const res = await AuthService.loginWithGoogle(credential);
-            if (res?.data) return this.scene.start("ScenarioSelectScene");
-            throw new Error(res?.error?.message || "구글 로그인 실패");
-          } catch (e) {
-            console.error("[Google] 로그인 에러:", e);
-            this.showLoading(false);
-          }
-        },
-      });
+    //   window.google.accounts.id.initialize({
+    //     client_id: CLIENT_ID,
+    //     ux_mode: "popup",
+    //     callback: async ({ credential }) => {
+    //       try {
+    //         if (!credential) throw new Error("ID 토큰 없음");
+    //         const res = await AuthService.loginWithGoogle(credential);
+    //         if (res?.data) return this.scene.start("ScenarioSelectScene");
+    //         throw new Error(res?.error?.message || "구글 로그인 실패");
+    //       } catch (e) {
+    //         console.error("[Google] 로그인 에러:", e);
+    //         this.showLoading(false);
+    //       }
+    //     },
+    //   });
 
-      // 사용자 클릭 직후 바로 요청(팝업 차단 회피에 유리)
-      window.google.accounts.id.prompt();
+    //   // 사용자 클릭 직후 바로 요청(팝업 차단 회피에 유리)
+    //   window.google.accounts.id.prompt();
 
-    } catch (e) {
-      console.error("[Google] SDK 로드/초기화 실패:", e);
-      this.showLoading(false);
-    }
+    // } catch (e) {
+    //   console.error("[Google] SDK 로드/초기화 실패:", e);
+    //   this.showLoading(false);
+    // }
   }
 
   async handleKakao() {
