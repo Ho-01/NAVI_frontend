@@ -5,7 +5,8 @@
     "nextScene": "MoveScene",
     "nextParam": "move_f근정문_t수정전",
     "script": [
-            { "name": "해태", "text": "어둑시니 녀석이 궁궐의 심장을 더럽히려 하고 있어…\n우리가 이곳을 바로잡아야만 해!", "pos": "right" },
+            { "name": "해태", "text": "어둑시니 녀석이 궁궐의 심장을 더럽히려 하고 있어…", "pos": "right" },
+            { "name": "해태", "text": "우리가 이곳을 바로잡아야만 해!", "pos": "right" },
 		    { "name": "{player}", "text": "궁궐의 심장?!", "pos": "left" },
 		    { "name": "해태", "text": "근정전은 궁궐의 모든 길이 통하는 곳이야", "pos": "right" },
             { "name": "해태", "text": "왕이 즉위하고, 나라의 가장 중요한 결정이 내려지던 곳", "pos": "right" },
