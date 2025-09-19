@@ -13,7 +13,7 @@ export default class UsernameInputScene extends Phaser.Scene {
     const { width: W, height: H } = this.scale;
 
     // --- 배경(검정 오버레이) ---
-    const overlay = this.add.rectangle(W/2, H/2, W, H, 0x000000, 0.6)
+    const overlay = this.add.rectangle(W/2, H/2, W, H, 0x584721, 0.6)
       .setInteractive(); // 뒤쪽 입력 차단
 
     TouchEffect.init(this); // 터치 이펙트
