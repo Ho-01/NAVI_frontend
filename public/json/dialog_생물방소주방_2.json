@@ -6,7 +6,9 @@
     "nextParam": "problem8",
     "script": [
         { "name": "해태", "text": "{player}!!! ", "pos": "right" },
-		{ "name": "{player}", "text": "해태야!!! 어디서 말하고 있는거야??\n너가 사라진 사이 처음 보는 궁녀에게 끌려와버렸어….", "pos": "left" },
-        { "name": "해태", "text": "{player}!! 아무래도 어둑시니가 만들어낸 환각에 빠진 것 같아!!\n탈출해야 해!", "pos": "right" }
+		{ "name": "{player}", "text": "해태야!!! 어디서 말하고 있는거야??", "pos": "left" },
+        { "name": "{player}", "text": "너가 사라진 사이 처음 보는 궁녀에게 끌려와버렸어….", "pos": "left" },
+        { "name": "해태", "text": "{player}!! 아무래도 어둑시니가 만들어낸 환각에 빠진 것 같아!!", "pos": "right" },
+        { "name": "해태", "text": "탈출해야 해!", "pos": "right" }
     ]
 }
