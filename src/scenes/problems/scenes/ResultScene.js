@@ -108,11 +108,11 @@ export default class ResultScene extends Phaser.Scene {
   showWrong({ wrongExplain, prevKey, prevCfg }){
     const w = this.scale.width, h = this.scale.height;
 
-    const scroll = this.add.image(w/2, h/2, "scroll").setOrigin(0.5).setAlpha(0).setDepth(14);
-    scroll.setScale(Math.max(w / scroll.width, h / scroll.height));
-    this.tweens.add({ targets:scroll, alpha:1, duration:220, ease:EASE_FADE });
-    // const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
-    // this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
+    // const scroll = this.add.image(w/2, h/2, "scroll").setOrigin(0.5).setAlpha(0).setDepth(14);
+    // scroll.setScale(Math.max(w / scroll.width, h / scroll.height));
+    // this.tweens.add({ targets:scroll, alpha:1, duration:220, ease:EASE_FADE });
+    const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
+    this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
 
     const maxW = Math.min(w*0.72, u(this, 720));
     const maxH = u(this, 320);
@@ -151,12 +151,11 @@ export default class ResultScene extends Phaser.Scene {
   showCorrect({ correctExplain, prevKey, nextScene, nextParam }){
     const w = this.scale.width, h = this.scale.height;
 
-    const scroll = this.add.image(w/2, h/2, "scroll").setOrigin(0.5).setAlpha(0).setDepth(14);
-    scroll.setScale(Math.max(w / scroll.width, h / scroll.height));
-    this.tweens.add({ targets:scroll, alpha:1, duration:220, ease:EASE_FADE });
-
-    // const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
-    // this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
+    // const scroll = this.add.image(w/2, h/2, "scroll").setOrigin(0.5).setAlpha(0).setDepth(14);
+    // scroll.setScale(Math.max(w / scroll.width, h / scroll.height));
+    // this.tweens.add({ targets:scroll, alpha:1, duration:220, ease:EASE_FADE });
+    const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
+    this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
 
     const tx = this.add.text(w/2, h*0.25, String(correctExplain||""), {
       fontFamily: "Pretendard", 
