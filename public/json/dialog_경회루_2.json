@@ -7,7 +7,8 @@
     "script": [
 		    { "name": "청룡", "text": "좋다.. 너희에게는 믿고 맡겨도 괜찮을 것 같군.\n여기 [어패함]도 챙겨가도록 해", "pos": "right" },
             { "name": "청룡", "text": "보아하니 백호의 어패는 이미 들고있구나", "pos": "right" },
-            { "name": "청룡", "text": "주작과 현무의 어패의 위치를 해태에게 일러두었으니\n해태를 따라가거라", "pos": "right" },
+            { "name": "청룡", "text": "주작과 현무의 어패의 위치를 해태에게 일러두었으니", "pos": "right" },
+            { "name": "청룡", "text": "해태를 따라가거라", "pos": "right" },
             { "name": "{player}", "text": "감사합니다 청룡님!!", "pos": "left" }
     ],
     "rewardItem": "item_청룡",

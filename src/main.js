@@ -93,9 +93,9 @@ const CONFIG_MAP = {
     problemImgKey:'q03_main', problemImgPath:'assets/q03/q03_main.png',
     slots:[{id:'L',x:0.35,y:0.725,r:56},{id:'C',x:0.5,y:0.725,r:56},{id:'R',x:0.65,y:0.725,r:56}],
     pieces:[
-      {id:'mun', imgKey:'mun', imgPath:'assets/q03/mun.png', start:{x:0.25,y:0.8},displayW:180,displayH:250},
+      {id:'mun', imgKey:'mun', imgPath:'assets/q03/mun.png', start:{x:0.15,y:0.8},displayW:180,displayH:250},
       {id:'wang',imgKey:'wang',imgPath:'assets/q03/wang.png',start:{x:0.5,y:0.8},displayW:180,displayH:250},
-      {id:'mu',  imgKey:'mu',  imgPath:'assets/q03/mu.png',  start:{x:0.75,y:0.8},displayW:180,displayH:250}
+      {id:'mu',  imgKey:'mu',  imgPath:'assets/q03/mu.png',  start:{x:0.85,y:0.8},displayW:180,displayH:250}
     ],
     answerMap:{ mun:'L', wang:'C', mu:'R' }, snapPx:36,
     correctExplain: "근정전 앞 조정에는 세 갈래의 삼도(三道)가 놓였으며, 이는 왕과 신하의 위계를 드러내는 길이었다.\n중앙의 어도는 오직 왕만이 사용할 수 있었고, 신하들은 좌우 도로와 품계석 옆에 서열대로 도열하였다.\n또 출입 규칙에 따라 동쪽 일화문은 문관, 서쪽 월화문은 무관이 드나드는 통로로 구분되었다.",
@@ -191,19 +191,19 @@ const CONFIG_MAP = {
     nextParam: "dialog_생물방소주방_3"
   },
   Q09: {
-    num2:'09', place:'플레이스홀더',
+    num2:'09', place:'근정전',
     bgKey:'bg_seosipjagak', bgPath:'assets/bg/bg_근정전.png',
-    question:'플레이스홀더 문제. 실제 기획으로 교체.',
+    question:'사방신 석상에 어패를 올바르게 끼워넣자!',
     hint1: "현무의 튼튼한 등껍질, 백호의 용맹한 이빨!, 청룡의 푸른 비늘, 주작의 불꽃과 같은 날개를 잘 찾아봐!!", hint2: "서둘러! 좌청룡·우백호·전주작·후현무야!",
     problemImgKey:'q09_main', problemImgPath:'assets/q09/q09_main.png',
-    slots:[{id:'S1',x:0.35,y:0.675,r:48},{id:'S2',x:0.44,y:0.675,r:48},{id:'S3',x:0.53,y:0.675,r:48},{id:'S4',x:0.625,y:0.675,r:48}],
+    slots:[{id:'S1',x:0.35,y:0.375,r:48},{id:'S2',x:0.65,y:0.375,r:48},{id:'S3',x:0.5,y:0.4,r:48},{id:'S4',x:0.5,y:0.175,r:48}],
     pieces:[
-      {id:'book1',imgKey:'book1',imgPath:'assets/q05/book1.png',start:{x:0.125,y:0.85},displayW:60,displayH:240},
-      {id:'book2',imgKey:'book2',imgPath:'assets/q05/book2.png',start:{x:0.375,y:0.85},displayW:60,displayH:240},
-      {id:'book3',imgKey:'book3',imgPath:'assets/q05/book3.png',start:{x:0.625,y:0.85},displayW:60,displayH:240},
-      {id:'book4',imgKey:'book4',imgPath:'assets/q05/book4.png',start:{x:0.875,y:0.85},displayW:60,displayH:240}
+      {id:'item1',imgKey:'item1',imgPath:'assets/q09/item_청룡.png',start:{x:0.125,y:0.85},displayW:60,displayH:240},
+      {id:'item2',imgKey:'item2',imgPath:'assets/q09/item_백호.png',start:{x:0.375,y:0.85},displayW:60,displayH:240},
+      {id:'item3',imgKey:'item3',imgPath:'assets/q09/item_주작.png',start:{x:0.625,y:0.85},displayW:60,displayH:240},
+      {id:'item4',imgKey:'item4',imgPath:'assets/q09/item_현무.png',start:{x:0.875,y:0.85},displayW:60,displayH:240}
     ],
-    answerMap:{ book1:'S1', book2:'S2', book3:'S3', book4:'S4' }, snapPx:36,
+    answerMap:{ item1:'S1', item2:'S2', item3:'S3', item4:'S4' }, snapPx:36,
     correctExplain: "사방신은 단순한 장식이 아니라, 오행·천문·자연지형이 맞물린 질서를 반영한 우주의 상징이다.\n청룡은 해돋이와 성장·생명을, 주작은 권위와 번영을, 백호는 억제와 보호를, 현무는 안정과 방어를 의미하며,\n방위에 따라 배치되어 우주의 질서를 구현한다. 근정전은 이러한 사방신 배치를 통해 왕이 정사를 펼치는 공간으로서 잡귀와 부정을 차단하고,\n왕실의 기운이 사방으로 퍼져 국가의 조화와 번영을 확장하기를 바라는 의식적 장치로 기능하였다.",
     wrongExplain: "이런! 어패의 기운이 엉뚱한 곳을 가리키고 있어!!",
     nextScene: "DialogScene",
