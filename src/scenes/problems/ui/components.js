@@ -6,22 +6,56 @@ function u(px, scene) { return (px / 1080) * scene.scale.width; }
 function safeTop(scene)    { return scene.scale.safeAreaInsets?.top || 0; }
 function safeBottom(scene) { return scene.scale.safeAreaInsets?.bottom || 0; }
 
-/* ---------------- Header (180px, 9-slice, center text) ---------------- */
-export function makeHeader(scene, text){
+export function getLayout(scene){
   const w = scene.scale.width;
-  const headerH = u(180, scene);
-  const y = safeTop(scene) + headerH / 2;
+  const h = scene.scale.height;
+  const sTop = safeTop(scene);
+  const sBottom = safeBottom(scene);
 
-  const bg = scene.add
-    .rexNinePatch(w / 2, y, w, headerH, "frame_plain_9", undefined, NINE.inset)
-    .setOrigin(0.5)
-    .setDepth(Z.Header);
+  // 고정 비율(전체 h 기준)
+  const headerH = h * 0.05;
+  const qH      = h * 0.28;
+  let   panelH  = h * 0.57;
+  const bottomH = h * 0.10;
+
+  const headerTop = sTop;
+  const qTop      = headerTop + headerH;
+  const panelTop  = qTop + qH;
+  let   bottomTop = panelTop + panelH;
+
+  // safeBottom 때문에 버튼 영역이 가려질 경우, panel에서 깎아내기
+  const bottomEnd = bottomTop + bottomH;
+  const safeEnd   = h - sBottom;
+  if (bottomEnd > safeEnd) {
+    const overshoot = bottomEnd - safeEnd;
+    const cut = Math.min(overshoot, panelH * 0.8); // 과도하게 줄지 않게 안전빵
+    panelH   -= cut;
+    bottomTop = panelTop + panelH; // 버튼 영역 위로 당김
+  }
+
+  return {
+    w, h, sTop, sBottom,
+    header:  { top: headerTop, height: headerH, centerY: headerTop + headerH/2 },
+    question:{ top: qTop,       height: qH,      centerY: qTop       + qH/2 },
+    panel:   { top: panelTop,   height: panelH,  centerY: panelTop   + panelH/2 },
+    bottom:  { top: bottomTop,  height: bottomH, centerY: bottomTop  + bottomH/2 },
+  };
+}
+
+/* ---------------- Header (center text) ---------------- */
+export function makeHeader(scene, text){
+  const L =getLayout(scene);
+  const {w} = L;
+  const y = L.header.centerY;
+  const headerH = L.header.height;
+
+  const bg = scene.add.rectangle(w/2, y, w, headerH, 0x584721).setOrigin(0.5).setDepth(Z.Header);
 
   const label = scene.add
     .text(w / 2, y, String(text ?? ''), {
-      fontFamily: "SamKR3Font, system-ui, -apple-system, 'Noto Sans KR', sans-serif",
-      fontSize: Math.floor(u(48, scene)),
-      color: "#111",
+      fontFamily: "Pretendard",
+      fontSize: w*0.05, fontStyle:"bold",
+      color: "#ffffffff",
       align: "center",
     })
     .setOrigin(0.5)
@@ -37,102 +71,56 @@ export function makeHeader(scene, text){
  * - 드래그 스크롤, 드래그 중 스크롤바 표시
  */
 export function makeQuestionBubble(scene){
-  const w = scene.scale.width;
-  const h = scene.scale.height;
+  const L =getLayout(scene);
+  const { width: w, height: h } = scene.scale;
 
-  const safeT = safeTop(scene);
-  const safeB = safeBottom(scene);
-  const headerH = u(180, scene);
-  const bottomPanelH = h / 2;
+  // 뒤 배경 (#fffaef) + 중앙 이미지(navi_full)
+  const bg = scene.add.rectangle(w/2, h/2, w, h, 0xfffaef, 1).setDepth(Z.Question - 10);
+  const bgImg = scene.add.image(w/2, L.question.centerY, 'navi_full').setDepth(Z.Question - 9).setAlpha(0.6);
+  // 화면에 맞춰 "contain" 스케일
+  const tex = scene.textures.get('navi_full')?.getSourceImage(0);
+  if (tex) {
+    const scale = Math.min((w*0.7) / tex.width, (L.question.height * 0.7) / tex.height);
+    bgImg.setScale(scale);
+  }
 
-  const availH  = h - safeT - headerH - bottomPanelH - safeB;
-  const centerY = safeT + headerH + availH / 2;
+  // 레이아웃(있으면 사용) – 중앙 정렬 기준점
+  const centerY = L ? L.question.centerY : h * 0.35; // 레이아웃 없으면 적당히 위쪽에
 
-  const boxW   = w * 0.95;
-  const maxH   = u(900, scene);
-  const padX   = u(40, scene);
-  const padY   = u(30, scene);
-  const radius = u(16, scene);               // ← 요청대로 16px
+  // 카드 스타일
+  const boxW     = w * 0.95;
+  const padX     = u(40, scene);
+  const padY     = u(30, scene);
+  const radius   = u(16, scene);
   const borderPx = Math.max(2, Math.floor(u(6, scene)));
 
-  // 그림자
-  const shadow = scene.add.graphics().setDepth(Z.Question - 1);
-  shadow.fillStyle(0x000000, 0.20)
-        .fillRoundedRect(w/2 - boxW/2 + u(2,scene), centerY - maxH/2 + u(6,scene), boxW, maxH, radius);
-
-  // 카드(흰) + 테두리
+  // 카드(그래픽스) + 텍스트
   const cardG = scene.add.graphics().setDepth(Z.Question);
-
-  // 텍스트 (중앙 기준)
   const text = scene.add.text(0,0,'', {
     fontFamily: "Pretendard",
-    fontSize: Math.floor(u(50,scene)),
+    fontSize: w*0.04,
     color: "#111111",
     align: "center",
     wordWrap: { width: boxW - padX*2 },
     lineSpacing: Math.floor(u(10,scene))
   })
   .setStroke('#000000', Math.max(0, Math.floor(u(2,scene))))
-  .setOrigin(0.5, 0) // ⬅️ 가로 중앙 기준
+  .setOrigin(0.5, 0) // 가로 중앙 기준
   .setDepth(Z.Question + 1);
 
-  // 마스크(내부만 보이게)
-  const clip = scene.add.graphics().setVisible(false);
-  const mask = clip.createGeometryMask();
-  text.setMask(mask);
+  // 현재 카드 높이
+  let currentH = 0;
 
-  // 스크롤 상태
-  let scrollY = 0;
-  let currentH = maxH;
-  let contentHeight = 0; // 자연 높이(고정 크기 적용 전 측정값)
+  function redraw(){
+    // 텍스트 자연 높이 측정 (고정 크기 제거 후 측정)
+    text.setFixedSize(0, 0);
+    text.setWordWrapWidth(boxW - padX*2, true);
+    const contentH = text.height;
 
-  // DOM 스크롤바
-  const bar = document.createElement('div');
-  bar.className = 'q-scrollbar';
-  (scene.game.canvas.parentElement || document.body).appendChild(bar);
-  let hideTimer = null;
+    // 카드 높이 = (텍스트 높이 + 패딩*2)
+    currentH = Math.max(u(120,scene), contentH + padY*2); // 너무 작지 않게 최소값 보정
 
-  function layoutScrollbar(viewH){
-    const r  = scene.game.canvas.getBoundingClientRect();
-    const vx = r.left + (w/2 + boxW/2 - 10) * (r.width / scene.scale.width);
-    const vy = r.top  + (centerY - currentH/2 + 8) * (r.height / scene.scale.height);
-    const vh = (currentH - 16) * (r.height / scene.scale.height);
-
-    const ratio  = viewH / Math.max(viewH, contentHeight);
-    const barH   = Math.max(12, vh * ratio);
-    const maxY   = Math.max(0, contentHeight - viewH);
-    const prog   = maxY > 0 ? (scrollY / maxY) : 0;
-    const barY   = vy + (vh - barH) * prog;
-
-    const st = bar.style;
-    st.position = 'absolute';
-    st.left = `${vx}px`;
-    st.top = `${barY}px`;
-    st.height = `${barH}px`;
-  }
-  function showBar(show){
-    if (show){
-      bar.classList.add('show');
-      if (hideTimer) clearTimeout(hideTimer);
-      hideTimer = setTimeout(()=> bar.classList.remove('show'), 350);
-    } else {
-      bar.classList.remove('show');
-    }
-  }
-
-  function drawCard(){
-    const contentW = boxW - padX*2;
-
-    // 자연 높이 측정(고정 크기 제거 후 측정)
-    text.setFixedSize(0,0);
-    text.setWordWrapWidth(contentW, true);
-    contentHeight = text.height;
-
-    // 카드 높이 결정
-    currentH = Math.min(contentHeight + padY*2, maxH);
-    const viewH = currentH - padY*2;
-
-    // 카드
+    // 카드 그리기
     const fillCol   = Phaser.Display.Color.HexStringToColor(COLORS.bubbleFill || '#FFFFFF').color;
     const borderCol = Phaser.Display.Color.HexStringToColor(COLORS.bubbleBorder || '#000000').color;
 
@@ -142,107 +130,93 @@ export function makeQuestionBubble(scene){
          .lineStyle(borderPx, borderCol, 1)
          .strokeRoundedRect(w/2 - boxW/2, centerY - currentH/2, boxW, currentH, radius);
 
-    // 텍스트 고정 크기 + 중앙 배치 + 스크롤 반영
-    text.setFixedSize(contentW, viewH);
-    text.setPosition(Math.round(w/2),
-                     Math.round(centerY - currentH/2 + padY - scrollY));
-
-    // 마스크
-    clip.clear()
-        .fillStyle(0x000000, 0)
-        .fillRect(w/2 - boxW/2 + borderPx, centerY - currentH/2 + borderPx,
-                  boxW - borderPx*2, currentH - borderPx*2);
-
-    // 스크롤바
-    layoutScrollbar(viewH);
+    // 텍스트 위치 (카드 내부 중앙 상단 + 패딩)
+    text.setPosition(
+      Math.round(w/2),
+      Math.round(centerY - currentH/2 + padY)
+    );
   }
 
-  function setScroll(y){
-    const viewH = currentH - padY*2;
-    const maxY  = Math.max(0, contentHeight - viewH);
-    scrollY     = Phaser.Math.Clamp(y, 0, maxY);
-    text.setY(Math.round(centerY - currentH/2 + padY - scrollY));
-    layoutScrollbar(viewH);
-  }
-
-  // 드래그 스크롤(휠 무시)
-  const hit = new Phaser.Geom.Rectangle(w/2 - boxW/2, centerY - currentH/2, boxW, currentH);
-  scene.input.on('pointerdown', (p)=> {
-    if (Phaser.Geom.Rectangle.Contains(hit, p.x, p.y)) showBar(true);
-  });
-  scene.input.on('pointermove', (p)=>{
-    if (p.isDown && Phaser.Geom.Rectangle.Contains(hit, p.x, p.y)){
-      setScroll(scrollY - p.velocity.y * 0.02);
-      showBar(true);
-    }
-  });
-
-  // 리사이즈/종료
-  scene.scale.on('resize', drawCard);
+  // 리사이즈 시 재배치
+  scene.scale.on('resize', redraw);
   scene.events.once('shutdown', ()=>{
-    if (hideTimer) clearTimeout(hideTimer);
-    bar.remove();
+    scene.scale.off('resize', redraw);
   });
 
+  // API
   return {
     panel: cardG,
     text,
     setText: (t)=>{
       text.setText(t || '');
-      scrollY = 0;
-      drawCard();
+      redraw();
     },
-    __relayout: drawCard
+    __relayout: redraw
   };
 }
 
 /* ---------------- Bottom Panel (half screen, with anchors) ---------------- */
 export function makeBottomPanel(scene, imgKey){
-  const w = scene.scale.width;
-  const h = scene.scale.height;
-  const safeB = safeBottom(scene);
-  const panelY = h - safeB - h / 4;
+  const L = getLayout(scene);
+  const { w } = L;
+  const panelY = L.panel.centerY;
+  const panelH = L.panel.height;
 
-  const color = Phaser.Display.Color.HexStringToColor(COLORS.contentBg).color;
-  const panel = scene.add.rectangle(w/2, panelY, w, h/2, color, 1).setDepth(Z.Content);
-  scene.add.image(w/2, h*0.5+h*0.5*1/3, imgKey).setDepth(Z.Content).setDisplaySize(w*0.9, h*0.3);
+  const panel = scene.add
+    .rectangle(w/2, panelY, w, panelH, 0xfffaee, 1)
+    .setDepth(Z.Content);
+
+  // // 예시 이미지(패널 안에 적당히)
+  // scene.add.image(w/2, panelY + panelH*0.25, imgKey)
+  //   .setDepth(Z.Content)
+  //   .setDisplaySize(w*0.9, panelH*0.5);
 
   // 상단 경계선
   scene.add
-    .rectangle(w / 2, panelY - h / 4, w, u(2, scene), 0xffffff, 0.25)
+    .rectangle(w/2, L.panel.top, w, u(3, scene), 0x584721)
     .setOrigin(0.5, 0)
     .setDepth(Z.Content + 1);
 
-  // 버튼 앵커 반환
+  // 버튼 앵커(패널 내부가 아니라 버튼 영역은 따로 있으므로 여기선 반환만)
   const pad = u(32, scene);
   const bw  = u(BUTTON.w, scene);
   const bh  = u(BUTTON.h, scene);
-  const yBtn = h - safeB - bh/2 - u(32, scene);
+  const yBtn = L.bottom.centerY; // 버튼은 bottom 영역 중앙
 
-  const leftAnchor  = { x: pad + bw/2,      y: yBtn };
-  const rightAnchor = { x: w - pad - bw/2,  y: yBtn };
+  const leftAnchor  = { x: pad + bw/2,     y: yBtn };
+  const rightAnchor = { x: w - pad - bw/2, y: yBtn };
 
-  return { panel, y0: (h/2), width: w, height: h/2, leftAnchor, rightAnchor };
+  return { panel, y0: panelY - panelH/2, width: w, height: panelH, leftAnchor, rightAnchor };
 }
 
 /* ---------------- Single Button (compat) ---------------- */
 export function makeButton(scene, opts){
   const x = opts.x, y = opts.y;
-  const key = opts.key || 'btn_primary_9';
   const label = String(opts.label ?? '');
   const variant = opts.variant || 'primary';
   const disabled = !!opts.disabled;
   const onClick = typeof opts.onClick === 'function' ? opts.onClick : null;
 
-  const bw = u(300, scene), bh = u(100, scene);
-  const btn = scene.add.rexNinePatch(x, y, bw, bh, key, undefined, NINE.inset)
-    .setOrigin(0.5).setDepth(Z.Content + 2);
+  // 색상: 직접 지정 우선 → variant 기본
+  const fill = (opts.fill != null)
+    ? (typeof opts.fill === 'string'
+        ? Phaser.Display.Color.HexStringToColor(opts.fill).color
+        : opts.fill)
+    : (variant === 'secondary'
+        ? 0xdec18b   // 도움 톤
+        : 0xdd8b8c); // 결정 톤
 
-  const color = (variant === 'secondary') ? (COLORS.btnSecondaryText || '#111') : (COLORS.btnPrimaryText || '#111');
+  const bw = u(300, scene), bh = u(100, scene);
+
+  const btn = scene.add
+    .rectangle(x, y, bw, bh, fill, 1)
+    .setOrigin(0.5)
+    .setDepth(Z.Content + 2);
+
   const t = scene.add.text(x, y, label, {
     fontFamily: "Pretendard",
     fontSize: Math.floor(u(40, scene)),
-    color
+    color: '#111111'
   }).setOrigin(0.5).setDepth(Z.Content + 3);
 
   if (disabled) { btn.setAlpha(0.5); btn.__disabled = true; }
@@ -266,49 +240,37 @@ export function makeButton(scene, opts){
 
 /* ---------------- Bottom Buttons (pair + strip) ---------------- */
 export function makeBottomButtons(scene, onHelp, onDecide, options = {}){
-  const w = scene.scale.width;
-  const h = scene.scale.height;
-  const safeB = safeBottom(scene);
-  const centerPullPx = (typeof options.centerPullPx === 'number') ? options.centerPullPx : 60;
+  const L = getLayout(scene);
+  const { w } = L;
 
-  const btnW = u(300, scene), btnH = u(100, scene);
-  const marginX = u(32, scene);
-  const centerPull = u(centerPullPx, scene);
+  const btnW = w*0.25, btnH = L.bottom.height*0.55;
 
-  // 스트립(밴드) 배경
-  const barH = u(options.barHeightPx ?? 160, scene);
-  const barColor = Phaser.Display.Color.HexStringToColor(
-    (options.barColor ?? (COLORS.buttonBarBg || '#E3E8EE'))
-  ).color;
+  // 하단 바 배경색: #584721
+  const barH = L.bottom.height;
   const bar = scene.add.rectangle(
-    w/2, h - safeB - barH/2, w, barH, barColor, 1
+    w/2, L.bottom.centerY, w, barH, 0x584721, 1
   ).setDepth(Z.Content + 1);
 
-  const y = bar.y; // 스트립 중앙에 버튼 배치
+  const y = L.bottom.centerY;
 
-  const xLeft  = marginX + btnW/2 + centerPull;
-  const xRight = w - marginX - btnW/2 - centerPull;
-
-  // 도움
-  const btnHelp = scene.add
-    .rexNinePatch(xLeft, y, btnW, btnH, 'btn_secondary_9', undefined, NINE.inset)
+  // 도움(왼쪽) 버튼: #dec18b
+  const btnHelp = scene.add.rectangle(w*0.25, y, btnW, btnH, 0xdec18b, 1)
     .setOrigin(0.5).setDepth(Z.Content + 2)
-    .setInteractive().on('pointerdown', ()=>{ onHelp && onHelp(); });
+    .setInteractive({ useHandCursor:true })
+    .on('pointerdown', ()=>{ onHelp && onHelp(); });
 
-  const helpLabel = scene.add.text(xLeft, y, '도움', {
-    fontFamily: "Pretendard",
-    fontSize: Math.floor(u(40, scene)), color:'#111'
+  const helpLabel = scene.add.text(w*0.25, y, '도 움', {
+    fontFamily: "Pretendard", fontSize: w*0.06, fontStyle:"bold", color:'#111'
   }).setOrigin(0.5).setDepth(Z.Content + 3);
 
-  // 결정
-  const btnDecide = scene.add
-    .rexNinePatch(xRight, y, btnW, btnH, 'btn_primary_9', undefined, NINE.inset)
+  // 결정(오른쪽) 버튼: #dd8b8c
+  const btnDecide = scene.add.rectangle(w*0.75, y, btnW, btnH, 0xdd8b8c, 1)
     .setOrigin(0.5).setDepth(Z.Content + 2)
-    .setInteractive().on('pointerdown', ()=>{ if (!btnDecide.__disabled && onDecide) onDecide(); });
+    .setInteractive({ useHandCursor:true })
+    .on('pointerdown', ()=>{ if (!btnDecide.__disabled && onDecide) onDecide(); });
 
-  const decideLabel = scene.add.text(xRight, y, '결정', {
-    fontFamily: "Pretendard",
-    fontSize: Math.floor(u(40, scene)), color:'#111'
+  const decideLabel = scene.add.text(w*0.75, y, '결 정', {
+    fontFamily: "Pretendard", fontSize: w*0.06, fontStyle:"bold", color:'#111'
   }).setOrigin(0.5).setDepth(Z.Content + 3);
 
   return { bar, btnHelp, btnDecide, helpLabel, decideLabel };
@@ -320,7 +282,8 @@ export function showHintConfirmModal(scene, onYes){
   const layerZ = 200;
 
   const dim  = scene.add.rectangle(w/2, h/2, w, h, 0x000000, 0.4).setDepth(layerZ);
-  const box  = scene.add.rexNinePatch(w/2, h/2, u(720,scene), u(420,scene), 'modal_plain_9', undefined, NINE.inset).setDepth(layerZ+1);
+  const box = scene.add.rectangle(w/2, h/2, u(720,scene), u(420,scene), 0xfffaee).setDepth(layerZ+1);
+  // const box  = scene.add.rexNinePatch(w/2, h/2, u(720,scene), u(420,scene), 'modal_plain_9', undefined, NINE.inset).setDepth(layerZ+1);
   const txt  = scene.add.text(w/2, h/2 - u(80,scene), '도움이 필요해?', {
     fontFamily: "Pretendard", fontSize: Math.floor(u(46,scene)), color:'#000', align:'center'
   }).setOrigin(0.5).setDepth(layerZ+2);
@@ -353,7 +316,8 @@ export function showHintLayer(scene, payload){
   const ZL = 180;
 
   const dim = scene.add.rectangle(w/2, h/2, w, h, 0x000000, 0.35).setDepth(ZL);
-  const box = scene.add.rexNinePatch(w/2, h/2, u(800,scene), u(900,scene), 'modal_plain_9', undefined, NINE.inset).setDepth(ZL+1);
+  const box = scene.add.rectangle(w/2, h/2, u(800,scene), u(900,scene), 0xfffaee).setDepth(ZL+1);
+  // const box = scene.add.rexNinePatch(w/2, h/2, u(800,scene), u(900,scene), 'modal_plain_9', undefined, NINE.inset).setDepth(ZL+1);
   const title = scene.add.text(w/2, h/2 - u(380,scene), '힌트', {
     fontFamily: "Pretendard", fontSize: Math.floor(u(50,scene)), color:'#000'
   }).setOrigin(0.5).setDepth(ZL+2);

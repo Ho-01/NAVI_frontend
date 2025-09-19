@@ -9,6 +9,7 @@ import {
   showHintLayer
 } from '../ui/components.js';
 import { Z, u } from '../styles/theme.js';
+import { getLayout } from '../ui/components.js';
 
 export default class TypeDragScene extends Phaser.Scene {
   constructor(id = 'DRAG') { super(id); this.sceneId = id; }
@@ -38,23 +39,55 @@ export default class TypeDragScene extends Phaser.Scene {
 }
 
   create() {
-    const { num2, place, bgKey, question, hint1, hint2, problemImgKey, slots = [], pieces = [], answerMap = {}, snapPx = 36, correctExplain, wrongExplain, nextScene, nextParam} = this.cfg;
+    const { num2, place, bgKey, question, hint1, hint2,
+      problemImgKey, slots = [], pieces = [], answerMap = {},
+      snapPx = 36, correctExplain, wrongExplain, nextScene, nextParam
+    } = this.cfg;
     console.log("[TypeDragScene]: nextScene > "+nextScene+" nextParam > "+nextParam);
+
+    const w = this.scale.width, h = this.scale.height;
+    const L = getLayout(this);
 
     const label = buildLabel(num2, place);
 
     // 배경 + 30% 딤
-    this.add.image(this.scale.width / 2, this.scale.height / 2, bgKey)
-      .setDisplaySize(this.scale.width, this.scale.height);
-    this.add.rectangle(this.scale.width / 2, this.scale.height / 2, this.scale.width, this.scale.height, 0x000000, 0.30);
+    this.add.image(w / 2, h / 2, bgKey).setDisplaySize(w, h);
+    this.add.rectangle(w / 2, h / 2, w, h, 0x000000, 0.30);
 
     // 헤더 / 질문
     makeHeader(this, label);
     const qbox = makeQuestionBubble(this);
     qbox.setText(question || '');
 
+    // ===== 하단 작업 영역(BR) 정의: 가로 w × 세로 h*0.58 =====
+    const BR = {
+      x: 0,
+      w: w,
+      h: h * 0.58,
+      y: L.bottom.top - h * 0.58
+    };
+    if (BR.y < 0) BR.y = 0; // 안전
+
+
     // 하단 영역(색 분리)
     makeBottomPanel(this, problemImgKey);
+
+
+    // ===== 문제 이미지: width=w*0.8, height=h*0.27, 상단에서 살짝 띄움 =====
+    const boxW = w * 0.8;
+    const boxH = h * 0.27;
+    const topMargin = u(20, this);
+
+    const src = this.textures.get(problemImgKey)?.getSourceImage(0);
+    let s = 1, dispH = boxH;  // dispH은 Y 위치 계산에 사용
+    if (src && src.width && src.height) {
+      s = Math.min(boxW / src.width, boxH / src.height);
+      dispH = src.height * s;
+    }
+
+    this.add.image(w/2, BR.y + topMargin + dispH/2, problemImgKey)
+      .setScale(s)
+      .setDepth(Z.Content); // 필요시 Z 조정
 
     // ===== 드래그 배치 상태 =====
     const placed = {};                 // pieceId -> slotId
@@ -96,26 +129,38 @@ export default class TypeDragScene extends Phaser.Scene {
       if (window.onHintOpen) window.onHintOpen(1);
     });
 
+    // ===== 좌표 변환 헬퍼(비율 → BR 내부 픽셀) =====
+    const toBR = (rx, ry) => ({
+      x: BR.x + rx * BR.w,
+      y: BR.y + ry * BR.h
+    });   
+
     // ===== 슬롯 렌더 =====
     const slotGfx = this.add.graphics().setDepth(Z.Content + 2);
-    const slotCircle = (x, y, r, on) => {
+    const slotCircle = (cx, cy, rr, on) => {
       slotGfx.lineStyle(u(3, this), 0x222222, 0.9)
              .fillStyle(on ? 0x96A6B4 : 0x000000, on ? 0.12 : 0.08)
-             .strokeCircle(x, y, r)
-             .fillCircle(x, y, r);
+             .strokeCircle(cx, cy, rr)
+             .fillCircle(cx, cy, rr);
     };
-    slots.forEach(s => slotCircle(s.x*this.scale.width, s.y*this.scale.height, s.r, false));
+    // 비율 좌표 → BR 내부
+    slots.forEach(s => {
+      const p = toBR(s.x, s.y);
+      const rr = u(s.r, this);
+      slotCircle(p.x, p.y, rr, false);
+    });
 
     // ===== 조각 렌더 =====
     const images = [];
     pieces.forEach(p => {
-      const img = this.add.image(p.start.x*this.scale.width, p.start.y*this.scale.height, p.imgKey)
-        .setDisplaySize(p.displayW, p.displayH)
+      const start = toBR(p.start.x, p.start.y);
+      const img = this.add.image(start.x, start.y, p.imgKey)
+        .setDisplaySize(u(p.displayW,this), u(p.displayH,this))
         .setDepth(Z.Content + 3)
         .setInteractive({ draggable: true, useHandCursor: true });
 
       img.__id = p.id;
-      img.__start = { x: p.start.x*this.scale.width, y: p.start.y*this.scale.height };
+      img.__start = start;
       this.input.setDraggable(img);
       images.push(img);
     });
@@ -130,11 +175,11 @@ export default class TypeDragScene extends Phaser.Scene {
       if (!gobj.__id) return;
 
       // 가장 가까운 슬롯 찾기
-      let best = null, bestD = Infinity;
+      let best = null, bestD = Infinity, bestPx = null;
       slots.forEach(s => {
-        const dx = gobj.x - s.x*this.scale.width, dy = gobj.y - s.y*this.scale.height;
-        const d = Math.hypot(dx, dy);
-        if (d < bestD) { bestD = d; best = s; }
+        const p = toBR(s.x, s.y);
+        const d = Phaser.Math.Distance.Between(gobj.x, gobj.y, p.x, p.y);
+        if (d < bestD) { bestD = d; best = s; bestPx = p; }
       });
 
       const pid = gobj.__id;
@@ -160,7 +205,10 @@ export default class TypeDragScene extends Phaser.Scene {
 
       // 슬롯 스타일 갱신
       slotGfx.clear();
-      slots.forEach(s => slotCircle(s.x*this.scale.width, s.y*this.scale.height, s.r, !!slotTaken[s.id]));
+      slots.forEach(s => {
+        const p = toBR(s.x, s.y);
+        slotCircle(p.x, p.y, u(s.r, this), !!slotTaken[s.id]);
+      });
     });
 
     // (선택) 첫 터치 시 오디오 컨텍스트 재개

@@ -6,6 +6,5 @@
     "showInventoryBtn": true,
     "moveCancel": false,
     "nextScene": "CutScene",
-    "nextParam": "cutscene_어둑시니등장",
-    "tips": "경복궁의 정전입니다. 정전은 신하들이 임금에게 새해 인사를 드리거나 국가 의식을 거행하고 외국 사신을 맞이하던 곳입니다"
+    "nextParam": "cutscene_어둑시니등장"
 }

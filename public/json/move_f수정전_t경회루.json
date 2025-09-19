@@ -5,6 +5,5 @@
     "showHUD": true,
     "moveCancel": false,
     "nextScene": "CutScene",
-    "nextParam": "cutscene_청룡등장",
-    "tips": "경회루는 경복궁 근정전 서편에 위치한 누각으로, 왕이 신하들과 연회를 베풀거나 사신을 접대하고, 가뭄이 들면 기우제를 지내는 등 국가 행사에 사용하던 건물입니다"
+    "nextParam": "cutscene_청룡등장"
 }

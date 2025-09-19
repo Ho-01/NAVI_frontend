@@ -6,17 +6,21 @@ import { getTipsFor } from "../data/tips";
 
 /* ===== 레이아웃/스타일 ===== */
 const PAD = 24;                // 카드 내부 패딩
-const BTN_W = 400;
-const BTN_H = 150;
+const BTN_W = 350;
+const BTN_H = 140;
 const BTN_FONT = 55;
-const BTN_GAP_X = 20;
+const BTN_GAP_X = 50;
 const COLOR_ACCENT = 0xBE8928; // 상/하 띠 색상
 const PANEL_COLOR = 0xEFE6D1;
+const LABEL_PX = 75; // 원하는 크기
 
 /* ===== 라디우스 ===== */
 const PANEL_RADIUS = 40; // 카드
-const BTN_RADIUS = 18;   // 버튼
+const BTN_RADIUS = 40;   // 버튼
 const MAP_RADIUS = 20;   // 지도 컨테이너(패널보다 살짝 작게)
+
+/* ===== 폰트(통일) ===== */
+const FONT_FAMILY = "Pretendard, Pretendard-Regular, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
 
 /* 문자열 유틸 */
 const toKey = (s) => (s ?? "")
@@ -134,7 +138,7 @@ function addJoseonButton(scene, x, y, w, h, label, onClick, fontPx = 24, radius 
     .setDisplaySize(w, h)
     .setInteractive({ useHandCursor: true });
   const txt = scene.add.text(x, y, label, {
-    fontFamily: "Pretendard-Regular",
+    fontFamily: FONT_FAMILY,            // ✅ 통일
     fontSize: fontPx,
     color: "#2b2b2b"
   }).setOrigin(0.5);
@@ -169,7 +173,7 @@ export default class MoveScene extends Phaser.Scene {
     if (poi) { this.lat = poi.lat; this.lng = poi.lng; this.level = poi.level; }
 
     // 목적지 텍스처 키(공백 제거)
-    this.destKey = json.destKey ?? toKey(this.name);
+    this.destKey = json.destKey ?? toKey(parseToPlace(this.imageKey) || this.name);
   }
 
   create() {
@@ -182,6 +186,8 @@ export default class MoveScene extends Phaser.Scene {
     const toPlace = parseToPlace(this.imageKey) || this.name;
     addBackgroundByPlace(this, fromPlace, 0);
 
+
+
     // 인벤토리 HUD
     if (this.showInventoryBtn) {
       if (!this.inventoryOverlay) this.inventoryOverlay = new InventoryOverlay(this);
@@ -193,10 +199,12 @@ export default class MoveScene extends Phaser.Scene {
     // 루트 컨테이너
     const root = this.add.container(0, 0).setDepth(10001);
 
-    // 카드
-    // 카드
-    const panelW = Math.min(W, 900);
-    const panelH = Math.min(H, 2000);
+    // 어패함이 없을 때는 높이 줄임, 있을 때는 크게
+    const baseH = Math.min(H, 1650);   // 기본 패널 높이
+    const bigH = Math.min(H, 2000);   // 어패함 있는 경우 높이
+
+    const panelW = Math.min(W, 950);
+    const panelH = this.showInventoryBtn ? bigH : baseH;
     const cardKey = makeHanjiCard(this, "__hanji", panelW, panelH);
     const cardY = H / 2;
 
@@ -221,19 +229,26 @@ export default class MoveScene extends Phaser.Scene {
     panel.setMask(panelMask);
     root.add(panel);
 
-    /* 🔧 dim(반투명 배경) 추가 — 트윈에서 dim을 사용하므로 필수 */
-    const dim = this.add.rectangle(
-      W / 2,
-      cardY,
-      panelW + PAD * 2,
-      panelH + PAD * 2,
-      0x000000,
-      0.16
-    ).setAlpha(0).setInteractive();
-    root.addAt(dim, 0); // 맨 아래로
+    // 🔧 DIM: 화면 전체 덮기 (패널은 위에 두어 밝게 보이게)
+    const dim = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 1)
+      .setBlendMode(Phaser.BlendModes.MULTIPLY)  // 배경만 톤다운
+      .setScrollFactor(0)
+      .setAlpha(0)
+      .setInteractive(); // 패널 밖 클릭 막기
+    root.addAt(dim, 0); // bg 위, 패널 아래
+
+    // 등장 트윈 (진하기 조절: 0.35~0.55 사이 권장)
+    this.tweens.add({ targets: dim, alpha: 0.6, duration: 160, ease: "Quad.easeOut" });
+
+    // 창 크기 변해도 꽉 차게
+    this.scale.on("resize", ({ width, height }) => {
+      dim.setSize(width, height);
+      dim.setPosition(width / 2, height / 2);
+    });
+
     // 상/하 띠
-    const headerH = 230;
-    const footerH = Math.max(96, Math.round(BTN_H * 1.4));
+    const headerH = 200;
+    const footerH = 200;
     const yTop = cardY - panelH / 2;
     const yBottom = cardY + panelH / 2;
 
@@ -251,14 +266,14 @@ export default class MoveScene extends Phaser.Scene {
     const titleGroup = this.add.container(0, 0).setAlpha(1);
 
     const nameText = this.add.text(0, 0, this.name, {
-      fontFamily: "Pretendard-Regular",
+      fontFamily: FONT_FAMILY,               // ✅ 통일
       fontSize: titleFont,
       color: "#4C0012",
       align: "center"
     }).setOrigin(0, 0.5);
 
     const tailText = this.add.text(0, 0, "으로 이동해 주세요", {
-      fontFamily: "Pretendard-Regular",
+      fontFamily: FONT_FAMILY,               // ✅ 통일
       fontSize: titleFont,
       color: "#ffffff",
       align: "center"
@@ -273,15 +288,18 @@ export default class MoveScene extends Phaser.Scene {
 
     /* 지도 */
     const fromKey = toKey(fromPlace);
-    const destKey = this.destKey;
+    const destKey = this.destKey;        // '소주방'
+    const toKeyFull = toKey(toPlace);    // '생물방소주방'  ← 추가
 
     const mapKey = pickFirstTexture(this, [
-      `move_map_${fromKey}_${destKey}`,
-      `move_map_${destKey}`,
-      `move_map_${fromKey}`
+      `move_map_${fromKey}_${destKey}`,   // 아미산_소주방
+      `move_map_${destKey}`,              // 소주방
+      `move_map_${fromKey}`,              // 아미산
+      `move_map_${fromKey}_${toKeyFull}`, // 아미산_생물방소주방  ← 추가
+      `move_map_${toKeyFull}`,            // 생물방소주방        ← 추가
     ]);
 
-    const mapMax = 700;
+    const mapMax = 750;
     const mapW = Math.min(mapMax, Math.round((panelW - PAD * 2) * 0.9));
     const mapH = mapW;
     const mapY = (cardY - panelH / 2) + PAD + headerH + 16 + mapH / 2;
@@ -294,7 +312,7 @@ export default class MoveScene extends Phaser.Scene {
 
     let mapImg;
     if (mapKey) {
-      mapImg = this.add.image(W / 2, mapY, mapKey).setDisplaySize(mapW, mapH);
+      mapImg = this.add.image(W / 2, mapY + 50, mapKey).setDisplaySize(mapW, mapH);
       panel.add(mapImg);
       // 지도 라운드 마스크
       const m = this.add.graphics();
@@ -317,9 +335,9 @@ export default class MoveScene extends Phaser.Scene {
 
     let tipIndex = 0;
     if (tipsArr && tipsArr.length > 0) {
-      tipTextObj = this.add.text(W / 2, mapY + mapH / 2 + 20, tipsArr[0], {
-        fontFamily: "Pretendard-Regular",
-        fontSize: Math.max(16, Math.round(panelW * 0.045)),
+      tipTextObj = this.add.text(W / 2, mapY + mapH / 2 + 150, tipsArr[0], {
+        fontFamily: FONT_FAMILY,                 // ✅ 통일
+        fontSize: Math.max(16, Math.round(panelW * 0.051)),
         color: "#000000",
         align: "center",
         wordWrap: { width: Math.round(panelW * 0.82) },
@@ -373,7 +391,7 @@ export default class MoveScene extends Phaser.Scene {
       W / 2 - (btnWv / 2 + BTN_GAP_X), btnY, btnWv, btnHv,
       "길찾기",
       () => openKakaoMapApp(this.lat, this.lng, this.name),
-      Math.min(BTN_FONT, Math.round(btnHv * 0.36))
+      LABEL_PX                                    // ✅ 고정 폰트
     );
 
     const [btnArrived, txtArrived] = addJoseonButton(
@@ -390,9 +408,8 @@ export default class MoveScene extends Phaser.Scene {
           this.scene.start(this.returnScene);
         }
       },
-      Math.min(BTN_FONT, Math.round(btnHv * 0.36))
+      LABEL_PX                                    // ✅ 고정 폰트
     );
-
     tintButton(btnRoute, txtRoute, { base: 0x603D00, over: 0x72470A, down: 0x4A2C00, text: "#ffffff" });
     tintButton(btnArrived, txtArrived, { base: 0xFF006A, over: 0xE0005E, down: 0xB8004B, text: "#ffffff" });
     [btnRoute, txtRoute, btnArrived, txtArrived].forEach(n => panel.add(n));
@@ -413,7 +430,7 @@ export default class MoveScene extends Phaser.Scene {
     };
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, cleanup);
     this.events.once(Phaser.Scenes.Events.DESTROY, cleanup);
-    
+
     // 앱 전환 복귀 처리
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
