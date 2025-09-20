@@ -69,7 +69,7 @@ export default class TypeMCQScene extends Phaser.Scene {
     // 레이아웃 빌드
     const bounds = {
       x: this.scale.width / 2,
-      y: bottom.y0 + u(40, this),
+      y: bottom.y0 + u(200, this),
       w: this.scale.width - u(32 * 2, this)
     };
 

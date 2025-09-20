@@ -12,6 +12,7 @@ import 광화문 from "./scenes/광화문";
 import ProblemScene from "./scenes/ProblemScene";
 import TypeMCQScene from './scenes/problems/types/TypeMCQScene.js';
 import TypeDragScene from './scenes/problems/types/TypeDragScene.js';
+import TypeDragChangeScene from "./scenes/problems/types/TypeDragChangeScene.js";
 import TypeNumberScene from './scenes/problems/types/TypeNumberScene.js';
 import * as ResultMod from './scenes/problems/scenes/ResultScene.js';
 import ninepatchPlugin from "phaser3-rex-plugins/plugins/ninepatch-plugin.js";
@@ -62,26 +63,26 @@ const CONFIG_MAP = {
       {id:'C',text:'다',sideImgKey:'optC',sideImgPath:'assets/q01/optC.png'},
       {id:'D',text:'라',sideImgKey:'optD',sideImgPath:'assets/q01/optD.png'}
     ],
-    correctId:'C',
+    correctId:'A',
     correctExplain: "맞는 조각을 끼워넣었다!",
-    wrongExplain: "허허… 아직 멀었나? 빈 틈새를 메워야 한다니까...?",
+    wrongExplain: "허허… 아직 멀었나?\n빈 틈새를 메워야 한다니까...?",
     nextScene: 'CutScene',
     nextParam: 'cutscene1'
   },
   Q02: {
     num2:'02', place:'광화문',
     bgKey:'bg_광화문', bgPath:'assets/bg/bg_광화문.png',
-    question:'으악!! 광화문이 꽉 닫혀 버렸네! 저 녀석이 도망치며 장난을 친 게 분명해.\n열려면 꼭 맞는 걸 찾아 끼워야 하지 않을까?',
+    question:'으악!! 광화문이 꽉 닫혀 버렸네!\n저 녀석이 도망치며 장난을 친 게 분명해.\n열려면 꼭 맞는 걸 찾아 끼워야 하지 않을까?',
     hint1: "광화문 출입구 안에 서서 하늘을 봐볼까?", hint2: "세 문이 얼핏 똑같아 보일 수 있지만, 천천히 다시 한 번 비교해보자!",
     problemImgKey:'q02_main', problemImgPath:'assets/q02/q02_main.png',
     slots:[{id:'L',x:0.25,y:0.3,r:100},{id:'C',x:0.5,y:0.3,r:100},{id:'R',x:0.75,y:0.3,r:100}], //width*0.195 width*0.5 width*0.805
     pieces:[ //1440 3200
-      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.195,y:0.82},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
-      {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.65},displayW:0.3,displayH:0.3}, // width*0.5
-      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.81,y:0.82},displayW:0.3,displayH:0.3} // width*0.76
+      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.195,y:0.8},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
+      {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.7},displayW:0.3,displayH:0.3}, // width*0.5
+      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.81,y:0.8},displayW:0.3,displayH:0.3} // width*0.76
     ],
-    answerMap:{ phoenix:'C', turtle:'L', qilin:'R' }, snapPx:36,
-    correctExplain: "광화문 세 홍예의 천장을 올려다보면 중앙에는 봉황, 동쪽에는 기린, 서쪽에는 현무가 배치되어 있다.\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",
+    answerMap:{ phoenix:'slot_turtle', turtle:'slot_phoenix', qilin:'slot_qilin' }, snapPx:36,
+    correctExplain: "광화문 세 홍예의 천장을 올려다보면\n중앙에는 봉황, 동쪽에는 기린,\n서쪽에는 현무가 배치되어 있다.\n\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",
     wrongExplain: "흠… 아닌가봐. 다시 한 번 해볼까?",
     nextScene: "DialogScene",
     nextParam: "dialog_광화문_5"
@@ -94,13 +95,13 @@ const CONFIG_MAP = {
     problemImgKey:'q03_main', problemImgPath:'assets/q03/q03_main.png',
     slots:[{id:'L',x:0.35,y:0.725,r:56},{id:'C',x:0.5,y:0.725,r:56},{id:'R',x:0.65,y:0.725,r:56}],
     pieces:[
-      {id:'mun', imgKey:'mun', imgPath:'assets/q03/mun.png', start:{x:0.15,y:0.8},displayW:180,displayH:250},
-      {id:'wang',imgKey:'wang',imgPath:'assets/q03/wang.png',start:{x:0.5,y:0.8},displayW:180,displayH:250},
-      {id:'mu',  imgKey:'mu',  imgPath:'assets/q03/mu.png',  start:{x:0.85,y:0.8},displayW:180,displayH:250}
+      {id:'mun', imgKey:'mun', imgPath:'assets/q03/mun.png', start:{x:0.15,y:0.70},displayW:0.4,displayH:0.6},
+      {id:'wang',imgKey:'wang',imgPath:'assets/q03/wang.png',start:{x:0.5,y:0.70},displayW:0.4,displayH:0.6},
+      {id:'mu',  imgKey:'mu',  imgPath:'assets/q03/mu.png',  start:{x:0.85,y:0.70},displayW:0.4,displayH:0.6}
     ],
-    answerMap:{ mun:'L', wang:'C', mu:'R' }, snapPx:36,
-    correctExplain: "근정전 앞 조정에는 세 갈래의 삼도(三道)가 놓였으며, 이는 왕과 신하의 위계를 드러내는 길이었다.\n중앙의 어도는 오직 왕만이 사용할 수 있었고, 신하들은 좌우 도로와 품계석 옆에 서열대로 도열하였다.\n또 출입 규칙에 따라 동쪽 일화문은 문관, 서쪽 월화문은 무관이 드나드는 통로로 구분되었다.",
-    wrongExplain: "삼도도 모르는 자를 어찌 들일 수 있겠느냐! 예를 어기지 마라. 중앙은 전하의 길, 신하는 좌우다. 철저히 구분하라.",
+    answerMap:{ mun:'slot_mu', wang:'slot_wang', mu:'slot_mun' }, snapPx:36,
+    correctExplain: "근정전 앞 조정에는\n세 갈래의 삼도(三道)가 놓였으며,\n이는 왕과 신하의 위계를 드러내는 길이었다.\n\n중앙의 어도는 오직 왕만이 사용할 수 있었고, 신하들은 좌우 도로와 품계석 옆에 서열대로 도열하였다.\n\n또 출입 규칙에 따라 동쪽 일화문은 문관,\n서쪽 월화문은 무관이 드나드는 통로로 구분되었다.",
+    wrongExplain: "삼도도 모르는 자를 어찌 들일 수 있겠느냐!\n\n예를 어기지 마라.\n\n중앙은 전하의 길, 신하는 좌우다.\n\n철저히 구분하라.",
     nextScene: "DialogScene",
     nextParam: "dialog_흥례문_2"
   },
@@ -214,8 +215,8 @@ const CONFIG_MAP = {
 
 // 씬 등록
 game.scene.add('Q01', new TypeMCQScene('Q01'), false);
-game.scene.add('Q02', new TypeDragScene('Q02'), false);
-game.scene.add('Q03', new TypeDragScene('Q03'), false);
+game.scene.add('Q02', new TypeDragChangeScene('Q02'), false);
+game.scene.add('Q03', new TypeDragChangeScene('Q03'), false);
 game.scene.add('Q04', new TypeMCQScene('Q04'), false);
 game.scene.add('Q05', new TypeDragScene('Q05'), false);
 game.scene.add('Q06', new TypeNumberScene('Q06'), false);
