@@ -15,6 +15,7 @@ import TypeDragScene from './scenes/problems/types/TypeDragScene.js';
 import TypeNumberScene from './scenes/problems/types/TypeNumberScene.js';
 import * as ResultMod from './scenes/problems/scenes/ResultScene.js';
 import ninepatchPlugin from "phaser3-rex-plugins/plugins/ninepatch-plugin.js";
+import TestScene from "./TestScene.js";
 
 const ResultScene = ResultMod.default || ResultMod.ResultScene;
 
@@ -29,8 +30,8 @@ const config = {
     mode: Phaser.Scale.EXPAND,          // 화면 크기에 맞게 스케일 조정
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  scene: [TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
-    ProblemScene,
+  scene: [TestScene, TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
+    ProblemScene, 
     PreloadScene, MoveScene, DialogScene, CutScene, TutorialScene],
   plugins: {
     global: [
@@ -73,11 +74,11 @@ const CONFIG_MAP = {
     question:'으악!! 광화문이 꽉 닫혀 버렸네! 저 녀석이 도망치며 장난을 친 게 분명해.\n열려면 꼭 맞는 걸 찾아 끼워야 하지 않을까?',
     hint1: "광화문 출입구 안에 서서 하늘을 봐볼까?", hint2: "세 문이 얼핏 똑같아 보일 수 있지만, 천천히 다시 한 번 비교해보자!",
     problemImgKey:'q02_main', problemImgPath:'assets/q02/q02_main.png',
-    slots:[{id:'L',x:0.185,y:0.7,r:56},{id:'C',x:0.5,y:0.7,r:56},{id:'R',x:0.815,y:0.7,r:56}], //width*0.195 width*0.5 width*0.805
+    slots:[{id:'L',x:0.25,y:0.3,r:100},{id:'C',x:0.5,y:0.3,r:100},{id:'R',x:0.75,y:0.3,r:100}], //width*0.195 width*0.5 width*0.805
     pieces:[ //1440 3200
-      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.25,y:0.875},displayW:120,displayH:120}, //width*0.24 height*0.65
-      {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.875},displayW:120,displayH:120}, // width*0.5
-      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.75,y:0.875},displayW:120,displayH:120} // width*0.76
+      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.195,y:0.82},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
+      {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.65},displayW:0.3,displayH:0.3}, // width*0.5
+      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.81,y:0.82},displayW:0.3,displayH:0.3} // width*0.76
     ],
     answerMap:{ phoenix:'C', turtle:'L', qilin:'R' }, snapPx:36,
     correctExplain: "광화문 세 홍예의 천장을 올려다보면 중앙에는 봉황, 동쪽에는 기린, 서쪽에는 현무가 배치되어 있다.\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",

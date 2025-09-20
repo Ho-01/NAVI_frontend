@@ -74,18 +74,15 @@ export default class TypeDragScene extends Phaser.Scene {
 
 
     // ===== 문제 이미지: width=w*0.8, height=h*0.27, 상단에서 살짝 띄움 =====
-    const boxW = w * 0.8;
-    const boxH = h * 0.27;
-    const topMargin = u(20, this);
+    const boxW = w;
+    const boxH = h * 0.58;
 
     const src = this.textures.get(problemImgKey)?.getSourceImage(0);
-    let s = 1, dispH = boxH;  // dispH은 Y 위치 계산에 사용
+    let s = 1;
     if (src && src.width && src.height) {
-      s = Math.min(boxW / src.width, boxH / src.height);
-      dispH = src.height * s;
+      s = Math.max(boxW / src.width, boxH / src.height);
     }
-
-    this.add.image(w/2, BR.y + topMargin + dispH/2, problemImgKey)
+    this.add.image(w/2, BR.y+h*0.07, problemImgKey)
       .setScale(s)
       .setDepth(Z.Content); // 필요시 Z 조정
 
@@ -155,7 +152,7 @@ export default class TypeDragScene extends Phaser.Scene {
     pieces.forEach(p => {
       const start = toBR(p.start.x, p.start.y);
       const img = this.add.image(start.x, start.y, p.imgKey)
-        .setDisplaySize(u(p.displayW,this), u(p.displayH,this))
+        .setDisplaySize(u(p.displayW*w,this), u(p.displayH*w,this))
         .setDepth(Z.Content + 3)
         .setInteractive({ draggable: true, useHandCursor: true });
 
@@ -209,12 +206,6 @@ export default class TypeDragScene extends Phaser.Scene {
         const p = toBR(s.x, s.y);
         slotCircle(p.x, p.y, u(s.r, this), !!slotTaken[s.id]);
       });
-    });
-
-    // (선택) 첫 터치 시 오디오 컨텍스트 재개
-    this.input.once('pointerdown', () => {
-      const ctx = this.sound?.context;
-      if (ctx && ctx.state !== 'running') ctx.resume();
     });
   }
 }
