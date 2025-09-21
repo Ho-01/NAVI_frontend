@@ -19,18 +19,18 @@ export default class TypeMCQScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor("#fffaee");
 
     // 로딩중 로고
-    const logo = this.add.image(width * 0.5, height * 0.1, "해태");
+    const logo = this.add.image(width * 0.5, height * 0.1, "logo");
     logo.setDisplaySize(width * 0.3, width * 0.3);
     logo.setOrigin(0.5);
     // 로딩중 텍스트
-    this.로딩중텍스트 = this.add.text(width / 2, height / 2, "문제를 준비하는 중이야!", {
+    this.로딩중텍스트 = this.add.text(width / 2, height / 2, "문제를 준비하는 중...", {
       fontFamily: "Pretendard", fontSize: Math.round(height * 0.03),
       color: "#000000ff"
     }).setOrigin(0.5);
     // === 로더 이벤트 : 0~1 사이 진행률 ===
     this.load.on("progress", (value) => {
       const pct = Math.round(value * 100);
-      this.로딩중텍스트.setText(`로딩 중.. ${pct}%`);
+      this.로딩중텍스트.setText(`문제를 준비하는 중...${pct}%`);
     });
 
     const C = this.cfg || {};

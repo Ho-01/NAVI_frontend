@@ -77,9 +77,9 @@ const CONFIG_MAP = {
     problemImgKey:'q02_main', problemImgPath:'assets/q02/q02_main.png',
     slots:[{id:'L',x:0.25,y:0.3,r:100},{id:'C',x:0.5,y:0.3,r:100},{id:'R',x:0.75,y:0.3,r:100}], //width*0.195 width*0.5 width*0.805
     pieces:[ //1440 3200
-      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.195,y:0.8},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
+      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.2,y:0.8},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
       {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.7},displayW:0.3,displayH:0.3}, // width*0.5
-      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.81,y:0.8},displayW:0.3,displayH:0.3} // width*0.76
+      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.8,y:0.8},displayW:0.3,displayH:0.3} // width*0.76
     ],
     answerMap:{ phoenix:'slot_turtle', turtle:'slot_phoenix', qilin:'slot_qilin' }, snapPx:100,
     correctExplain: "광화문 세 홍예의 천장을 올려다보면\n중앙에는 봉황, 동쪽에는 기린,\n서쪽에는 현무가 배치되어 있다.\n\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",
