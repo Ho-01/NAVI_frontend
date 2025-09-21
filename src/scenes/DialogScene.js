@@ -33,6 +33,27 @@ export default class DialogScene extends Phaser.Scene {
       this.checkpoint = json.checkpoint;
     }else{this.checkpoint=null;}
   }
+  
+  preload(){
+    if (this.background && !this.textures.exists(this.background)) {
+      this.load.image(this.background, `assets/bg/${this.background}.png`);
+    }
+    if (!this.textures.exists("맵_타이틀")) {
+      this.load.image("맵_타이틀", "assets/맵_타이틀.png");
+    }
+    if (this.leftChar && !this.textures.exists(this.leftChar)) {
+      this.load.image(this.leftChar, `assets/char/char_${this.leftChar}.png`);
+    }
+    if (this.rightChar && !this.textures.exists(this.rightChar)) {
+      this.load.image(this.rightChar, `assets/char/char_${this.rightChar}.png`);
+    }
+    if(!this.textures.exists("speech_left")){
+      this.load.image("speech_left", "assets/speech_left.png");
+    }
+    if(!this.textures.exists("speech_right")){
+      this.load.image("speech_right", "assets/speech_right.png");
+    }
+  }
 
   create() {
     console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);

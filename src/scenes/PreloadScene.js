@@ -162,12 +162,10 @@ export default class PreloadScene extends Phaser.Scene {
     // 튜토리얼 이미지
     this.load.image("tutorial_어패함_1", "assets/tutorials/tutorial_어패함_1.png");
 
-    this.load.image("move", "assets/maps/move.png");
     // 빈 말풍선 이미지
-    this.load.image("speech_left", "assets/speech_left.png");
-    this.load.image("speech_right", "assets/speech_right.png");
-    // 빈 이름표
-    this.load.image("name_tag", "assets/name_tag.jpg");
+    // this.load.image("speech_left", "assets/speech_left.png");
+    // this.load.image("speech_right", "assets/speech_right.png");
+
     // 말걸기 전 느낌표
     this.load.image("interaction", "assets/interaction.png");
     // 해태테두리 & 히트박스용
@@ -175,41 +173,38 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("해태_hit", "assets/해태_hit.png");
 
     // 캐릭터 이미지
-    this.load.image("player", "assets/char/char_player.png");
-    this.load.image("어둑시니_할아버지", "assets/char/char_어둑시니_할아버지.png");
-    this.load.image("세종의 영혼", "assets/char/char_세종의 영혼.png");
-    this.load.image("해태", "assets/char/char_해태.png");
-    this.load.image("수문장", "assets/char/char_수문장.png");
-    this.load.image("어둑시니_영제교", "assets/char/char_어둑시니_영제교.png");
-    this.load.image("어둑시니_근정문", "assets/char/char_어둑시니_근정문.png");
-    this.load.image("학사", "assets/char/char_학사.png");
-    this.load.image("청룡", "assets/char/char_청룡.png");
-    this.load.image("궁녀", "assets/char/char_궁녀.png");
-    this.load.image("어둑시니", "assets/char/char_어둑시니.png");
-    this.load.image("blank", "assets/char/char_blank.png");
-
-    // 맵 이름 띄울 빈 두루마리
-    this.load.image("맵_타이틀", "assets/맵_타이틀.png");
+    // this.load.image("player", "assets/char/char_player.png");
+    // this.load.image("어둑시니_할아버지", "assets/char/char_어둑시니_할아버지.png");
+    // this.load.image("세종의 영혼", "assets/char/char_세종의 영혼.png");
+    // this.load.image("해태", "assets/char/char_해태.png");
+    // this.load.image("수문장", "assets/char/char_수문장.png");
+    // this.load.image("어둑시니_영제교", "assets/char/char_어둑시니_영제교.png");
+    // this.load.image("어둑시니_근정문", "assets/char/char_어둑시니_근정문.png");
+    // this.load.image("학사", "assets/char/char_학사.png");
+    // this.load.image("청룡", "assets/char/char_청룡.png");
+    // this.load.image("궁녀", "assets/char/char_궁녀.png");
+    // this.load.image("어둑시니", "assets/char/char_어둑시니.png");
+    // this.load.image("blank", "assets/char/char_blank.png");
 
     // 배경 이미지
-    this.load.image("bg_서십자각터", "assets/bg/bg_서십자각터.jpg");
-    this.load.image("bg_서십자각터_dark", "assets/bg/bg_서십자각터_dark.jpeg");
-    this.load.image("bg_광화문", "assets/bg/bg_광화문.jpg");
-    this.load.image("bg_흥례문", "assets/bg/bg_흥례문.jpg");
-    this.load.image("bg_영제교", "assets/bg/bg_영제교.jpg");
-    this.load.image("bg_근정문", "assets/bg/bg_근정문.jpg");
-    this.load.image("bg_근정문_dark", "assets/bg/bg_근정문_dark.png");
-    this.load.image("bg_수정전", "assets/bg/bg_수정전.jpg");
-    this.load.image("bg_수정전내부", "assets/bg/bg_수정전내부.png");
-    this.load.image("bg_경회루", "assets/bg/bg_경회루.jpg");
-    this.load.image("bg_아미산", "assets/bg/bg_아미산.jpg");
-    this.load.image("bg_강녕전", "assets/bg/bg_강녕전.png");
-    this.load.image("bg_교태전", "assets/bg/bg_교태전.png");
-    this.load.image("bg_생물방", "assets/bg/bg_생물방.png");
-    this.load.image("bg_소주방", "assets/bg/bg_소주방.png");
-    this.load.image("bg_근정전_dark", "assets/bg/bg_근정전_dark.png");
-    this.load.image("bg_근정전_fire", "assets/bg/bg_근정전_fire.png");
-    this.load.image("bg_근정전", "assets/bg/bg_근정전.png");
+    // this.load.image("bg_서십자각터", "assets/bg/bg_서십자각터.jpg");
+    // this.load.image("bg_서십자각터_dark", "assets/bg/bg_서십자각터_dark.jpeg");
+    // this.load.image("bg_광화문", "assets/bg/bg_광화문.jpg");
+    // this.load.image("bg_흥례문", "assets/bg/bg_흥례문.jpg");
+    // this.load.image("bg_영제교", "assets/bg/bg_영제교.jpg");
+    // this.load.image("bg_근정문", "assets/bg/bg_근정문.jpg");
+    // this.load.image("bg_근정문_dark", "assets/bg/bg_근정문_dark.png");
+    // this.load.image("bg_수정전", "assets/bg/bg_수정전.jpg");
+    // this.load.image("bg_수정전내부", "assets/bg/bg_수정전내부.png");
+    // this.load.image("bg_경회루", "assets/bg/bg_경회루.jpg");
+    // this.load.image("bg_아미산", "assets/bg/bg_아미산.jpg");
+    // this.load.image("bg_강녕전", "assets/bg/bg_강녕전.png");
+    // this.load.image("bg_교태전", "assets/bg/bg_교태전.png");
+    // this.load.image("bg_생물방", "assets/bg/bg_생물방.png");
+    // this.load.image("bg_소주방", "assets/bg/bg_소주방.png");
+    // this.load.image("bg_근정전_dark", "assets/bg/bg_근정전_dark.png");
+    // this.load.image("bg_근정전_fire", "assets/bg/bg_근정전_fire.png");
+    // this.load.image("bg_근정전", "assets/bg/bg_근정전.png");
     this.load.image("scroll", "assets/scroll.png");
     // 아이콘
     this.load.image("icon_해태", "assets/icons/icon_해태.png");
@@ -222,8 +217,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("icon_오른쪽이동", "assets/icons/icon_오른쪽이동.png");
     this.load.image("icon_선택", "assets/icons/icon_선택.png");
     this.load.image("icon_인벤토리", "assets/icons/icon_인벤토리.png");
-    // 지도
-    this.load.image("map", "assets/maps/map.png");
 
     // 아이템, 유령 이미지
     this.load.image("item_백호", "assets/items/item_백호.png");
@@ -231,12 +224,12 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("item_청룡", "assets/items/item_청룡.png");
     this.load.image("item_현무", "assets/items/item_현무.png");
 
-    this.load.image("ghost_1", "assets/items/ghost_1.png");
-    this.load.image("ghost_2", "assets/items/ghost_2.png");
-    this.load.image("ghost_3", "assets/items/ghost_3.png");
-    this.load.image("ghost_4", "assets/items/ghost_4.png");
-    this.load.image("ghost_잡귀", "assets/char/char_잡귀.png");
-    this.load.image("ghost_아귀", "assets/char/char_아귀.png");
+    // this.load.image("ghost_1", "assets/items/ghost_1.png");
+    // this.load.image("ghost_2", "assets/items/ghost_2.png");
+    // this.load.image("ghost_3", "assets/items/ghost_3.png");
+    // this.load.image("ghost_4", "assets/items/ghost_4.png");
+    // this.load.image("ghost_잡귀", "assets/char/char_잡귀.png");
+    // this.load.image("ghost_아귀", "assets/char/char_아귀.png");
     //오버레이 이미지
     this.load.image("overlay_inventory", "assets/overlay/overlay_inventory.png");
     this.load.image("overlay_bundle", "assets/overlay/overlay_bundle.png");
