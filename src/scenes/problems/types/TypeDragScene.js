@@ -59,35 +59,38 @@ export default class TypeDragScene extends Phaser.Scene {
     const qbox = makeQuestionBubble(this);
     qbox.setText(question || '');
 
-    // ===== 하단 작업 영역(BR) 정의: 가로 w × 세로 h*0.58 =====
-    const BR = {
-      x: 0,
-      w: w,
-      h: h * 0.58,
-      y: L.bottom.top - h * 0.58
-    };
-    if (BR.y < 0) BR.y = 0; // 안전
-
-
+    
+    
     // 하단 영역(색 분리)
     makeBottomPanel(this, problemImgKey);
-
+    
 
     // ===== 문제 이미지: width=w*0.8, height=h*0.27, 상단에서 살짝 띄움 =====
-    const boxW = w * 0.8;
-    const boxH = h * 0.27;
-    const topMargin = u(20, this);
-
+    const boxW = w;
+    const boxH = h * 0.58;
+    
     const src = this.textures.get(problemImgKey)?.getSourceImage(0);
-    let s = 1, dispH = boxH;  // dispH은 Y 위치 계산에 사용
+    let s = 1;
     if (src && src.width && src.height) {
-      s = Math.min(boxW / src.width, boxH / src.height);
-      dispH = src.height * s;
+      s = Math.max(boxW / src.width, boxH / src.height);
     }
+    const mainImg = this.add.image(w/2, L.panel.centerY, problemImgKey)
+    .setScale(s)
+    .setDepth(Z.Content); // 필요시 Z 조정
+    
+    const dispW = src.width * s;
+    const dispH = src.height * s;
+    const left  = mainImg.x - dispW / 2;
+    const top   = mainImg.y - dispH / 2;
 
-    this.add.image(w/2, BR.y + topMargin + dispH/2, problemImgKey)
-      .setScale(s)
-      .setDepth(Z.Content); // 필요시 Z 조정
+    // ===== 하단 작업 영역(BR) 정의: mainImg의 가로세로 기준 =====
+    const BR = {
+      x: left,
+      y: top,
+      w: dispW,
+      h: dispH,
+    };
+    if (BR.y < 0) BR.y = 0; // 안전
 
     // ===== 드래그 배치 상태 =====
     const placed = {};                 // pieceId -> slotId
@@ -136,12 +139,12 @@ export default class TypeDragScene extends Phaser.Scene {
     });   
 
     // ===== 슬롯 렌더 =====
-    const slotGfx = this.add.graphics().setDepth(Z.Content + 2);
+    const slotGfx = this.add.graphics().setDepth(Z.Content + 2).setVisible(false);
     const slotCircle = (cx, cy, rr, on) => {
-      slotGfx.lineStyle(u(3, this), 0x222222, 0.9)
-             .fillStyle(on ? 0x96A6B4 : 0x000000, on ? 0.12 : 0.08)
-             .strokeCircle(cx, cy, rr)
-             .fillCircle(cx, cy, rr);
+      slotGfx.strokeCircle(cx, cy, rr)
+             .fillCircle(cx, cy, rr)
+            // .lineStyle(u(3, this), 0x222222, 0.9)
+            //  .fillStyle(on ? 0x96A6B4 : 0x000000, on ? 0.12 : 0.08);
     };
     // 비율 좌표 → BR 내부
     slots.forEach(s => {
@@ -155,7 +158,7 @@ export default class TypeDragScene extends Phaser.Scene {
     pieces.forEach(p => {
       const start = toBR(p.start.x, p.start.y);
       const img = this.add.image(start.x, start.y, p.imgKey)
-        .setDisplaySize(u(p.displayW,this), u(p.displayH,this))
+        .setDisplaySize(u(p.displayW*w,this), u(p.displayH*w,this))
         .setDepth(Z.Content + 3)
         .setInteractive({ draggable: true, useHandCursor: true });
 
@@ -209,12 +212,6 @@ export default class TypeDragScene extends Phaser.Scene {
         const p = toBR(s.x, s.y);
         slotCircle(p.x, p.y, u(s.r, this), !!slotTaken[s.id]);
       });
-    });
-
-    // (선택) 첫 터치 시 오디오 컨텍스트 재개
-    this.input.once('pointerdown', () => {
-      const ctx = this.sound?.context;
-      if (ctx && ctx.state !== 'running') ctx.resume();
     });
   }
 }

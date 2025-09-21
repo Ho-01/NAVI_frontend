@@ -57,24 +57,24 @@ export default class ResultScene extends Phaser.Scene {
   showTitleCard({ isCorrect, label, correctExplain, wrongExplain, prevKey, prevCfg, nextScene, nextParam }){
     const w = this.scale.width, h = this.scale.height;
 
-    // 2) 문제 라벨 박스
-    const cardW = Math.min(u(this, 520), w*0.7);
-    const cardH = u(this, 90);
-    const y = h * 0.15;
+    // // 2) 문제 라벨 박스
+    // const cardW = Math.min(u(this, 520), w*0.7);
+    // const cardH = u(this, 90);
+    // const y = h * 0.15;
 
-    const card = this.add.rexNinePatch(w/2, y, cardW, cardH, "frame_plain_9", undefined, NINE.inset)
-      .setOrigin(0.5).setAlpha(1);
+    // const card = this.add.rexNinePatch(w/2, y, cardW, cardH, "frame_plain_9", undefined, NINE.inset)
+    //   .setOrigin(0.5).setAlpha(1);
 
-    const title = this.add.text(w/2, y, String(label||""), {
-      fontFamily: "Pretendard",
-      fontSize: this.scale.width*0.06,
-      color:"#ffffffff", align:"center"
-    }).setOrigin(0.5).setDepth(12).setAlpha(1);
+    // const title = this.add.text(w/2, y, String(label||""), {
+    //   fontFamily: "Pretendard",
+    //   fontSize: this.scale.width*0.06,
+    //   color:"#ffffffff", align:"center"
+    // }).setOrigin(0.5).setDepth(12).setAlpha(1);
 
-    // 3) 카드 65% 불투명도
-    this.time.delayedCall(220, ()=>{
-      this.tweens.add({ targets:[card, title], alpha:0.65, duration:220, ease:EASE_FADE });
-    });
+    // // 3) 카드 65% 불투명도
+    // this.time.delayedCall(220, ()=>{
+    //   this.tweens.add({ targets:[card, title], alpha:0.65, duration:220, ease:EASE_FADE });
+    // });
 
     // 4) 도장
     const key = isCorrect
@@ -117,11 +117,11 @@ export default class ResultScene extends Phaser.Scene {
     const maxW = Math.min(w*0.72, u(this, 720));
     const maxH = u(this, 320);
 
-    const tx = this.add.text(w/2, h*0.25, String(wrongExplain||""), {
+    const tx = this.add.text(w/2, h*0.4, String(wrongExplain||""), {
       fontFamily: "Pretendard", 
-      fontSize: w*0.04, fontStyle: "bold",
+      fontSize: w*0.05, fontStyle: "bold",
       color:"#000000", align:"center",
-      wordWrap:{ width:w*0.75 }
+      wordWrap:{ width:w*0.85 }
     }).setOrigin(0.5,0.5).setDepth(15);
 
     // 다시하기 버튼
@@ -157,11 +157,11 @@ export default class ResultScene extends Phaser.Scene {
     const white = this.add.rectangle(w/2, h/2, w, h, 0xfffaee, 1).setAlpha(0).setDepth(14);
     this.tweens.add({ targets:white, alpha:1, duration:220, ease:EASE_FADE });
 
-    const tx = this.add.text(w/2, h*0.25, String(correctExplain||""), {
+    const tx = this.add.text(w/2, h*0.4, String(correctExplain||""), {
       fontFamily: "Pretendard", 
-      fontSize: w*0.04, fontStyle: "bold",
+      fontSize: w*0.05, fontStyle: "bold",
       color:"#000000", align:"center",
-      wordWrap:{ width:w*0.75 }
+      wordWrap:{ width:w*0.85 }
     }).setOrigin(0.5,0.5).setDepth(15);
 
     // 다시하기 버튼

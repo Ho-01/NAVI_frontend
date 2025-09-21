@@ -12,9 +12,11 @@ import 광화문 from "./scenes/광화문";
 import ProblemScene from "./scenes/ProblemScene";
 import TypeMCQScene from './scenes/problems/types/TypeMCQScene.js';
 import TypeDragScene from './scenes/problems/types/TypeDragScene.js';
+import TypeDragChangeScene from "./scenes/problems/types/TypeDragChangeScene.js";
 import TypeNumberScene from './scenes/problems/types/TypeNumberScene.js';
 import * as ResultMod from './scenes/problems/scenes/ResultScene.js';
 import ninepatchPlugin from "phaser3-rex-plugins/plugins/ninepatch-plugin.js";
+import TestScene from "./TestScene.js";
 
 const ResultScene = ResultMod.default || ResultMod.ResultScene;
 
@@ -29,8 +31,8 @@ const config = {
     mode: Phaser.Scale.EXPAND,          // 화면 크기에 맞게 스케일 조정
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  scene: [TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
-    ProblemScene,
+  scene: [TestScene, TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
+    ProblemScene, 
     PreloadScene, MoveScene, DialogScene, CutScene, TutorialScene],
   plugins: {
     global: [
@@ -61,26 +63,26 @@ const CONFIG_MAP = {
       {id:'C',text:'다',sideImgKey:'optC',sideImgPath:'assets/q01/optC.png'},
       {id:'D',text:'라',sideImgKey:'optD',sideImgPath:'assets/q01/optD.png'}
     ],
-    correctId:'C',
+    correctId:'A',
     correctExplain: "맞는 조각을 끼워넣었다!",
-    wrongExplain: "허허… 아직 멀었나? 빈 틈새를 메워야 한다니까...?",
+    wrongExplain: "허허… 아직 멀었나?\n빈 틈새를 메워야 한다니까...?",
     nextScene: 'CutScene',
     nextParam: 'cutscene1'
   },
   Q02: {
     num2:'02', place:'광화문',
     bgKey:'bg_광화문', bgPath:'assets/bg/bg_광화문.png',
-    question:'으악!! 광화문이 꽉 닫혀 버렸네! 저 녀석이 도망치며 장난을 친 게 분명해.\n열려면 꼭 맞는 걸 찾아 끼워야 하지 않을까?',
+    question:'으악!! 광화문이 꽉 닫혀 버렸네!\n저 녀석이 도망치며 장난을 친 게 분명해.\n열려면 꼭 맞는 걸 찾아 끼워야 하지 않을까?',
     hint1: "광화문 출입구 안에 서서 하늘을 봐볼까?", hint2: "세 문이 얼핏 똑같아 보일 수 있지만, 천천히 다시 한 번 비교해보자!",
     problemImgKey:'q02_main', problemImgPath:'assets/q02/q02_main.png',
-    slots:[{id:'L',x:0.185,y:0.7,r:56},{id:'C',x:0.5,y:0.7,r:56},{id:'R',x:0.815,y:0.7,r:56}], //width*0.195 width*0.5 width*0.805
+    slots:[{id:'L',x:0.25,y:0.3,r:100},{id:'C',x:0.5,y:0.3,r:100},{id:'R',x:0.75,y:0.3,r:100}], //width*0.195 width*0.5 width*0.805
     pieces:[ //1440 3200
-      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.25,y:0.875},displayW:120,displayH:120}, //width*0.24 height*0.65
-      {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.875},displayW:120,displayH:120}, // width*0.5
-      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.75,y:0.875},displayW:120,displayH:120} // width*0.76
+      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.195,y:0.8},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
+      {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.7},displayW:0.3,displayH:0.3}, // width*0.5
+      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.81,y:0.8},displayW:0.3,displayH:0.3} // width*0.76
     ],
-    answerMap:{ phoenix:'C', turtle:'L', qilin:'R' }, snapPx:36,
-    correctExplain: "광화문 세 홍예의 천장을 올려다보면 중앙에는 봉황, 동쪽에는 기린, 서쪽에는 현무가 배치되어 있다.\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",
+    answerMap:{ phoenix:'slot_turtle', turtle:'slot_phoenix', qilin:'slot_qilin' }, snapPx:100,
+    correctExplain: "광화문 세 홍예의 천장을 올려다보면\n중앙에는 봉황, 동쪽에는 기린,\n서쪽에는 현무가 배치되어 있다.\n\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",
     wrongExplain: "흠… 아닌가봐. 다시 한 번 해볼까?",
     nextScene: "DialogScene",
     nextParam: "dialog_광화문_5"
@@ -88,25 +90,25 @@ const CONFIG_MAP = {
   Q03: {
     num2:'03', place:'흥례문',
     bgKey:'bg_흥례문', bgPath:'assets/bg/bg_흥례문.png',
-    question:'해 돋는 곳에는 문신(文臣)이 서고, 달 뜨는 곳에는 무신(武臣)이 선다.\n그 한가운데 길은 오직 왕이 지나가느니 예에 맞게 자리를 갖추라.',
+    question:'해 돋는 곳에는 문신(文臣)이 서고,\n달 뜨는 곳에는 무신(武臣)이 선다.\n그 한가운데 길은 오직 왕이 지나가느니\n예에 맞게 자리를 갖추라.',
     hint1: "방위는 모든 것의 시작이니, 먼저 해 뜨는 곳을 떠올려 보게", hint2: "문신은 붓으로 이 나라의 근본을 다지는 이요, 무신은 칼로써 이 땅을 지키는 이. 그 충심은 다르지 않으나, 각자의 길이 정해져 있다네.",
     problemImgKey:'q03_main', problemImgPath:'assets/q03/q03_main.png',
     slots:[{id:'L',x:0.35,y:0.725,r:56},{id:'C',x:0.5,y:0.725,r:56},{id:'R',x:0.65,y:0.725,r:56}],
     pieces:[
-      {id:'mun', imgKey:'mun', imgPath:'assets/q03/mun.png', start:{x:0.15,y:0.8},displayW:180,displayH:250},
-      {id:'wang',imgKey:'wang',imgPath:'assets/q03/wang.png',start:{x:0.5,y:0.8},displayW:180,displayH:250},
-      {id:'mu',  imgKey:'mu',  imgPath:'assets/q03/mu.png',  start:{x:0.85,y:0.8},displayW:180,displayH:250}
+      {id:'mun', imgKey:'mun', imgPath:'assets/q03/mun.png', start:{x:0.15,y:0.70},displayW:0.4,displayH:0.6},
+      {id:'wang',imgKey:'wang',imgPath:'assets/q03/wang.png',start:{x:0.5,y:0.70},displayW:0.4,displayH:0.6},
+      {id:'mu',  imgKey:'mu',  imgPath:'assets/q03/mu.png',  start:{x:0.85,y:0.70},displayW:0.4,displayH:0.6}
     ],
-    answerMap:{ mun:'L', wang:'C', mu:'R' }, snapPx:36,
-    correctExplain: "근정전 앞 조정에는 세 갈래의 삼도(三道)가 놓였으며, 이는 왕과 신하의 위계를 드러내는 길이었다.\n중앙의 어도는 오직 왕만이 사용할 수 있었고, 신하들은 좌우 도로와 품계석 옆에 서열대로 도열하였다.\n또 출입 규칙에 따라 동쪽 일화문은 문관, 서쪽 월화문은 무관이 드나드는 통로로 구분되었다.",
-    wrongExplain: "삼도도 모르는 자를 어찌 들일 수 있겠느냐! 예를 어기지 마라. 중앙은 전하의 길, 신하는 좌우다. 철저히 구분하라.",
+    answerMap:{ mun:'slot_mu', wang:'slot_wang', mu:'slot_mun' }, snapPx:100,
+    correctExplain: "근정전 앞 조정에는\n세 갈래의 삼도(三道)가 놓였으며,\n이는 왕과 신하의 위계를 드러내는 길이었다.\n\n중앙의 어도는 오직 왕만이 사용할 수 있었고, 신하들은 좌우 도로와 품계석 옆에 서열대로 도열하였다.\n\n또 출입 규칙에 따라 동쪽 일화문은 문관,\n서쪽 월화문은 무관이 드나드는 통로로 구분되었다.",
+    wrongExplain: "삼도도 모르는 자를 어찌 들일 수 있겠느냐!\n\n예를 어기지 마라.\n\n중앙은 전하의 길, 신하는 좌우다.\n\n철저히 구분하라.",
     nextScene: "DialogScene",
     nextParam: "dialog_흥례문_2"
   },
   Q04: {
     num2:'04', place:'영제교',
     bgKey:'bg_영제교', bgPath:'assets/bg/bg_영제교.png',
-    question:'모두 똑같아 보여도 분명 달라! 이상한 친구를 찾아보자!',
+    question:'모두 똑같아 보여도 분명 달라!\n이상한 친구를 찾아보자!',
     hint1: "흠… 네 친구 다 똑같진 않은 것 같아. 딱 하나만 이상해 보여!", hint2: "“👅”",
     problemImgKey:'q04_main', problemImgPath:'assets/q04/q04_main.png',
     choiceLayout:'rowImg',
@@ -128,16 +130,16 @@ const CONFIG_MAP = {
     question:'서책을 정리하는 이치는 간단하다.\n이 서책들은 명칭 혹은 쓰임의 변화를 기준으로 엮은 기록이다.\n순서는 과거에서 오늘로 이어지도록 해야한다.',
     hint1: "이 기록들은 모두 한 공간의 이야기를 담고 있다네. 가장 오래된 기록부터 차례대로 놓아야 하네", hint2: "서책에 적힌 이름들이 사용되던 시기가 언제인지 찬찬히 다시 한 번 살펴보게나",
     problemImgKey:'q05_main', problemImgPath:'assets/q05/q05_main.png',
-    slots:[{id:'S1',x:0.35,y:0.675,r:48},{id:'S2',x:0.44,y:0.675,r:48},{id:'S3',x:0.53,y:0.675,r:48},{id:'S4',x:0.625,y:0.675,r:48}],
+    slots:[{id:'S1',x:0.385,y:0.56,r:120},{id:'S2',x:0.5,y:0.56,r:120},{id:'S3',x:0.61,y:0.56,r:120},/*{id:'S4',x:0.625,y:0.6,r:48}*/],
     pieces:[
-      {id:'book1',imgKey:'book1',imgPath:'assets/q05/book1.png',start:{x:0.125,y:0.85},displayW:60,displayH:240},
-      {id:'book2',imgKey:'book2',imgPath:'assets/q05/book2.png',start:{x:0.375,y:0.85},displayW:60,displayH:240},
-      {id:'book3',imgKey:'book3',imgPath:'assets/q05/book3.png',start:{x:0.625,y:0.85},displayW:60,displayH:240},
-      {id:'book4',imgKey:'book4',imgPath:'assets/q05/book4.png',start:{x:0.875,y:0.85},displayW:60,displayH:240}
+      {id:'book1',imgKey:'book1',imgPath:'assets/q05/book1.png',start:{x:0.3,y:0.75},displayW:0.18,displayH:0.5},
+      {id:'book2',imgKey:'book2',imgPath:'assets/q05/book2.png',start:{x:0.5,y:0.75},displayW:0.18,displayH:0.5},
+      {id:'book3',imgKey:'book3',imgPath:'assets/q05/book3.png',start:{x:0.7,y:0.75},displayW:0.18,displayH:0.5},
+      // {id:'book4',imgKey:'book4',imgPath:'assets/q05/book4.png',start:{x:0.875,y:0.75},displayW:0.09,displayH:0.25}
     ],
-    answerMap:{ book1:'S1', book2:'S2', book3:'S3', book4:'S4' }, snapPx:36,
-    correctExplain: "수정전은 세종 때 학문 연구 기관인 집현전(‘어진 사람을 모은 전각’)으로 시작해,\n고종의 중건 과정에서 수정전으로 불리며 왕의 정사를 보좌하는 공간이 되었다. 갑오개혁기에는 내각 청사로 활용되었고, 오늘날 복원되어 다시 수정전이라는 이름으로 전해진다.\n이러한 변화는 단순한 명칭 교체가 아니라, 건물이 맡아온 기능과 정치적 역할의 변천을 보여준다.",
-    wrongExplain: "이런, 그 순서가 아닌 것 같군 .다시 한번 생각해 보게나",
+    answerMap:{ book1:'S1', book2:'S2', book3:'S3', /*book4:'S4'*/ }, snapPx:100,
+    correctExplain: "수정전은 세종 때\n학문 연구 기관인 집현전\n(‘어진 사람을 모은 전각’)으로 시작해,\n고종의 중건 과정에서 수정전으로 불리며\n왕의 정사를 보좌하는 공간이 되었다.\n\n갑오개혁기에는 내각 청사로 활용되었고,\n오늘날 복원되어\n다시 수정전이라는 이름으로 전해진다.\n\n이러한 변화는 단순한 명칭 교체가 아니라,\n건물이 맡아온 기능과\n정치적 역할의 변천을 보여준다.",
+    wrongExplain: "이런, 그 순서가 아닌 것 같군.\n다시 한번 생각해 보게나",
     nextScene: "DialogScene",
     nextParam: "dialog_수정전_3"
   },
@@ -196,16 +198,16 @@ const CONFIG_MAP = {
     question:'사방신 석상에 어패를 올바르게 끼워넣자!',
     hint1: "현무의 튼튼한 등껍질, 백호의 용맹한 이빨!, 청룡의 푸른 비늘, 주작의 불꽃과 같은 날개를 잘 찾아봐!!", hint2: "서둘러! 좌청룡·우백호·전주작·후현무야!",
     problemImgKey:'q09_main', problemImgPath:'assets/q09/q09_main.png',
-    slots:[{id:'S1',x:0.35,y:0.375,r:48},{id:'S2',x:0.65,y:0.375,r:48},{id:'S3',x:0.5,y:0.4,r:48},{id:'S4',x:0.5,y:0.175,r:48}],
+    slots:[{id:'S1',x:0.25,y:0.75,r:100},{id:'S2',x:0.5,y:0.3,r:100},{id:'S3',x:0.5,y:0.9,r:100},{id:'S4',x:0.75,y:0.75,r:100}],
     pieces:[
-      {id:'item1',imgKey:'item1',imgPath:'assets/q09/item_청룡.png',start:{x:0.125,y:0.85},displayW:60,displayH:240},
-      {id:'item2',imgKey:'item2',imgPath:'assets/q09/item_백호.png',start:{x:0.375,y:0.85},displayW:60,displayH:240},
-      {id:'item3',imgKey:'item3',imgPath:'assets/q09/item_주작.png',start:{x:0.625,y:0.85},displayW:60,displayH:240},
-      {id:'item4',imgKey:'item4',imgPath:'assets/q09/item_현무.png',start:{x:0.875,y:0.85},displayW:60,displayH:240}
+      {id:'item1',imgKey:'item1',imgPath:'assets/q09/item_청룡.png',start:{x:0.35,y:0.6},displayW:0.1,displayH:0.3},
+      {id:'item2',imgKey:'item2',imgPath:'assets/q09/item_백호.png',start:{x:0.45,y:0.6},displayW:0.1,displayH:0.3},
+      {id:'item3',imgKey:'item3',imgPath:'assets/q09/item_주작.png',start:{x:0.55,y:0.6},displayW:0.1,displayH:0.3},
+      {id:'item4',imgKey:'item4',imgPath:'assets/q09/item_현무.png',start:{x:0.65,y:0.6},displayW:0.1,displayH:0.3}
     ],
-    answerMap:{ item1:'S1', item2:'S2', item3:'S3', item4:'S4' }, snapPx:36,
-    correctExplain: "사방신은 단순한 장식이 아니라, 오행·천문·자연지형이 맞물린 질서를 반영한 우주의 상징이다.\n청룡은 해돋이와 성장·생명을, 주작은 권위와 번영을, 백호는 억제와 보호를, 현무는 안정과 방어를 의미하며,\n방위에 따라 배치되어 우주의 질서를 구현한다. 근정전은 이러한 사방신 배치를 통해 왕이 정사를 펼치는 공간으로서 잡귀와 부정을 차단하고,\n왕실의 기운이 사방으로 퍼져 국가의 조화와 번영을 확장하기를 바라는 의식적 장치로 기능하였다.",
-    wrongExplain: "이런! 어패의 기운이 엉뚱한 곳을 가리키고 있어!!",
+    answerMap:{ item1:'S1', item2:'S4', item3:'S3', item4:'S2' }, snapPx:100,
+    correctExplain: "사방신은 단순한 장식이 아니라,\n오행·천문·자연지형이 맞물린 질서를 반영한 우주의 상징이다.\n\n청룡은 해돋이와 성장·생명을, 주작은 권위와 번영을,\n백호는 억제와 보호를, 현무는 안정과 방어를 의미하며,\n방위에 따라 배치되어 우주의 질서를 구현한다.\n\n근정전은 이러한 사방신 배치를 통해\n왕이 정사를 펼치는 공간으로서 잡귀와 부정을 차단하고,\n왕실의 기운이 사방으로 퍼져\n국가의 조화와 번영을 확장하기를 바라는\n의식적 장치로 기능하였다.",
+    wrongExplain: "이런!\n어패의 기운이 엉뚱한 곳을 가리키고 있어!!",
     nextScene: "DialogScene",
     nextParam: "dialog_근정전_3"
   }
@@ -213,8 +215,8 @@ const CONFIG_MAP = {
 
 // 씬 등록
 game.scene.add('Q01', new TypeMCQScene('Q01'), false);
-game.scene.add('Q02', new TypeDragScene('Q02'), false);
-game.scene.add('Q03', new TypeDragScene('Q03'), false);
+game.scene.add('Q02', new TypeDragChangeScene('Q02'), false);
+game.scene.add('Q03', new TypeDragChangeScene('Q03'), false);
 game.scene.add('Q04', new TypeMCQScene('Q04'), false);
 game.scene.add('Q05', new TypeDragScene('Q05'), false);
 game.scene.add('Q06', new TypeNumberScene('Q06'), false);

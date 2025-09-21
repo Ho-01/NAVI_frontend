@@ -5,6 +5,9 @@ export default class 광화문 extends Phaser.Scene {
         super({ key: "광화문" });
     }
 
+    preload(){
+        this.load.image("bg_광화문", "assets/bg/bg_광화문.png");
+    }
     create() {
         console.log("광화문 맵");
         const { width, height } = this.scale;
