@@ -119,7 +119,7 @@ const CONFIG_MAP = {
       {id:'D',text:'D',sideImgKey:'bridgeD',sideImgPath:'assets/q04/optD.png'}
     ],
     correctId:'D',
-    correctExplain: "영제교의 혀 내민 천록상은 전통적인 신수 도상에서 혀를 드러내는 표현을 반영했을 가능성이 있다.\n동시에 엄숙한 궁궐에 해학을 담아 친근감을 주려 했다는 해석도 있으나,\n특별한 의미가 확정된 바는 없고 의도 역시 문헌에서 명확히 확인되지 않는다.",
+    correctExplain: "영제교의 혀 내민 천록상은\n전통적인 신수 도상에서 혀를 드러내는\n표현을 반영했을 가능성이 있다.\n\n동시에 엄숙한 궁궐에 해학을 담아\n친근감을 주려 했다는 해석도 있으나,\n특별한 의미가 확정된 바는 없고 의도 역시\n문헌에서 명확히 확인되지 않는다.",
     wrongExplain: "응? 이 친구는 아니야",
     nextScene: "DialogScene",
     nextParam: "dialog_영제교_2"
@@ -127,7 +127,7 @@ const CONFIG_MAP = {
   Q05: {
     num2:'05', place:'수정전',
     bgKey:'bg_수정전', bgPath:'assets/bg/bg_수정전.png',
-    question:'서책을 정리하는 이치는 간단하다.\n이 서책들은 명칭 혹은 쓰임의 변화를 기준으로 엮은 기록이다.\n순서는 과거에서 오늘로 이어지도록 해야한다.',
+    question:'서책을 정리하는 이치는 간단하다.\n이 서책들은 명칭\n혹은 쓰임의 변화를 기준으로 엮은 기록이다.\n순서는 과거에서 오늘로 이어지도록 해야한다.',
     hint1: "이 기록들은 모두 한 공간의 이야기를 담고 있다네. 가장 오래된 기록부터 차례대로 놓아야 하네", hint2: "서책에 적힌 이름들이 사용되던 시기가 언제인지 찬찬히 다시 한 번 살펴보게나",
     problemImgKey:'q05_main', problemImgPath:'assets/q05/q05_main.png',
     slots:[{id:'S1',x:0.385,y:0.56,r:120},{id:'S2',x:0.5,y:0.56,r:120},{id:'S3',x:0.61,y:0.56,r:120},/*{id:'S4',x:0.625,y:0.6,r:48}*/],

@@ -33,6 +33,12 @@ export default class CutScene extends Phaser.Scene {
     }else{this.checkpoint=null;}
   }
 
+  preload(){
+    if (!this.textures.exists(this.imageKey)) {
+      this.load.image(this.imageKey, `assets/cutscenes/${this.imageKey}.png`);
+    }
+  }
+
   create() {
     console.log("다음 : "+this.nextScene, this.nextParam+" return : "+this.returnScene);
     const { width: W, height: H } = this.scale;
