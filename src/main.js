@@ -31,7 +31,7 @@ const config = {
     mode: Phaser.Scale.EXPAND,          // 화면 크기에 맞게 스케일 조정
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  scene: [/*TestScene,*/ TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
+  scene: [/*TestScene*/, TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
     ProblemScene, 
     PreloadScene, MoveScene, DialogScene, CutScene, TutorialScene],
   plugins: {
@@ -77,9 +77,9 @@ const CONFIG_MAP = {
     problemImgKey:'q02_main', problemImgPath:'assets/q02/q02_main.png',
     slots:[{id:'L',x:0.25,y:0.3,r:100},{id:'C',x:0.5,y:0.3,r:100},{id:'R',x:0.75,y:0.3,r:100}], //width*0.195 width*0.5 width*0.805
     pieces:[ //1440 3200
-      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.195,y:0.8},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
+      {id:'phoenix',imgKey:'phoenix',imgPath:'assets/q02/phoenix.png',start:{x:0.21,y:0.8},displayW:0.3,displayH:0.3}, //width*0.24 height*0.65
       {id:'turtle', imgKey:'turtle', imgPath:'assets/q02/turtle.png', start:{x:0.5,y:0.7},displayW:0.3,displayH:0.3}, // width*0.5
-      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.81,y:0.8},displayW:0.3,displayH:0.3} // width*0.76
+      {id:'qilin',  imgKey:'qilin',  imgPath:'assets/q02/qilin.png',  start:{x:0.79,y:0.8},displayW:0.3,displayH:0.3} // width*0.76
     ],
     answerMap:{ phoenix:'slot_turtle', turtle:'slot_phoenix', qilin:'slot_qilin' }, snapPx:100,
     correctExplain: "광화문 세 홍예의 천장을 올려다보면\n중앙에는 봉황, 동쪽에는 기린,\n서쪽에는 현무가 배치되어 있다.\n\n이들은 각각 왕권과 태평의 징조, 덕치의 길상, 그리고 수호와 장수를 상징한다.\n\n‘홍예’는 윗부분이 무지개처럼 둥근 석조 아치문을 뜻한다.",
@@ -119,7 +119,7 @@ const CONFIG_MAP = {
       {id:'D',text:'D',sideImgKey:'bridgeD',sideImgPath:'assets/q04/optD.png'}
     ],
     correctId:'D',
-    correctExplain: "영제교의 혀 내민 천록상은 전통적인 신수 도상에서 혀를 드러내는 표현을 반영했을 가능성이 있다.\n동시에 엄숙한 궁궐에 해학을 담아 친근감을 주려 했다는 해석도 있으나,\n특별한 의미가 확정된 바는 없고 의도 역시 문헌에서 명확히 확인되지 않는다.",
+    correctExplain: "영제교의 혀 내민 천록상은\n전통적인 신수 도상에서 혀를 드러내는\n표현을 반영했을 가능성이 있다.\n\n동시에 엄숙한 궁궐에 해학을 담아\n친근감을 주려 했다는 해석도 있으나,\n특별한 의미가 확정된 바는 없고 의도 역시\n문헌에서 명확히 확인되지 않는다.",
     wrongExplain: "응? 이 친구는 아니야",
     nextScene: "DialogScene",
     nextParam: "dialog_영제교_2"
@@ -127,7 +127,7 @@ const CONFIG_MAP = {
   Q05: {
     num2:'05', place:'수정전',
     bgKey:'bg_수정전', bgPath:'assets/bg/bg_수정전.png',
-    question:'서책을 정리하는 이치는 간단하다.\n이 서책들은 명칭 혹은 쓰임의 변화를 기준으로 엮은 기록이다.\n순서는 과거에서 오늘로 이어지도록 해야한다.',
+    question:'서책을 정리하는 이치는 간단하다.\n이 서책들은 명칭\n혹은 쓰임의 변화를 기준으로 엮은 기록이다.\n순서는 과거에서 오늘로 이어지도록 해야한다.',
     hint1: "이 기록들은 모두 한 공간의 이야기를 담고 있다네. 가장 오래된 기록부터 차례대로 놓아야 하네", hint2: "서책에 적힌 이름들이 사용되던 시기가 언제인지 찬찬히 다시 한 번 살펴보게나",
     problemImgKey:'q05_main', problemImgPath:'assets/q05/q05_main.png',
     slots:[{id:'S1',x:0.385,y:0.56,r:120},{id:'S2',x:0.5,y:0.56,r:120},{id:'S3',x:0.61,y:0.56,r:120},/*{id:'S4',x:0.625,y:0.6,r:48}*/],

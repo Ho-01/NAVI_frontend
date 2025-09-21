@@ -16,27 +16,44 @@ export default class TypeDragChangeScene extends Phaser.Scene {
   init(cfg) { this.cfg = cfg || {}; }
 
   preload(){
-  const C = this.cfg || {};
-  const toLoad = [];
+    const { width, height } = this.scale;
+    this.cameras.main.setBackgroundColor("#fffaee");
 
-  if (C.bgKey && C.bgPath && !this.textures.exists(C.bgKey)) {
-    toLoad.push({ key: C.bgKey, path: C.bgPath });
+    // 로딩중 로고
+    const logo = this.add.image(width * 0.5, height * 0.3, "logo");
+    logo.setDisplaySize(width * 0.3, width * 0.3);
+    logo.setOrigin(0.5);
+    // 로딩중 텍스트
+    this.로딩중텍스트 = this.add.text(width / 2, height / 2, "문제를 준비하는 중...", {
+      fontFamily: "Pretendard", fontSize: Math.round(height * 0.03),
+      color: "#000000ff"
+    }).setOrigin(0.5);
+    // === 로더 이벤트 : 0~1 사이 진행률 ===
+    this.load.on("progress", (value) => {
+      const pct = Math.round(value * 100);
+      this.로딩중텍스트.setText(`문제를 준비하는 중...${pct}%`);
+    });
+
+    const C = this.cfg || {};
+    const toLoad = [];
+
+    if (C.bgKey && C.bgPath && !this.textures.exists(C.bgKey)) {
+      toLoad.push({ key: C.bgKey, path: C.bgPath });
+    }
+
+    // 하단영역 이미지
+    if (C.problemImgKey && C.problemImgPath && !this.textures.exists(C.problemImgKey)) {
+        toLoad.push({ key: C.problemImgKey, path: C.problemImgPath });
+      }
+
+    // 드래그 조각들
+    (C.pieces || []).forEach(p => {
+      if (p.imgKey && p.imgPath && !this.textures.exists(p.imgKey)) {
+        toLoad.push({ key: p.imgKey, path: p.imgPath });
+      }
+    });
+    toLoad.forEach(it => this.load.image(it.key, it.path));
   }
-
-  // 하단영역 이미지
-  if (C.problemImgKey && C.problemImgPath && !this.textures.exists(C.problemImgKey)) {
-      toLoad.push({ key: C.problemImgKey, path: C.problemImgPath });
-    }
-
-  // 드래그 조각들
-  (C.pieces || []).forEach(p => {
-    if (p.imgKey && p.imgPath && !this.textures.exists(p.imgKey)) {
-      toLoad.push({ key: p.imgKey, path: p.imgPath });
-    }
-  });
-
-  toLoad.forEach(it => this.load.image(it.key, it.path));
-}
 
   create() {
     const { num2, place, bgKey, question, hint1, hint2,

@@ -14,6 +14,6 @@ export default class TestScene extends Phaser.Scene {
   create() {
     const { width: W, height: H } = this.scale;
     // this.scene.start("DialogScene",{json:this.cache.json.get("dialog_광화문_1")});
-    window.go("Q05");
+    window.go("Q02");
   }
 }
