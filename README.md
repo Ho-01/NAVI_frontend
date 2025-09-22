@@ -47,8 +47,8 @@ NAVI는 한국을 배경으로 한 **위치 기반 스토리형 퍼즐 게임**�
 
 ## 👥 기여자
 
-- #### 김승호 – Backend/Frontend 개발
-- #### 박준서 - Backend/Frontend 개발
+- #### 김승호 – Backend/Frontend 개발, 기획
+- #### 박준서 - Backend/Frontend 개발, 기획
 - #### 현수민 - Frontend 개발, 디자인, 기획, 문제설계
 
 ---
