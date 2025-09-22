@@ -24,6 +24,32 @@ NAVI는 한국의 역사적 장소를 무대로 한 **위치 기반 스토리형
 
 ## 🛠 기술 스택
 
+## 🛠 기술 스택
+
+### 🎨 Frontend
+![Phaser](https://img.shields.io/badge/Phaser-3-2E86C1?logo=phaser&logoColor=white&style=for-the-badge)
+![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?logo=vite&logoColor=white&style=for-the-badge)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white&style=for-the-badge)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white&style=for-the-badge)  
+배포: ![Vercel](https://img.shields.io/badge/Vercel-▲-000000?logo=vercel&logoColor=white&style=for-the-badge)
+
+---
+
+### ⚙️ Backend
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot&logoColor=white&style=for-the-badge)
+![Java](https://img.shields.io/badge/Java-17-007396?logo=java&logoColor=white&style=for-the-badge)
+![Gradle](https://img.shields.io/badge/Gradle-8-02303A?logo=gradle&logoColor=white&style=for-the-badge)  
+Database: ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white&style=for-the-badge) ![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white&style=for-the-badge)  
+Infra: ![AWS EC2](https://img.shields.io/badge/AWS%20EC2-t4g.nano%2Fmicro-FF9900?logo=amazon-aws&logoColor=white&style=for-the-badge) ![Nginx](https://img.shields.io/badge/Nginx-1.25-009639?logo=nginx&logoColor=white&style=for-the-badge)
+
+---
+
+### 📊 Logging & Monitoring
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-8.13-005571?logo=elasticsearch&logoColor=white&style=for-the-badge)
+![Logstash](https://img.shields.io/badge/Logstash-8.13-005571?logo=logstash&logoColor=white&style=for-the-badge)
+![Kibana](https://img.shields.io/badge/Kibana-8.13-005571?logo=kibana&logoColor=white&style=for-the-badge)
+
 ### Frontend
 - [Phaser 3](https://phaser.io/) + [Vite](https://vitejs.dev/)
 - 배포: [Vercel](https://vercel.com/)
