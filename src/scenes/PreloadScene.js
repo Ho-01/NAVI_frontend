@@ -176,7 +176,7 @@ export default class PreloadScene extends Phaser.Scene {
     // this.load.image("player", "assets/char/char_player.png");
     // this.load.image("어둑시니_할아버지", "assets/char/char_어둑시니_할아버지.png");
     // this.load.image("세종의 영혼", "assets/char/char_세종의 영혼.png");
-    this.load.image("해태", "assets/char/char_해태.png");
+    // this.load.image("해태", "assets/char/char_해태.png");
     // this.load.image("수문장", "assets/char/char_수문장.png");
     // this.load.image("어둑시니_영제교", "assets/char/char_어둑시니_영제교.png");
     // this.load.image("어둑시니_근정문", "assets/char/char_어둑시니_근정문.png");
