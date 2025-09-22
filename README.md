@@ -2,10 +2,10 @@
 > **한국을 배경으로 한 스토리 기반 퍼즐 어드벤처 게임**  
 > 첫 번째 시나리오: **경복궁**
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Ho-01/NAVI_frontend?color=blue&style=flat-square)
-![GitHub repo size](https://img.shields.io/github/repo-size/Ho-01/NAVI_frontend?color=brightgreen&style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/Ho-01/NAVI_frontend?style=flat-square)
-![GitHub stars](https://img.shields.io/github/stars/Ho-01/NAVI_frontend?style=social)
+![Last Commit](https://img.shields.io/github/last-commit/Ho-01/NAVI_frontend?style=flat-square&label=Last%20Commit&color=000&labelColor=000&logo=git&logoColor=F05032)
+![Repo Size](https://img.shields.io/github/repo-size/Ho-01/NAVI_frontend?style=flat-square&label=Repo%20Size&color=000&labelColor=000&logo=github&logoColor=FFFFFF)
+![Issues](https://img.shields.io/github/issues/Ho-01/NAVI_frontend?style=flat-square&label=Issues&color=000&labelColor=000&logo=github&logoColor=FFFFFF)
+![Stars](https://img.shields.io/github/stars/Ho-01/NAVI_frontend?style=flat-square&label=Stars&color=000&labelColor=000&logo=github&logoColor=FFD700)
 
 ---
 
@@ -43,16 +43,10 @@ NAVI는 한국을 배경으로 한 **위치 기반 스토리형 퍼즐 게임**�
 ![AWS EC2](https://img.shields.io/badge/-AWS%20EC2-000?logo=amazonaws&logoColor=FF9900&labelColor=000&style=flat-square)
 ![Nginx](https://img.shields.io/badge/-Nginx-000?logo=nginx&logoColor=009639&labelColor=000&style=flat-square)
 
-### 📊 Logging & Monitoring
-![Elasticsearch](https://img.shields.io/badge/-Elasticsearch-000?logo=elasticsearch&logoColor=005571&labelColor=000&style=flat-square)
-![Logstash](https://img.shields.io/badge/-Logstash-000?logo=logstash&logoColor=005571&labelColor=000&style=flat-square)
-![Kibana](https://img.shields.io/badge/-Kibana-000?logo=kibana&logoColor=005571&labelColor=000&style=flat-square)
-
-
 ---
 
 ## 👥 기여자
 
-김승호 – Backend/Frontend 개발, 아트/기획
-박준서 - 
-현수민 - 
+### 김승호 – Backend/Frontend 개발
+### 박준서 - Backend/Frontend 개발
+### 현수민 - Frontend 개발, 디자인, 기획, 문제설계
