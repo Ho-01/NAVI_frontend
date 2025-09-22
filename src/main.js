@@ -31,7 +31,7 @@ const config = {
     mode: Phaser.Scale.EXPAND,          // 화면 크기에 맞게 스케일 조정
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  scene: [/*TestScene*/, TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
+  scene: [/*TestScene, */TitleScene, LoginScene, ScenarioSelectScene, UsernameInputScene, 광화문,
     ProblemScene, 
     PreloadScene, MoveScene, DialogScene, CutScene, TutorialScene],
   plugins: {
