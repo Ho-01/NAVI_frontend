@@ -56,9 +56,9 @@ NAVI는 한국을 배경으로 한 **위치 기반 스토리형 퍼즐 게임**�
 ## 📸 스크린샷
 
 <p align="center">
-  <img src="./docs/images/scenario.png" width="250"/>
-  <img src="./docs/images/cutscene.png" width="250"/>
-  <img src="./docs/images/puzzle.png" width="250"/>
-  <img src="./docs/images/dialog.png" width="250"/>
-  <img src="./docs/images/move.png" width="250"/>
+  <img src="./docs/scenario.png" width="250"/>
+  <img src="./docs/cutscene.png" width="250"/>
+  <img src="./docs/puzzle.png" width="250"/>
+  <img src="./docs/dialog.png" width="250"/>
+  <img src="./docs/move.png" width="250"/>
 </p>
