@@ -9,6 +9,18 @@
 
 ---
 
+## 📸 스크린샷
+
+<p align="center">
+  <img src="./docs/title.png" width="150"/>
+  <img src="./docs/cutscene.png" width="150"/>
+  <img src="./docs/puzzle.png" width="150"/>
+  <img src="./docs/dialog.png" width="150"/>
+  <img src="./docs/move.png" width="150"/>
+</p>
+
+---
+
 ## 🎮 프로젝트 개요
 NAVI는 한국을 배경으로 한 **위치 기반 스토리형 퍼즐 게임**입니다.  
 플레이어는 실제 장소를 탐험하며 NPC와 대화하고 퍼즐을 풀고,  
@@ -50,15 +62,3 @@ NAVI는 한국을 배경으로 한 **위치 기반 스토리형 퍼즐 게임**�
 - #### 김승호 – Backend/Frontend 개발, 기획
 - #### 박준서 - Backend/Frontend 개발, 기획
 - #### 현수민 - Frontend 개발, 디자인, 기획, 문제설계
-
----
-
-## 📸 스크린샷
-
-<p align="center">
-  <img src="./docs/title.png" width="150"/>
-  <img src="./docs/cutscene.png" width="150"/>
-  <img src="./docs/puzzle.png" width="150"/>
-  <img src="./docs/dialog.png" width="150"/>
-  <img src="./docs/move.png" width="150"/>
-</p>
