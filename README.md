@@ -1,7 +1,7 @@
 # NAVI: 모험으로 잇는 한국의 길 🏯
 > **한국을 배경으로 한 스토리 기반 퍼즐 어드벤처 게임**  
 > 첫 번째 시나리오: **경복궁**
-
+👉 [데모 플레이 (Vercel 배포)](https://navi-green-ten.vercel.app/)  
 ![Last Commit](https://img.shields.io/github/last-commit/Ho-01/NAVI_frontend?style=flat-square&label=Last%20Commit&color=000&labelColor=000&logo=git&logoColor=F05032)
 ![Repo Size](https://img.shields.io/github/repo-size/Ho-01/NAVI_frontend?style=flat-square&label=Repo%20Size&color=000&labelColor=000&logo=github&logoColor=FFFFFF)
 ![Issues](https://img.shields.io/github/issues/Ho-01/NAVI_frontend?style=flat-square&label=Issues&color=000&labelColor=000&logo=github&logoColor=FFFFFF)
@@ -29,8 +29,6 @@ NAVI는 한국을 배경으로 한 **위치 기반 스토리형 퍼즐 게임**�
 - **시나리오 확장형**: 한국의 여러 지역에 새로운 시나리오 추가 가능
 - **스토리 + 퍼즐 융합**: 한국 요괴, 전설, 역사적 사건을 기반으로 한 서사  
 - **플랫폼**: 웹 버전(PC/모바일 브라우저) → 차후 앱 출시 예정  
-
-👉 [데모 플레이 (Vercel 배포)](https://navi-green-ten.vercel.app/)  
 
 ---
 
